@@ -1,0 +1,136 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="title" content="NCBS@25 - Thirteen ways of looking at NCBS">
+      <meta name="description" content="The National Centre for Biological Sciences (NCBS) completes 25 years this year. The NCBS@25 exhibit is built around thirteen ways to reflect upon the history of the institution.">
+      <meta name="author" content="Venkat Srinivasan">
+       <meta name="image" content="https://www.ncbs.res.in/ncbs25/img/Assets/ncbs_logo_introtext.png">
+       <meta property="og:title" content="NCBS@25 - Thirteen ways of looking at NCBS"/>
+       <meta property="og:image" content="https://www.ncbs.res.in/ncbs25/img/Assets/ncbs_logo_introtext.png"/>
+       <meta property="og:url" content="https://www.ncbs.res.in/ncbs25/"/>
+       <meta property="og:site_name" content="NCBS@25"/>
+       <meta property="og:description" content="The National Centre for Biological Sciences (NCBS) completes 25 years this year. The NCBS@25 exhibit is built around thirteen ways to reflect upon the history of the institution."/>
+           
+      <title>NCBS@25</title>
+      <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+     
+      <!--<link href="css/fonts/glyphicons-halflings-regular.woff" rel="stylesheet">
+      <link href="css/fonts/glyphicons-halflings-regular.svg" rel="stylesheet">
+      <link href="css/fonts/glyphicons-halflings-regular.eot" rel="stylesheet">
+      <link href="css/fonts/glyphicons-halflings-regular.ttf" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    -->
+
+      <link rel="stylesheet" href="js/libs/font-awesome-4.6.3/css/font-awesome.css">
+      <link rel="stylesheet" href="css/style.css">
+      <!-- Bootstrap Dropdown Hover CSS -->
+         <link href="js/libs/bootstrap-hover/css/animate.min.css" rel="stylesheet">
+         <link href="js/libs/bootstrap-hover/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+         <link href="js/libs/ImageViewer-master/imageviewer.css" rel="stylesheet">
+         <link href="js/libs/lightgallery/css/lightgallery.min.css" rel="stylesheet">
+
+         <!--link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,700" rel="stylesheet"-->
+         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i,400,400i,700" rel="stylesheet">  
+
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+            
+
+
+	<!--link rel="stylesheet" href="css/styles.css"-->
+
+	
+</head>
+<body>
+
+  <div class="row-fluid">
+      <!-- Header from templates/header.html and app.js -->
+        <div id="header">
+
+        </div>
+      
+    </div>
+
+<div id="container" class="container-fluid">
+
+  <!--div id="logo">
+    <h3>NCBS</h3>
+    <h2 class="mute">Thirteen Ways of Looking at NCBS</h2>
+  </div-->
+
+  <section id='themeMenu'>
+  </section>
+
+
+  <section id="page">
+    Loading....
+  </section>
+
+
+  <section id="footer">
+  </section>
+
+</div> 
+
+<!-- subtheme identity content start-->
+<script type="text/template" id="img-slider-template">
+<div class="slider-wrap">
+    <div class="image-container"></div>
+    <%if(total >1){%>
+  <span class="prev fa fa-chevron-left pull-left" style="font-size: 24px; top: -300px; cursor: pointer;"/></span>
+  <span  class="next fa fa-chevron-right pull-right" style="font-size: 24px; top: -300px; cursor: pointer;"/></span>
+<%}%>
+   </div> 
+</script>
+
+<script type="text/template" id="img-slider-footer">
+<div class="footer-info">
+<div class="text-center">
+<%if(total >1){%>
+    <span class="current"><%=currentIndex%></span>/
+    <span class="total"><%=total%></span>
+ <%}%>
+ </div>
+</div>
+</script>
+
+<script type="text/template" id="caption-template">
+<div class="featured-img-caption">
+
+<span><%=description.text %></span>
+<%if(rights.text){%>
+<em><%=rights.text %></em>
+<%}%>
+</div>
+</script>
+
+
+  <script type="text/javascript" src="js/libs/jquery/jquery-min.js"></script>
+  <script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
+   <script type="text/javascript" src="js/libs/lightgallery/js/lightgallerywithmodules.js"></script>
+  <!--script type="text/javascript" src='js/libs/ImageViewer-master/imageviewer.min.js'
+></script-->
+  <script data-main="js/main" src="js/libs/require/require.js"></script>
+  <!-- Bootstrap Dropdown Hover JS -->
+  <script src="js/libs/bootstrap-hover/js/bootstrap-dropdownhover.js"></script>
+ 
+
+  <script type="text/javascript">
+  $(document).ready(function () {
+      $('[data-toggle=dropdown').dropdown();
+  });
+  </script>
+ 
+</body>
+</html>
