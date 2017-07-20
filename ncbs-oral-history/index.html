@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+	    <title>NCBS 25</title>
+	    <meta name="description" content="" />
+	    <meta name="author" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.css" />
+		<link type="text/css" rel="stylesheet" href="css/theme/main.css" />
+		
+		<script type='text/javascript' src='js/jquery.min.js'></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/classie.js"></script>
+
+</head>
+<body>
+<script type='text/javascript' src='js/underscore-min.js'></script>
+<script type='text/javascript' src='transcript.js'></script>
+<script type="text/javascript">
+		function scrollEffect(){
+			
+			window.addEventListener('scroll', function(e){
+		    var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+		        shrinkOn = 25,
+		        header = document.querySelector("header");
+		    if (distanceY > shrinkOn) {
+		        classie.add(header,"smaller");
+		        //$("#ncbs-home-text-collapsible").hide();
+		    } else {
+		    	//$("#ncbs-home-text-collapsible").show();
+		        if (classie.has(header,"smaller")) {
+		            classie.remove(header,"smaller");
+		        }
+		    }
+		});
+		};
+
+scrollEffect();
+	
+</script>
+
+<!-- curatorial Note -->
+<div class="row-fluid">
+    <div class="col-md-12">
+    	<div id='intro' style="font-size:12px; margin-top:-4px;">
+			<p><b>Oral History Metadata Synchronizer </b>is a widget to synchronize an interview transcript with the original oral history interview. Click on the timestamps to go directly to particular sections. In future versions of this widget, one could edit the transcript and encode annotations into an audio file. This is a sample of an interview of Obaid Siddiqi conducted by Indira Chowdhury where he discusses his entry into neurobiology. 
+			</p>
+			<!--<h6>EXPERIMENTAL! Works on latest <a href='https://www.mozilla.org/en-US/firefox/new/?gclid=CMGw1dCF5s8CFdiIaAod5YYBMg' target='_blank'>firefox</a> for desktop.</h6>-->
+		</div>
+	</div>
+</div>	
+<div class='col-md-6'  style='margin-top: -15px;'>
+	<div id = 'mug-shot'>
+	
+		<center><figure><img style="width:400px; height:auto;"
+		src = 'Profile - OS-2.JPG' />
+		<figcaption style="color:white; font-size:20px">Obaid Siddiqi</figcaption>
+		</figure></center>
+	</div>
+</div>
+
+<div class = 'col-md-6' style='margin-top: -15px;'>
+	<div id = 'copyright' style='font-size: 12px;'>
+		<p >Oral History of Biology at TIFR and NCBS
+		TIFR Archives,Mumbai and NCBS, Bangalore</p>
+		<p><b>Obaid Siddiqi </b></p>
+		<p>Interviews conducted by Indira Chowdhury</p>
+		<p>December 19 2002 - 23 May 2003</p>
+
+		<p><b>Session 7:</b> 6 Feb 2003</p>
+		<p><b>Venue:</b> Obaid Siddiqi’s office at National Centre for Biological Sciences (NCBS)
+		<br><b>Session Focus:</b> Doing science in India</p>
+
+		<p><b>Legend:</b></p>
+		<p>IC: Indira Chowdhury</p>
+		<p>OS: Obaid Siddiqi</p>
+
+		<p style='font-size: 10px;'>Requests for permission to quote for publication should be addressed to the TIFR Archivist. All uses of this manuscript are covered by a legal agreement between The TIFR Oral Archives and Professor Obaid Siddiqi. The manuscript is thereby made available for research purposes. Copyright has been assigned to the Tata Institute of Fundamental Research – Oral Archives, Mumbai © 2003
+		</p>
+	</div>
+</div>
+    <div id="audio-bar">
+    
+    <center>
+<audio controls id='audio'  preload = 'auto'  >
+ <source src='OS_Session7-extract_Theme8-OH-Synchronizer CBR.mp3' type='audio/mpeg'/>
+  </audio>
+  </center>
+</div>
+<!-- TRY HOWLER.JS FOR BETTER BROWSER COMPATABILITY-->
+
+
+<br><br>
+<div class="row-fluid">
+    <div class="col-md-12">
+
+<table class="tableizer-table" id='table'>
+</table>
+<br><br>
+</div>
+</div>
+
+	
+</div>
+<div class="col-sm-12">
+	<div class="text-center" style="margin-top:15px; font-family: roboto;">
+		<a data-toggle="modal" data-target="#ncbs-content-policy" style="cursor: pointer;     color: #333726;">copyright &copy 2016</a>
+	</div>
+</div>
+</div>
+<script>
+	//create table 
+	var tableTemplate = _.template(
+	"<thead><tr class='tableizer-firstrow'><th><center>Time</center></th><th><center>Speaker</center></th><th><center>Content</center></th></tr></thead><tbody>"+
+	"<% _.each(transcript, function(item, index, transcript) { %>"+
+		"<tr><td><a href='javascript:void(0)' class='timer' ><%=item.Time%></a></td><td><center><%=item.Speaker%></center></td><td><%=item.Content%></td></tr>"+
+	" <% }); %> "+
+	"</tbody>"
+	);
+	
+	var tableData = tableTemplate({
+		tranascript: transcript
+	});
+
+	document.getElementById("table").innerHTML = tableData
+
+</script>
+
+<script>
+//get time data
+$('.timer').click(function(e) {
+ currentTime(this.innerHTML);
+});
+
+	// change audio time 
+  function currentTime(time){	
+  	
+  	//convert mm:ss to seconds
+  	var seconds = time.split(':');
+  	seconds = seconds[0]*60 + seconds[1]*1; 
+  	
+  	//change audio time
+  	var speech =document.getElementById('audio');
+  	speech.currentTime = seconds;
+  	speech.play();	
+  	};
+  
+</script>
+
+
+
+
+</body>
+
+</html>
