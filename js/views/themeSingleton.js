@@ -3,6 +3,12 @@ define([
   'underscore',
   'backbone',
   'text!templates/themes/identity.html',
+  'text!templates/themes/institution-building.html',
+  'text!templates/themes/growth.html',
+  'text!templates/themes/research.html',
+  'text!templates/themes/education.html',
+  'text!templates/themes/ripple-effect.html',
+  'text!templates/themes/intersection.html',
   'collections/theme/ComponentCollection',
   'collections/theme/storyCollection',
   'text!templates/themes/audioIcon.html',
@@ -10,11 +16,15 @@ define([
   'text!templates/themes/sliderIconTemplate.html',
   'views/components/slideComponent',
   'bootstrap'
-], function($, _, Backbone, identityTemplate, ComponentCollection, 
-            storyCollection, audioIconTemplate, audioPlayerTemplate, sliderIconTemplate, ImageSliderView){
+], function($, _, Backbone, identityTemplate, institutionBuilding, growthTemplate,
+            researchTemplate, educationTemplate, rippleTemplate, intersectionTemplate, 
+            ComponentCollection, storyCollection, audioIconTemplate, audioPlayerTemplate, 
+            sliderIconTemplate, ImageSliderView){
 
 
   //utilities
+
+
   function capitalizeFirstLetter(string) {
     if(string){
        return string.charAt(0).toUpperCase() + string.slice(1);
@@ -30,30 +40,58 @@ define([
   
     events: {
      // "shown.bs.tab a[data-toggle='tab']": "updateRoute"
-     "click .nav-tabs a[data-toggle='tab']": "updateRoute",
+     "click .nav-pills a[data-toggle='tab']": "updateRoute",
      "click .audio-icon": "onAudioPlayer"
     },
     initialize: function(options){
       this.options = options || {};
-      this.listenTo(this.model, "change:theme", this.render);
+     // this.getData();
+     // this.listenTo(this.model, "change:theme", this.getData);
+      this.listenTo(this.model, "change:theme", this.getData);
       this.listenTo(this.model, "change:section", this.toggleTabs);
       this.listenTo(this.model, "change:section", this.dataSanitizer);
       //this.listenTo(this.model, "change:section", this.updateRoute);
       var self = this;
+      this.omekaItems = new storyCollection;
+      this.listenTo(self.omekaItems, "reset", self.dataSanitizer);
+     // this.listenTo(self.omekaItems, "reset", self.dataSanitizer);
       this.ontology = {
                         'space-for-biology': 'Space', 
                         'science-in-india': 'India',
                         'recognition': 'Recognition',
-                        'reflections': 'Reflection'
-                       }
+                        'reflections': 'Reflection',
+                        'space-and-autonomy': 'Autonomy',
+                        'paper-trails':'Paper',
+                        'architecture': 'Architecture',
+                        'hiring': 'Hiring',
+                        'start-ups': 'Startup',
+                        'collaborations': 'Collab',
+                        'student-selections': 'Students',
+                        'scaling': 'Scaling',
+                        'applied-toggle': 'Toggle',
+                        'area-shifts': 'Shifts',
+                        'processes': 'Process',
+                        'queries-tools': 'Tool',
+                        'building-knowledge': 'Knowledge',
+                        'mentorship': 'Mentor',
+                        'effects-toll': 'Effect-Toll',
+                        'interaction-and-isolation': 'Isolation',
+                        'gender-equality': 'Gender',
+                        'heirarchy-class': 'Hierarchy',
+                        'ncbs-community': 'NCBS',
+                        'outside-world': 'Outside'  
+                       };
+      self.themeList = ["identity", "institution-building", "growth", "research", 
+                        "education", "ripple-effect", "intersections"];
+   
       self.cacheStory = new storyCollection;
+     
       self.subView = {};
       self.subView.audios = [];
       self.subView.sliders = [];
-      //self.audioPlayer = new AudioPlayerView;
-      //based on options fetch the api items from omeka server
+      //self.render();
 
-      self.cacheStory.fetch({
+     /* self.cacheStory.fetch({
         cache: true,
         url: "https://jants.cloudant.com/ncbs-narrative/d2dffbc585d35241ec14e22f565eefaa",
         headers: {"Authorization": "Basic amFudHM6c2xvdHMzMzU0"}
@@ -61,11 +99,76 @@ define([
         //console.log(response, this, self,"from then");
         self.cacheStory.set(response.narrative);
         self.dataSanitizer();
-      }); 
+      }); */
+ 
+    },
+    loading: function() {
+      console.log("loading...");
+    },
+    getData: function(){
+       var self = this;
+       //this method will be called every time the route param Theme changes
+        self.render();
+       //request omeka items - requestParam is the id of the collection in omeka
+       var requestParam = this.themeList.indexOf(this.model.get('theme'))+1;
+       //dynamic url build to request for items
+       var requestURL = "https://www.ncbs.res.in/ncbs25/omeka/api/items?collection="+requestParam;
+       //console.log(requestURL, this.model.get('theme'), this.themeList.indexOf(this.model.get('theme'))+1);
+       //self.audioPlayer = new AudioPlayerView;
+       //based on options fetch the api items from omeka server
+       self.omekaItems.fetch({
+         cache: true,
+         url: requestURL
+         //headers: {"Authorization": "Basic amFudHM6c2xvdHMzMzU0"}
+       }).then(function (response){
+          console.log(response, self);
+          self.omekaItems.reset(response);
+          //self.omekaItems.set(response);
+          //console.log(self.omekaItems);
+         //self.dataSanitizer();
+       }); 
+      self.loading();
+      
     },
     render: function(){
-      this.$el.html(identityTemplate); 
-      console.log(this.model.get('section'));
+      //this.getData();
+      //console.log(this.omekaItems, "omeka items from render");
+
+      switch(this.model.get('theme')) {
+        case 'identity':
+          this.$el.html(identityTemplate); 
+          break;
+        case 'institution-building':
+          this.$el.html(institutionBuilding);
+          break;
+        case 'research':
+          this.$el.html(researchTemplate);
+          break;
+        case 'growth':
+          this.$el.html(growthTemplate);
+          break;
+        case 'education':
+          this.$el.html(educationTemplate);
+          break;
+        case 'ripple-effect':
+          this.$el.html(rippleTemplate);
+          break;
+        case 'intersections':
+          this.$el.html(intersectionTemplate);
+          break;
+        case 'default':
+          console.log('default');
+
+      }
+      /*if(this.model.get('theme')==='identity'){
+        this.$el.html(identityTemplate); 
+      } else if(this.model.get('theme')==='institution-building'){
+        this.$el.html(institutionBuilding);
+      } else if (this.model.get('theme')==='research') {
+        this.$el.html(researchTemplate);
+      }*/
+      
+   //   console.log(this.model);
       this.toggleTabs();
       this.componentManager();
     },
@@ -88,27 +191,30 @@ define([
       var audiosDom = this.$el.find(".tab-pane.active [data-component='audio']");
       // Image slider references from the DOM
       var sliderDoms = this.$el.find(".tab-pane.active [data-component='slide']");
-      console.log(audiosDom, sliderDoms);
+      // Images 
+      var imageDoms = this.$el.find(".tab-pane.active [data-component='image']");
+      console.log(audiosDom, sliderDoms, imageDoms);
       //Iterate thru audio references to find the data
       _.each(audiosDom, function (element) {
-        //console.log($(element).data());
+        console.log(self.sectionData);
         if(self.sectionData){
           var audioModel = self.sectionData.filter(function (item){
-            return item.get('tags').name === $(element).data().tag;
+            return item.get('tags')[0].name === $(element).data().tag;
           });
-          self.subView.audios.push(new audioIconView({model: audioModel[0], el: $(element)}));
+          console.log(audioModel, "audio model");
+          self.subView.audios.push(new audioIconView({item: audioModel[0], el: $(element)}));
         } else {
           console.log("waiting for data . . .");
         }
       }, self);
       //Iterate to slider references to find the DATA
      // console.log(self.sectionData);
-      _.each(sliderDoms, function (element){
+     _.each(sliderDoms, function (element){
 
         if(self.sectionData){
           var sliderModels = self.sectionData.filter(function (item){
             
-            var tagArray = item.get('tags').name.split('-');
+            var tagArray = item.get('tags')[0].name.split('-');
             tagArray.pop();
            // console.log(item.get('tags'), tagArray);
             if(tagArray.length === 3){
@@ -118,12 +224,40 @@ define([
               }
             }
           });
-
-          self.subView.sliders.push(new sliderThumbView({content: sliderModels, el: $(element), thumbnail: sliderModels[0]}));
+          console.log(sliderModels, "slider models");
+          self.subView.sliders.push(new sliderThumbView({content: sliderModels, el: $(element), thumbnail: sliderModels[0], slider:true}));
           
         }
 
       }, self);
+
+      // console.log(self.sectionData);
+       _.each(imageDoms, function (element){
+
+         if(self.sectionData){
+           var imageModel = self.sectionData.filter(function (item){
+             
+             //var tagArray = item.get('tags').name.split('-');
+           
+            //console.log(item.get('tags')[0],element);
+             //if(tagArray.length === 3){}
+              // console.log(tagArray.join('-'), $(element).data().tag, tagArray.join('-') === $(element).data().tag, "checker");
+               if(item.get('tags')[0].name === $(element).data().tag){
+                 return item;
+               }
+             
+           });
+           console.log(imageModel, "image model");
+           self.subView.sliders.push(new sliderThumbView({
+            content: imageModel, 
+            el: $(element), 
+            thumbnail: imageModel[0], 
+            slider:false
+          }));
+           
+         }
+
+       }, self);
       console.log(sliderDoms, self.subView);
     },
     dataSanitizer: function () {
@@ -131,7 +265,8 @@ define([
       var self = this;
       self.subView.audios= [];
       self.subView.sliders=[];
-      self.sectionData = this.cacheStory.groupByTags(1)[capitalizeFirstLetter(this.ontology[this.model.get("section")])];
+      //self.sectionData = this.cacheStory.groupByTags(1)[capitalizeFirstLetter(this.ontology[this.model.get("section")])];
+      self.sectionData = this.omekaItems.groupByTags(1)[capitalizeFirstLetter(this.ontology[this.model.get("section")])];
       console.log(self.sectionData, capitalizeFirstLetter(this.ontology[this.model.get("section")]));
       this.subViewManager();
     },
@@ -176,36 +311,102 @@ var sliderThumbView = Backbone.View.extend({
   initialize: function(options){
     var self = this;
     self.options = options || {};
+    console.log(self.options);
+    self.fileurls = [];
+    self.getData();
     /*this.model = this.options.model || this.model;
     this.model.set("content", this.options.content);
     this.model.set("total", this.options.content.length);*/
-    this.orderedContent = _.sortBy(self.options.content, function(item){
-      return item.get('tags').name.split('-')[3];
-      
+    
+    //console.log(self.album, "Albums");
+    
+  },
+  getData: function () {
+    var self = this;
+      self.options.content.forEach(function (item){
+          item.collection.getFileByUrl(item.get('files').url).then(function (response){
+          self.fileurls.push(response[0]);
+          self.sanitizeData();
+      });
     });
-    console.log(this.orderedContent);
-    //self.player = new AudioPlayerView({model: this.model});
-    this.render();
+      self.render();
+      console.log(self.fileurls, "img slider file urls");
+
+    // self.sanitizeData();
+  },
+  sanitizeData: function() {
+    var self = this;
+    if(self.options.slider){
+      var orderedContent = _.sortBy(self.options.content, function(item){
+        return item.get('tags')[0].name.split('-')[3];
+        
+      });
+
+      self.album = orderedContent.map(function(item, index){
+        console.log(index, self.fileurls, "ordered index");
+        
+        var thisfileurl = self.fileurls.filter(function (dumburl){
+          console.log(dumburl.id, item.get('id'));
+          if(dumburl.id === item.get('id')) {
+            console.log(dumburl);
+            return dumburl;
+          }
+        });
+        console.log(thisfileurl, item, "thisfileurl");
+        if(thisfileurl[0]){
+          return {
+            'src': thisfileurl[0].file_urls.fullsize || '.././imgs/slider.svg', 
+            'thumb': thisfileurl[0].file_urls.square_thumbnail || '.././imgs/slider.svg', 
+            'subHtml': item.get('element_texts')[1].text || '' + item.get('element_texts')[2].text || '' 
+          }
+        }
+        
+      });
+
+      console.log(self.album, "from slider images");
+    } else {
+
+      self.album = self.options.content.map(function (item){
+        var thisfileurl = self.fileurls.filter(function (dumburl){
+          console.log(dumburl.id, item.get('id'));
+          if(dumburl.id === item.get('id')) {
+            console.log(dumburl);
+            return dumburl;
+          }
+        });
+        if(thisfileurl[0]){
+          return {
+            'src': thisfileurl[0].file_urls.fullsize,  
+            'thumb': thisfileurl[0].file_urls.square_thumbnail, 
+            'subHtml': item.get('element_texts')[1].text || '' + item.get('element_texts')[2].text || '' 
+          }
+        }
+        
+      });
+
+      console.log(self.album, "from single image");
+    }
   },
   render: function(){
+    var self = this;
+    this.options.thumbnail.collection.getFileByUrl(this.options.thumbnail.get('files').url).then(function (response){
+      console.log(response);
+      self.$el.html(self.sliderThumbTemplate(response[0]));
+      self.sanitizeData();
+    }, self);
     console.log("rendering slider thumb", this.options.thumbnail.toJSON());
-    this.$el.html(this.sliderThumbTemplate(this.options.thumbnail.toJSON()));
+    
   },
-  onClicked(event){
-    console.log(event, this);
-    var album = this.orderedContent.map(function(item){
-      return {
-        'src': item.get('fileurls').fullsize, 
-        'thumb': item.get('fileurls').square_thumbnail, 
-        'subHtml': item.get('description').text || '' + item.get('rights').text || '' 
-      }
-    });
-    console.log(this.options.content, album);
+  onClicked: function (event){
+    //console.log(event, this);
+    var self = this;
+    
+    console.log(self.album, "on clicked gallery");
     $(this).lightGallery({
         dynamic: true,
         closable: true,
         hash:false,
-        dynamicEl: album/*[{
+        dynamicEl: self.album/*[{
             "src": this.options.content[0].toJSON().fileurls.fullsize,
             'thumb': this.options.content[0].toJSON().fileurls.square_thumbnail,
             'subHtml': this.options.content[0].toJSON().description.text
@@ -227,8 +428,28 @@ var sliderThumbView = Backbone.View.extend({
     initialize: function(options){
       var self = this;
       self.options = options || {};
-      self.player = new AudioPlayerView({model: this.model});
-      this.render();
+      self.model = new Backbone.Model;
+      self.listenTo(this.model, "change", self.render);
+      self.getData();
+      //console.log(self.file);
+      console.log(this.options);
+     // self.player = new AudioPlayerView({model: this.model});
+      //this.render();
+    },
+    getData: function () {
+      var self = this;
+      self.options.item.collection.getFileByUrl(self.options.item.get('files').url).then(function (response){
+        self.fileurls = response[0].file_urls;
+        self.sanitizeData();
+      });
+    },
+    sanitizeData: function (){
+      var modelMaker = {};
+      modelMaker.url = this.fileurls.original;
+      modelMaker.description = this.options.item.get('element_texts')[1].text;
+      modelMaker.rights = this.options.item.get('element_texts')[2].text;
+      console.log(modelMaker);
+      this.model.set(modelMaker);
     },
     render: function(){
       this.$el.html(this.iconTemplate(this.model.toJSON()));

@@ -25,10 +25,50 @@
 body {
   background: #fff;
   font-family: 'Open Sans', sans-serif;
-  line-height: 25px;
+  line-height: 28px;
   font-size:17px;
   color: rgb(51,51,51);
 }
+
+blockquote {
+  border: none !important;
+   color: #822d1a;
+   width:90%;
+}
+blockquote p {
+  font-size: 20px;
+ 
+}
+blockquote span {
+  font-size: 17px;
+}
+.tab-content {
+  margin-top:40px;
+}
+.nav-pills > li > a {
+  color: #822d1a;
+  padding-top: 6px;
+padding-bottom: 6px;
+ 
+}
+.nav-pills > li {
+  border-right: 2px solid #aaa;
+  max-height: 40px;
+}
+.nav-pills > li.active > a, 
+.nav-pills > li.active > a:focus, 
+.nav-pills > li.active > a:hover {
+    color: #F9A01F;
+    background-color: #fff;
+    text-decoration: none;
+  }
+
+  .nav-pills > li > a:focus, 
+  .nav-pills > li > a:hover {
+      color: #F9A01F;
+      text-decoration: none;
+      background-color: #fff !important;
+  }
 
 .open > .dropdown-menu {
   border-radius:0px !important;
@@ -101,23 +141,26 @@ body {
 }
 .menu-item {
   margin: 15px 13px 0px 13px;
-  width: 80px;
+  width: 90px;
   height:auto;
+  min-width:50px;
+  min-height:55px;
 }
 .menu-item  span {
   display: block;
   color: rgb(51,51,51);
-  font-weight: bold;
+  font-weight: 600;
   font-size: 12px;
   line-height: 14px;
   text-align: center;
-  mix-blend-mode: normal;
   font-style: normal;
 }
 .menu-item  img {
   /*width:53px;
   height:53px;*/
   padding-bottom: 5px;
+  margin-right:auto;
+  margin-left:auto;
 }
 
 .menu-text {
@@ -154,12 +197,15 @@ body {
   border-right: none;
   margin:15px;
 }
+#page {
+  min-height:100vh;
+}
 #page button {
   background-color: #fff;
 }
 
 #themeMenu{
- 
+  min-height: 185px;
   border-bottom: 2px solid #666;
 }
 
@@ -301,13 +347,18 @@ COMPONENTS ala Audio player, slide show and more
 }
 .img-slider {
   float:right;
-  margin:15px;
-  width: 400px;
+  margin:0px;
+  width: 600px;
   height: 400px;
-  background-image: url('../imgs/components/slider.svg');
+  /*background-image: url('../imgs/components/slider.svg');*/
+}
+.img-slider img {
+  width:600px;
+  height:400px;
+  margin-left: 135px;
 }
 .start-text{
-  font-weight:bold;
+ 
   font-size:25px;
 }
 /*.image-container {
