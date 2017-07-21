@@ -199,9 +199,9 @@ define([
         console.log(self.sectionData);
         if(self.sectionData){
           var audioModel = self.sectionData.filter(function (item){
-            return item.get('tags')[0].name === $(element).data().tag;
+            return item.get('tags')[0].name === $(element).data().tag.trim();
           });
-          console.log(audioModel, "audio model");
+          console.log(audioModel, element, "audio model");
           self.subView.audios.push(new audioIconView({item: audioModel[0], el: $(element)}));
         } else {
           console.log("waiting for data . . .");
@@ -219,7 +219,7 @@ define([
            // console.log(item.get('tags'), tagArray);
             if(tagArray.length === 3){
              // console.log(tagArray.join('-'), $(element).data().tag, tagArray.join('-') === $(element).data().tag, "checker");
-              if(tagArray.join('-') === $(element).data().tag){
+              if(tagArray.join('-') === $(element).data().tag.trim()){
                 return item;
               }
             }
@@ -242,7 +242,7 @@ define([
             //console.log(item.get('tags')[0],element);
              //if(tagArray.length === 3){}
               // console.log(tagArray.join('-'), $(element).data().tag, tagArray.join('-') === $(element).data().tag, "checker");
-               if(item.get('tags')[0].name === $(element).data().tag){
+               if(item.get('tags')[0].name === $(element).data().tag.trim()){
                  return item;
                }
              
