@@ -358,8 +358,10 @@ COMPONENTS ala Audio player, slide show and more
   margin-left: 135px;
 }
 .start-text{
- 
   font-size:25px;
+}
+.two-column-img-wrap {
+  float:right;
 }
 /*.image-container {
   position:initial !important;
