@@ -154,6 +154,12 @@ padding-bottom: 6px;
   line-height: 14px;
   text-align: center;
   font-style: normal;
+
+}
+
+a:hover {
+  text-decoration:none;
+
 }
 .menu-item  img {
   /*width:53px;
@@ -362,6 +368,9 @@ COMPONENTS ala Audio player, slide show and more
 }
 .two-column-img-wrap {
   float:right;
+}
+.text {
+  font-size:15px;
 }
 /*.image-container {
   position:initial !important;
