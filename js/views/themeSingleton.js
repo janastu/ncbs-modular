@@ -60,7 +60,7 @@ define([
                         'science-in-india': 'India',
                         'recognition': 'Recognition',
                         'reflections': 'Reflection',
-                        'space-and-autonomy': 'Autonomy',
+                        'space-&-autonomy': 'Autonomy',
                         'paper-trails':'Paper',
                         'architecture': 'Architecture',
                         'hiring': 'Hiring',
