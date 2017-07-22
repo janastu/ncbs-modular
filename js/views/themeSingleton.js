@@ -42,7 +42,7 @@ define([
 
     function naturalCompare(a, b) {
         var ax = [], bx = [];
-        console.log(a, b);
+        //console.log(a, b);
         a.get('tags')[0].name.replace(/(\d+)|(\D+)/g, function(_, $1, $2) { ax.push([$1 || Infinity, $2 || ""]) });
         b.get('tags')[0].name.replace(/(\d+)|(\D+)/g, function(_, $1, $2) { bx.push([$1 || Infinity, $2 || ""]) });
         
@@ -257,18 +257,12 @@ define([
 
          if(self.sectionData){
            var imageModel = self.sectionData.filter(function (item){
-             
-             //var tagArray = item.get('tags').name.split('-');
-           
-            //console.log(item.get('tags')[0],element);
-             //if(tagArray.length === 3){}
-              // console.log(tagArray.join('-'), $(element).data().tag, tagArray.join('-') === $(element).data().tag, "checker");
                if(item.get('tags')[0].name === $(element).data().tag.trim()){
                  return item;
                }
              
            });
-           console.log(imageModel, "image model");
+           console.log(imageModel, "image model", element);
            self.subView.sliders.push(new sliderThumbView({
             content: imageModel, 
             el: $(element), 
@@ -411,12 +405,12 @@ var sliderThumbView = Backbone.View.extend({
   },
   render: function(){
     var self = this;
-    this.options.thumbnail.collection.getFileByUrl(this.options.thumbnail.get('files').url).then(function (response){
+    self.options.thumbnail.collection.getFileByUrl(self.options.thumbnail.get('files').url).then(function (response){
       console.log(response);
       self.$el.html(self.sliderThumbTemplate(response[0]));
       self.sanitizeData();
     }, self);
-    console.log("rendering slider thumb", this.options.thumbnail.toJSON());
+    console.log("rendering slider thumb", self.options.thumbnail.toJSON());
     
   },
   onClicked: function (event){
