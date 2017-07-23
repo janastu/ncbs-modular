@@ -229,25 +229,36 @@ define([
         }
       }, self);
       //Iterate to slider references to find the DATA
-     // console.log(self.sectionData);
+     console.log(sliderDoms, self.sectionData, this.model.toJSON());
      _.each(sliderDoms, function (element){
 
         if(self.sectionData){
           var sliderModels = self.sectionData.filter(function (item){
             
             var tagArray = item.get('tags')[0].name.split('-');
-            tagArray.pop();
+            
            // console.log(item.get('tags'), tagArray);
             if(tagArray.length === 3){
+              console.log('tag length === 3', tagArray);
+              //tagArray.pop();
              // console.log(tagArray.join('-'), $(element).data().tag, tagArray.join('-') === $(element).data().tag, "checker");
-              if(tagArray.join('-') === $(element).data().tag.trim()){
-                return item;
-              }
+             
+            } else if (tagArray.length > 3){
+              console.log('tag length > 3', tagArray);
+              tagArray.pop();
+            } else {
+              console.log(tagArray, tagArray.length, 'tag length unknown');
+            }
+
+            if(tagArray.join('-') === $(element).data().tag.trim()){
+              return item;
             }
           });
-          console.log(sliderModels, "slider models");
+          console.log(sliderModels, "slider models", element);
           self.subView.sliders.push(new sliderThumbView({content: sliderModels, el: $(element), thumbnail: sliderModels[0], slider:true}));
           
+        } else {
+          console.log("data unavailable");
         }
 
       }, self);
@@ -270,6 +281,8 @@ define([
             slider:false
           }));
            
+         } else {
+          console.log("data unavailable");
          }
 
        }, self);
