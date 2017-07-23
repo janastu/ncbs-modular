@@ -81,7 +81,7 @@ define([
                         'science-in-india': 'India',
                         'recognition': 'Recognition',
                         'reflections': 'Reflection',
-                        'space-&-autonomy': 'Autonomy',
+                        'space-and-autonomy': 'Autonomy',
                         'paper-trails':'Paper',
                         'architecture': 'Arch',
                         'hiring': 'Hiring',
@@ -90,12 +90,12 @@ define([
                         'student-selections': 'Students',
                         'scaling': 'Scaling',
                         'applied-toggle': 'Toggle',
-                        'area-shifts': 'Shifts',
+                        'areas-and-shifts': 'Shifts',
                         'processes': 'Process',
                         'queries-tools': 'Tool',
                         'building-knowledge': 'Knowledge',
                         'mentorship': 'Mentor',
-                        'effects-toll': 'Effect-Toll',
+                        'effects-and-toll': 'Effect_Toll',
                         'interaction-and-isolation': 'Isolation',
                         'gender-equality': 'Gender',
                         'heirarchy-and-class': 'Hierarchy',
@@ -462,12 +462,13 @@ var sliderThumbView = Backbone.View.extend({
       });
     },
     sanitizeData: function (){
+      var self = this;
       var modelMaker = {};
-      modelMaker.url = this.fileurls.original;
-      modelMaker.description = this.options.item.get('element_texts')[1].text;
-      modelMaker.rights = this.options.item.get('element_texts')[2].text;
+      modelMaker.url = self.fileurls.original;
+      modelMaker.description = self.options.item.get('element_texts')[1].text;
+      modelMaker.rights = self.options.item.get('element_texts')[2].text;
       console.log(modelMaker);
-      this.model.set(modelMaker);
+      self.model.set(modelMaker);
     },
     render: function(){
       this.$el.html(this.iconTemplate(this.model.toJSON()));
