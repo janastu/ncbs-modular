@@ -242,10 +242,6 @@ a:hover {
   border: none;
 }
 
-[data-component='audio'] {
-  display: inline-block;
-  cursor: pointer;
-}
 
 
 
@@ -330,6 +326,17 @@ To change breakpoint for nav collapse
 /* ================================================================
 COMPONENTS ala Audio player, slide show and more
 ====================================================================*/
+
+[data-component='audio'] {
+  display: inline-block;
+  cursor: pointer;
+}
+
+[data-tag='1-India-V1'] > .video-wrap{
+  margin-top:90px;
+}
+
+
 #audio-player-container{
   position: fixed;
   bottom: 0px;
