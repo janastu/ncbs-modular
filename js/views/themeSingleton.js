@@ -246,7 +246,7 @@ define([
             } else if (tagArray.length > 3){
               console.log('tag length > 3', tagArray, "popping one item");
               tagArray.pop();
-              if(tagArray.length > 4){
+              if(tagArray.length > 3){
                 console.log('tag length > 4', tagArray, "popping two item");
                 tagArray.pop();
               }
