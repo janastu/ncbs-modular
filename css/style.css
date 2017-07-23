@@ -354,13 +354,13 @@ COMPONENTS ala Audio player, slide show and more
 .img-slider {
   float:right;
   margin:0px;
-  width: 600px;
+  width: 500px;
   height: 400px;
   /*background-image: url('../imgs/components/slider.svg');*/
 }
 .img-slider img {
-  width:600px;
-  height:400px;
+  min-width:500px;
+  min-height:400px;
   margin-left: 135px;
 }
 .start-text{

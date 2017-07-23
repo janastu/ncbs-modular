@@ -36,6 +36,27 @@ define([
     return string.split('-')[0].charAt(0).toUpperCase() + string.slice(1)
   }
 
+  //Helper for sorting the items by tags
+  // While sorting the order of the tags, we need to check for natural sorting since the tag is a text
+  // with numbers marked as order
+
+    function naturalCompare(a, b) {
+        var ax = [], bx = [];
+        //console.log(a, b);
+        a.get('tags')[0].name.replace(/(\d+)|(\D+)/g, function(_, $1, $2) { ax.push([$1 || Infinity, $2 || ""]) });
+        b.get('tags')[0].name.replace(/(\d+)|(\D+)/g, function(_, $1, $2) { bx.push([$1 || Infinity, $2 || ""]) });
+        
+        while(ax.length && bx.length) {
+            var an = ax.shift();
+            var bn = bx.shift();
+            var nn = (an[0] - bn[0]) || an[1].localeCompare(bn[1]);
+            if(nn) return nn;
+        }
+            return ax.length - bx.length;
+        }
+  
+  
+
   var ThemesView = Backbone.View.extend({
   
     events: {
@@ -60,9 +81,9 @@ define([
                         'science-in-india': 'India',
                         'recognition': 'Recognition',
                         'reflections': 'Reflection',
-                        'space-and-autonomy': 'Autonomy',
+                        'space-&-autonomy': 'Autonomy',
                         'paper-trails':'Paper',
-                        'architecture': 'Architecture',
+                        'architecture': 'Arch',
                         'hiring': 'Hiring',
                         'start-ups': 'Startup',
                         'collaborations': 'Collab',
@@ -236,18 +257,12 @@ define([
 
          if(self.sectionData){
            var imageModel = self.sectionData.filter(function (item){
-             
-             //var tagArray = item.get('tags').name.split('-');
-           
-            //console.log(item.get('tags')[0],element);
-             //if(tagArray.length === 3){}
-              // console.log(tagArray.join('-'), $(element).data().tag, tagArray.join('-') === $(element).data().tag, "checker");
                if(item.get('tags')[0].name === $(element).data().tag.trim()){
                  return item;
                }
              
            });
-           console.log(imageModel, "image model");
+           console.log(imageModel, "image model", element);
            self.subView.sliders.push(new sliderThumbView({
             content: imageModel, 
             el: $(element), 
@@ -340,20 +355,20 @@ var sliderThumbView = Backbone.View.extend({
       var orderedContent = _.sortBy(self.options.content, function(item){
         return item.get('tags')[0].name.split('-')[3];
         
-      });
-
-      self.album = orderedContent.map(function(item, index){
-        console.log(index, self.fileurls, "ordered index");
-        
-        var thisfileurl = self.fileurls.filter(function (dumburl){
-          console.log(dumburl.id, item.get('id'));
-          if(dumburl.id === item.get('id')) {
-            console.log(dumburl);
-            return dumburl;
+      }).sort(naturalCompare);
+     // orderedContent.sort(naturalCompare);
+      console.log(orderedContent, "ordered content");
+      self.album = _.compact(orderedContent.map(function(item, index){
+                
+        var thisfileurl = self.fileurls.filter(function (filesresponse){
+                  
+          if(filesresponse.item.id === item.get('id')) {
+            return filesresponse;
           }
         });
-        console.log(thisfileurl, item, "thisfileurl");
-        if(thisfileurl[0]){
+
+ 
+        if(thisfileurl.length > 0 ){
           return {
             'src': thisfileurl[0].file_urls.fullsize || '.././imgs/slider.svg', 
             'thumb': thisfileurl[0].file_urls.square_thumbnail || '.././imgs/slider.svg', 
@@ -361,20 +376,21 @@ var sliderThumbView = Backbone.View.extend({
           }
         }
         
-      });
+      }));
 
       console.log(self.album, "from slider images");
     } else {
 
-      self.album = self.options.content.map(function (item){
-        var thisfileurl = self.fileurls.filter(function (dumburl){
-          console.log(dumburl.id, item.get('id'));
-          if(dumburl.id === item.get('id')) {
-            console.log(dumburl);
-            return dumburl;
+      self.album = _.compact(self.options.content.map(function (item){
+        var thisfileurl = self.fileurls.filter(function (filesresponse){
+          console.log(filesresponse.item, item.get('id'), "files responser");
+          if(filesresponse.item.id === item.get('id')) {
+            console.log(filesresponse, "mat hed files");
+            return filesresponse;
           }
         });
-        if(thisfileurl[0]){
+
+        if(thisfileurl.length > 0){
           return {
             'src': thisfileurl[0].file_urls.fullsize,  
             'thumb': thisfileurl[0].file_urls.square_thumbnail, 
@@ -382,19 +398,19 @@ var sliderThumbView = Backbone.View.extend({
           }
         }
         
-      });
+      }));
 
       console.log(self.album, "from single image");
     }
   },
   render: function(){
     var self = this;
-    this.options.thumbnail.collection.getFileByUrl(this.options.thumbnail.get('files').url).then(function (response){
+    self.options.thumbnail.collection.getFileByUrl(self.options.thumbnail.get('files').url).then(function (response){
       console.log(response);
       self.$el.html(self.sliderThumbTemplate(response[0]));
       self.sanitizeData();
     }, self);
-    console.log("rendering slider thumb", this.options.thumbnail.toJSON());
+    console.log("rendering slider thumb", self.options.thumbnail.toJSON());
     
   },
   onClicked: function (event){
