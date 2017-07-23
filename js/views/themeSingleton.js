@@ -246,10 +246,14 @@ define([
             } else if (tagArray.length > 3){
               console.log('tag length > 3', tagArray, "popping one item");
               tagArray.pop();
-            } else if (tagArray.length > 4){
+              if(tagArray.length > 4){
+                console.log('tag length > 4', tagArray, "popping two item");
+                tagArray.pop();
+              }
+            } /*else if (tagArray.length > 4){
               console.log('tag length > 4', tagArray, "popping two item");
               tagArray.splice(3,2);
-            } else {
+            }*/ else {
               console.log(tagArray, tagArray.length, 'tag length unknown');
             }
 
@@ -271,9 +275,15 @@ define([
 
          if(self.sectionData){
            var imageModel = self.sectionData.filter(function (item){
-               if(item.get('tags')[0].name === $(element).data().tag.trim()){
+             var tagArray = item.get('tags')[0].name.split('-');
+             
+            // console.log(item.get('tags'), tagArray);
+             if(tagArray.length === 3){
+               if(tagArray.join('-') === $(element).data().tag.trim()){
                  return item;
                }
+             }
+               
              
            });
            console.log(imageModel, "image model", element);
