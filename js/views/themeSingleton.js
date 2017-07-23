@@ -76,6 +76,8 @@ define([
       this.omekaItems = new storyCollection;
       this.listenTo(self.omekaItems, "reset", self.dataSanitizer);
      // this.listenTo(self.omekaItems, "reset", self.dataSanitizer);
+     //this.ontology the Url param and tag relationship settings
+     //which will be used to group the data by tags for relevant routes
       this.ontology = {
                         'space-for-biology': 'Space', 
                         'science-in-india': 'India',
@@ -89,16 +91,16 @@ define([
                         'collaborations': 'Collab',
                         'student-selections': 'Students',
                         'scaling': 'Scaling',
-                        'applied-toggle': 'Toggle',
+                        'basic-and-applied-toggle': 'Toggle',
                         'areas-and-shifts': 'Shifts',
                         'processes': 'Process',
-                        'queries-tools': 'Tool',
+                        'queries-and-tools': 'Tool',
                         'building-knowledge': 'Knowledge',
                         'mentorship': 'Mentor',
                         'effects-and-toll': 'Effect_Toll',
                         'interaction-and-isolation': 'Isolation',
                         'gender-equality': 'Gender',
-                        'heirarchy-and-class': 'Hierarchy',
+                        'hierarchy-and-class': 'Hierarchy',
                         'ncbs-community': 'NCBS',
                         'outside-world': 'Outside'  
                        };
@@ -144,6 +146,7 @@ define([
        }).then(function (response){
           console.log(response, self);
           self.omekaItems.reset(response);
+          console.log(self.omekaItems);
           //self.omekaItems.set(response);
           //console.log(self.omekaItems);
          //self.dataSanitizer();
@@ -239,13 +242,13 @@ define([
             
            // console.log(item.get('tags'), tagArray);
             if(tagArray.length === 3){
-              console.log('tag length === 3', tagArray);
-              //tagArray.pop();
-             // console.log(tagArray.join('-'), $(element).data().tag, tagArray.join('-') === $(element).data().tag, "checker");
-             
+              console.log('tag length === 3', tagArray, "No popping needed");
             } else if (tagArray.length > 3){
-              console.log('tag length > 3', tagArray);
+              console.log('tag length > 3', tagArray, "popping one item");
               tagArray.pop();
+            } else if (tagArray.length > 4){
+              console.log('tag length > 4', tagArray, "popping two item");
+              tagArray.splice(3,2);
             } else {
               console.log(tagArray, tagArray.length, 'tag length unknown');
             }
@@ -295,7 +298,7 @@ define([
       self.subView.sliders=[];
       //self.sectionData = this.cacheStory.groupByTags(1)[capitalizeFirstLetter(this.ontology[this.model.get("section")])];
       self.sectionData = this.omekaItems.groupByTags(1)[capitalizeFirstLetter(this.ontology[this.model.get("section")])];
-      console.log(self.sectionData, capitalizeFirstLetter(this.ontology[this.model.get("section")]));
+      console.log(self.sectionData, capitalizeFirstLetter(this.ontology[this.model.get("section")]), this.ontology);
       this.subViewManager();
     },
     updateRoute: function(event){
