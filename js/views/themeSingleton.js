@@ -98,7 +98,7 @@ define([
                         'effects-toll': 'Effect-Toll',
                         'interaction-and-isolation': 'Isolation',
                         'gender-equality': 'Gender',
-                        'heirarchy-class': 'Hierarchy',
+                        'heirarchy-and-class': 'Hierarchy',
                         'ncbs-community': 'NCBS',
                         'outside-world': 'Outside'  
                        };
@@ -405,6 +405,7 @@ var sliderThumbView = Backbone.View.extend({
   },
   render: function(){
     var self = this;
+    console.log(self.options, this.$el, "img slider render")
     self.options.thumbnail.collection.getFileByUrl(self.options.thumbnail.get('files').url).then(function (response){
       console.log(response);
       self.$el.html(self.sliderThumbTemplate(response[0]));
@@ -454,6 +455,7 @@ var sliderThumbView = Backbone.View.extend({
     },
     getData: function () {
       var self = this;
+      console.log(self.options, this.$el, "getter for data in audio icon");
       self.options.item.collection.getFileByUrl(self.options.item.get('files').url).then(function (response){
         self.fileurls = response[0].file_urls;
         self.sanitizeData();
