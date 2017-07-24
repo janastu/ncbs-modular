@@ -244,8 +244,11 @@ img {
 #curatorial-note {
   border: none;
 }
-
-
+.featured-img-caption {
+color: #aaa;
+text-align: left;
+font-size: 12px;
+}
 
 
 /*===============================================================================================
