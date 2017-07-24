@@ -161,6 +161,9 @@ a:hover {
   text-decoration:none;
 
 }
+img {
+  cursor: pointer;
+}
 .menu-item  img {
   /*width:53px;
   height:53px;*/
@@ -250,6 +253,13 @@ MEDIA QUERIES
 
 To change breakpoint for nav collapse
 ==============================================================================================*/
+@media only screen and (max-width: 500px) {
+    #home-curatorial-note.dropdown-menu {
+       max-width: 100%;
+    }
+}
+
+
 @media (max-width: 1120px) {
   .navbar-nav {
       float: none!important;
