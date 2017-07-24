@@ -133,9 +133,12 @@ define([
        //this method will be called every time the route param Theme changes
         self.render();
        //request omeka items - requestParam is the id of the collection in omeka
-       var requestParam = this.themeList.indexOf(this.model.get('theme'))+1;
+       //add +9 because the api import plugin has ids starting after 8
+       // untill collection id 8 is reserved in ncbs25/omeka from live server
+       var requestParam = this.themeList.indexOf(this.model.get('theme'))+9;
        //dynamic url build to request for items
-       var requestURL = "https://www.ncbs.res.in/ncbs25/omeka/api/items?collection="+requestParam;
+       //var requestURL = "https://www.ncbs.res.in/ncbs25/omeka/api/items?collection="+requestParam;
+       var requestURL = "http://archives.ncbs.res.in/api/items?collection="+requestParam;
        //console.log(requestURL, this.model.get('theme'), this.themeList.indexOf(this.model.get('theme'))+1);
        //self.audioPlayer = new AudioPlayerView;
        //based on options fetch the api items from omeka server
