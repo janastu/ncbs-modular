@@ -61,7 +61,7 @@ define([
   
     events: {
      // "shown.bs.tab a[data-toggle='tab']": "updateRoute"
-     "click .nav-pills a[data-toggle='tab']": "updateRoute",
+     "click .theme-pills a[data-toggle='tab']": "updateRoute",
      "click .audio-icon": "onAudioPlayer"
     },
     initialize: function(options){
