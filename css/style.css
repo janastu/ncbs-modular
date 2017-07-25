@@ -244,11 +244,24 @@ img {
 #curatorial-note {
   border: none;
 }
+
 .featured-img-caption {
 color: #aaa;
 text-align: left;
 font-size: 12px;
 }
+
+
+.img-gallery-item{
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.pannable{
+  cursor: pointer;
+}
+
+
 
 
 /*===============================================================================================
