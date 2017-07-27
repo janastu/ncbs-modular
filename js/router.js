@@ -36,7 +36,12 @@ define([
 
     var app_router = new AppRouter;
     //this.currentView = [];
-     window.ThemesViewInstance = new ThemesView({el: "#page", model: new ThemeModel({"theme": "string", "section": "string"})});
+     window.ThemesViewInstance = new ThemesView({el: "#page", 
+                            model: new ThemeModel({
+                                      "theme": "string", 
+                                      "section": "string"
+                                    })
+                          });
 
     /*app_router.on('route:showProjects', function(){
    
@@ -73,7 +78,7 @@ define([
     });
 
     app_router.on('route:themeHandler', function (theme, section) {
-     
+
       this.now = section;
       if(!this.now){
         this.now = "curatorial-note";
