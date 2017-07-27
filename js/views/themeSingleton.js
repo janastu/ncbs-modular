@@ -126,7 +126,7 @@ define([
  
     },
     loading: function() {
-      
+
       console.log("loading...");
     },
     getData: function(){
@@ -316,6 +316,8 @@ define([
       this.subViewManager();
     },
     updateRoute: function(event){
+      //Build url pattern for maintiaing restful states in Themes View
+      // this logic controls all url update in Theme navigation level
       event.preventDefault();
       $(event.currentTarget).tab('show');
       var urlFragmentPath = "", //variable to build url path
@@ -438,7 +440,7 @@ var sliderThumbView = Backbone.View.extend({
     console.log(self.options, this.$el, "img slider render")
     self.options.thumbnail.collection.getFileByUrl(self.options.thumbnail.get('files').url).then(function (response){
       console.log(response);
-      self.$el.html(self.sliderThumbTemplate(response[0]));
+      self.$el.html(self.sliderThumbTemplate({files: response[0], thumbnail:self.options.thumbnail.toJSON()}));
       self.sanitizeData();
     }, self);
     console.log("rendering slider thumb", self.options.thumbnail.toJSON());
@@ -453,7 +455,8 @@ var sliderThumbView = Backbone.View.extend({
         dynamic: true,
         closable: true,
         hash:false,
-        dynamicEl: self.album/*[{
+        dynamicEl: self.album
+        /*[{
             "src": this.options.content[0].toJSON().fileurls.fullsize,
             'thumb': this.options.content[0].toJSON().fileurls.square_thumbnail,
             'subHtml': this.options.content[0].toJSON().description.text

@@ -161,9 +161,7 @@ a:hover {
   text-decoration:none;
 
 }
-img {
-  cursor: pointer;
-}
+
 .menu-item  img {
   /*width:53px;
   height:53px;*/
@@ -358,6 +356,19 @@ COMPONENTS ala Audio player, slide show and more
   cursor: pointer;
 }
 
+[data-component='image'] .slider-thumb-icon, 
+[data-component='slide'] .slider-thumb-icon {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+[data-component='image'], 
+[data-component='slide']{
+  min-height: 300px;
+  cursor: pointer;
+}
+
 [data-tag='1-India-V1'] > .video-wrap{
  // margin-top:90px;
 }
@@ -408,6 +419,10 @@ COMPONENTS ala Audio player, slide show and more
 .border {
     border: 1px solid #ccc;
     padding-top: 15px; 
+}
+.img-thumbnail-text{
+  font-size: 14px;
+  color: #333;
 }
 
 /*=============================================================================
