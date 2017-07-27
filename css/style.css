@@ -53,7 +53,7 @@ padding-bottom: 6px;
 }
 .nav-pills > li {
   border-right: 2px solid #aaa;
-  max-height: 40px;
+  max-height: 30px;
 }
 .nav-pills > li.active > a, 
 .nav-pills > li.active > a:focus, 
@@ -161,6 +161,9 @@ a:hover {
   text-decoration:none;
 
 }
+img {
+  cursor: pointer;
+}
 .menu-item  img {
   /*width:53px;
   height:53px;*/
@@ -242,6 +245,22 @@ a:hover {
   border: none;
 }
 
+.featured-img-caption {
+color: #aaa;
+text-align: left;
+font-size: 12px;
+}
+
+
+.img-gallery-item{
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.pannable{
+  cursor: pointer;
+}
+
 
 
 
@@ -250,6 +269,13 @@ MEDIA QUERIES
 
 To change breakpoint for nav collapse
 ==============================================================================================*/
+@media only screen and (max-width: 500px) {
+    #home-curatorial-note.dropdown-menu {
+       max-width: 100%;
+    }
+}
+
+
 @media (max-width: 1120px) {
   .navbar-nav {
       float: none!important;
@@ -333,7 +359,7 @@ COMPONENTS ala Audio player, slide show and more
 }
 
 [data-tag='1-India-V1'] > .video-wrap{
-  margin-top:90px;
+ // margin-top:90px;
 }
 
 
@@ -379,7 +405,10 @@ COMPONENTS ala Audio player, slide show and more
 .text {
   font-size:15px;
 }
-
+.border {
+    border: 1px solid #ccc;
+    padding-top: 15px; 
+}
 
 /*=============================================================================
 SANDBOX
@@ -390,6 +419,11 @@ SANDBOX
   width:100%;
   overflow:hidden;
 }
+
+.nav {
+  font-size:15px!important;
+}
+
 /*.image-container {
   position:initial !important;
 }
