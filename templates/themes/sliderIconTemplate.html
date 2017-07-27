@@ -6,7 +6,7 @@
 
 <div class="img-thumbnail-text" > 
 <img src="imgs/components/slider.svg"  class="audio-icon">
-<%= thumbnail.element_texts[1].text || '' + thumbnail.element_texts[2].text || '' %>
+<%= thumbnail.element_texts[1].text.substr(0, 150) || '' + thumbnail.element_texts[2].text || ''%>...
 </div>
 
 </div>
