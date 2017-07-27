@@ -384,9 +384,10 @@ COMPONENTS ala Audio player, slide show and more
 /*=============================================================================
 SANDBOX
 ==============================================================================*/
- iframe {
+ .tab-pane iframe {
   border:none;
   height:100vh;
+  width:100%;
   overflow:hidden;
 }
 /*.image-container {
