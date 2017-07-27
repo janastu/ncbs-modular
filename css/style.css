@@ -406,8 +406,8 @@ COMPONENTS ala Audio player, slide show and more
   font-size:15px;
 }
 .border {
-      border-style: ridge;
-    padding-top: 10px; 
+    border: 1px solid #ccc;
+    padding-top: 15px; 
 }
 
 /*=============================================================================
