@@ -32,12 +32,14 @@ var EphermeraView = Backbone.View.extend({
 			//curatorialNote.innerHTML = '<br> <h3>"Ephemera focuses on a single image of curiosity from across the history of NCBS, TIFR and their communities."</h3> <p>See the caption below for more details. Each refresh results in a new image.</p>';
 
 			var ephemeraDiv = document.getElementById('ephemera-container');
+
 			//ephemeraDiv.id = "ephemera-container";
 			//ephemeraDiv.className = "container";
 	    	
 	    	var captionDiv = document.createElement('div');
+	    	captionDiv.id = "view-caption";
 	        captionDiv.innerHTML = img.get('caption');
-	       	captionDiv.className = 'captionEphImg col-md-12';
+	       	captionDiv.className = 'captionEphImg collapse col-md-12';
 
 	       	//ephemeraDiv.appendChild(curatorialNote);
 	       	
@@ -45,19 +47,30 @@ var EphermeraView = Backbone.View.extend({
 		        var elem = document.createElement("img");
 		        elem.src = this.path + "/" + img.get('src');
 	    	    elem.style.width = "100%";
-	    	    ephemeraDiv.appendChild(elem);
-	        	ephemeraDiv.appendChild(captionDiv);
-
-		    }
+	    	   }
 		    else {
 		        var elem = document.createElement("video");
 		        elem.src = this.path + "/" + img.get('src');
 		        elem.style.width = "100%";
 		        elem.controls = "true";
 		        elem.play()
-		        ephemeraDiv.appendChild(elem);
-				ephemeraDiv.appendChild(captionDiv);		        
+		     		        
 	    }
+	    ephemeraDiv.appendChild(elem);
+	    var viewButton = document.createElement('a');
+	    var vbImg = document.createElement('img');
+	    vbImg.className = "view-caption";
+	    vbImg.src = 'imgs/components/view.svg';
+	    viewButton.className = 'btn';
+	    $(viewButton).attr('data-toggle', 'collapse');
+	    $(viewButton).attr('href', '#view-caption');
+	    $(viewButton).attr('aria-expanded', 'false');
+	    $(viewButton).attr('aria-controls', 'view-caption');
+	    viewButton.appendChild(vbImg);
+	    ephemeraDiv.appendChild(viewButton);
+
+	    	   
+	        	ephemeraDiv.appendChild(captionDiv);
 	    
 	}
 });

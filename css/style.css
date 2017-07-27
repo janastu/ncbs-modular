@@ -440,7 +440,9 @@ SANDBOX
 .nav {
   font-size:15px!important;
 }
-
+.view-caption {
+  width:50px;
+}
 /*.image-container {
   position:initial !important;
 }
