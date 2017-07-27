@@ -10,8 +10,7 @@ define([
   'views/aboutView',
   'views/themeMenu',
   'views/themeSingleton',
-  'models/theme/ThemeModel',
-  'views/sandBox'
+  'models/theme/ThemeModel'
 ], function($, _, Backbone, HomeView, ProjectsView, 
             ContributorsView, FooterView, AboutView, 
             ThemeMenu, ThemesView, ThemeModel, SandboxView) {
@@ -26,7 +25,7 @@ define([
       "theme/:name/:section": "themeHandler",
       "theme/:name/:section/": "themeHandler",
       'about': 'about',
-      "sandbox/:name": "sandboxHandler",
+     
       // Default
       '*actions': 'defaultAction'
     }
@@ -97,11 +96,7 @@ define([
      // console.log(theme, section, this.Themes, this.now);
     });
 
-    app_router.on('route:sandboxHandler', function (section) {
-      console.log('section', section);
-      var sandboxView = new SandboxView();
-    });
-
+    
     Backbone.history.start();
   };
   return { 

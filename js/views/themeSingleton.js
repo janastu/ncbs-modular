@@ -15,11 +15,12 @@ define([
   'text!templates/themes/audioPlayer.html',
   'text!templates/themes/sliderIconTemplate.html',
   'views/components/slideComponent',
+  'views/sandBox',
   'bootstrap'
 ], function($, _, Backbone, identityTemplate, institutionBuilding, growthTemplate,
             researchTemplate, educationTemplate, rippleTemplate, intersectionTemplate, 
             ComponentCollection, storyCollection, audioIconTemplate, audioPlayerTemplate, 
-            sliderIconTemplate, ImageSliderView){
+            sliderIconTemplate, ImageSliderView, SandboxView){
 
 
   //utilities
@@ -61,7 +62,7 @@ define([
   
     events: {
      // "shown.bs.tab a[data-toggle='tab']": "updateRoute"
-     "click .theme-pills a[data-toggle='tab']": "updateRoute",
+     "click a[data-toggle='tab']": "updateRoute",
      "click .audio-icon": "onAudioPlayer"
     },
     initialize: function(options){
@@ -69,6 +70,7 @@ define([
      // this.getData();
      // this.listenTo(this.model, "change:theme", this.getData);
       this.listenTo(this.model, "change:theme", this.getData);
+      this.listenTo(this.model, "change:theme", this.sandboxManager);
       this.listenTo(this.model, "change:section", this.toggleTabs);
       this.listenTo(this.model, "change:section", this.dataSanitizer);
       //this.listenTo(this.model, "change:section", this.updateRoute);
@@ -132,7 +134,12 @@ define([
     getData: function(){
        var self = this;
        //this method will be called every time the route param Theme changes
+       if(this.model.get('theme') !== 'sandbox'){
+        
+        //renders the bootstrap tabs for the relevant template
         self.render();
+       
+        
        //request omeka items - requestParam is the id of the collection in omeka
        //add +9 because the api import plugin has ids starting after 8
        // untill collection id 8 is reserved in ncbs25/omeka from live server
@@ -155,6 +162,7 @@ define([
           //console.log(self.omekaItems);
          //self.dataSanitizer();
        }); 
+     }
       self.loading();
       
     },
@@ -203,6 +211,11 @@ define([
     toggleTabs: function(){
       this.$el.find('a[href="#'+this.model.get('section')+'"]').tab('show');
       return;
+    },
+    sandboxManager: function (){
+      if(this.model.get('theme') === 'sandbox'){
+        this.sandboxView = new SandboxView({section: this.model.get('section')});
+      }
     },
     componentManager: function () {
       var collectionelements=this.$el.find("[data-tag]");
