@@ -126,6 +126,7 @@ define([
  
     },
     loading: function() {
+      
       console.log("loading...");
     },
     getData: function(){
