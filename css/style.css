@@ -367,6 +367,9 @@ COMPONENTS ala Audio player, slide show and more
 [data-component='slide']{
   min-height: 300px;
   cursor: pointer;
+  border: 1px solid #ccc;
+  padding-top: 15px; 
+  display: block;
 }
 
 [data-tag='1-India-V1'] > .video-wrap{
@@ -416,13 +419,12 @@ COMPONENTS ala Audio player, slide show and more
 .text {
   font-size:15px;
 }
-.border {
-    border: 1px solid #ccc;
-    padding-top: 15px; 
-}
+
 .img-thumbnail-text{
   font-size: 14px;
   color: #333;
+  text-align: justify;
+  padding: 15px;
 }
 
 /*=============================================================================
