@@ -436,6 +436,7 @@ var sliderThumbView = Backbone.View.extend({
         closable: true,
         hash:false,
         share: false,
+        download: false,
         dynamicEl: self.album
         /*[{
             "src": this.options.content[0].toJSON().fileurls.fullsize,
