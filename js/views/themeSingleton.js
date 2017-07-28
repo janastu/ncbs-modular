@@ -16,6 +16,7 @@ define([
   'text!templates/themes/sliderIconTemplate.html',
   'views/components/slideComponent',
   'views/sandBox',
+  'libs/utilities',
   'bootstrap'
 ], function($, _, Backbone, identityTemplate, institutionBuilding, growthTemplate,
             researchTemplate, educationTemplate, rippleTemplate, intersectionTemplate, 
@@ -23,41 +24,7 @@ define([
             sliderIconTemplate, ImageSliderView, SandboxView){
 
 
-  //utilities
-
-
-  function capitalizeFirstLetter(string) {
-    if(string){
-       return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-  }
-
-  function urlParamToArgs(string){
-    console.log(string.split('-')[0]);
-    return string.split('-')[0].charAt(0).toUpperCase() + string.slice(1)
-  }
-
-  //Helper for sorting the items by tags
-  // While sorting the order of the tags, we need to check for natural sorting since the tag is a text
-  // with numbers marked as order
-
-    function naturalCompare(a, b) {
-        var ax = [], bx = [];
-        //console.log(a, b);
-        a.get('tags')[0].name.replace(/(\d+)|(\D+)/g, function(_, $1, $2) { ax.push([$1 || Infinity, $2 || ""]) });
-        b.get('tags')[0].name.replace(/(\d+)|(\D+)/g, function(_, $1, $2) { bx.push([$1 || Infinity, $2 || ""]) });
-        
-        while(ax.length && bx.length) {
-            var an = ax.shift();
-            var bn = bx.shift();
-            var nn = (an[0] - bn[0]) || an[1].localeCompare(bn[1]);
-            if(nn) return nn;
-        }
-            return ax.length - bx.length;
-        }
   
-  
-
   var ThemesView = Backbone.View.extend({
   
     events: {
@@ -404,7 +371,7 @@ var sliderThumbView = Backbone.View.extend({
      // orderedContent.sort(naturalCompare);
       console.log(orderedContent, "ordered content");
       self.album = _.compact(orderedContent.map(function(item, index){
-                
+        //console.log(item.get('element_texts')[2].text);
         var thisfileurl = self.fileurls.filter(function (filesresponse){
                   
           if(filesresponse.item.id === item.get('id')) {
@@ -468,6 +435,7 @@ var sliderThumbView = Backbone.View.extend({
         dynamic: true,
         closable: true,
         hash:false,
+        share: false,
         dynamicEl: self.album
         /*[{
             "src": this.options.content[0].toJSON().fileurls.fullsize,
