@@ -161,9 +161,7 @@ a:hover {
   text-decoration:none;
 
 }
-img {
-  cursor: pointer;
-}
+
 .menu-item  img {
   /*width:53px;
   height:53px;*/
@@ -358,6 +356,22 @@ COMPONENTS ala Audio player, slide show and more
   cursor: pointer;
 }
 
+[data-component='image'] .slider-thumb-icon, 
+[data-component='slide'] .slider-thumb-icon {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+[data-component='image'], 
+[data-component='slide']{
+  min-height: 300px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  padding-top: 15px; 
+  display: block;
+}
+
 [data-tag='1-India-V1'] > .video-wrap{
  // margin-top:90px;
 }
@@ -405,24 +419,30 @@ COMPONENTS ala Audio player, slide show and more
 .text {
   font-size:15px;
 }
-.border {
-      border-style: ridge;
-    padding-top: 10px; 
+
+.img-thumbnail-text{
+  font-size: 14px;
+  color: #333;
+  text-align: justify;
+  padding: 15px;
 }
 
 /*=============================================================================
 SANDBOX
 ==============================================================================*/
- iframe {
+ .tab-pane iframe {
   border:none;
   height:100vh;
+  width:100%;
   overflow:hidden;
 }
 
 .nav {
   font-size:15px!important;
 }
-
+.view-caption {
+  width:50px;
+}
 /*.image-container {
   position:initial !important;
 }

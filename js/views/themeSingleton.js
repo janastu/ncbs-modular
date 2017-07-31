@@ -15,53 +15,21 @@ define([
   'text!templates/themes/audioPlayer.html',
   'text!templates/themes/sliderIconTemplate.html',
   'views/components/slideComponent',
+  'views/sandBox',
+  'libs/utilities',
   'bootstrap'
 ], function($, _, Backbone, identityTemplate, institutionBuilding, growthTemplate,
             researchTemplate, educationTemplate, rippleTemplate, intersectionTemplate, 
             ComponentCollection, storyCollection, audioIconTemplate, audioPlayerTemplate, 
-            sliderIconTemplate, ImageSliderView){
+            sliderIconTemplate, ImageSliderView, SandboxView){
 
 
-  //utilities
-
-
-  function capitalizeFirstLetter(string) {
-    if(string){
-       return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-  }
-
-  function urlParamToArgs(string){
-    console.log(string.split('-')[0]);
-    return string.split('-')[0].charAt(0).toUpperCase() + string.slice(1)
-  }
-
-  //Helper for sorting the items by tags
-  // While sorting the order of the tags, we need to check for natural sorting since the tag is a text
-  // with numbers marked as order
-
-    function naturalCompare(a, b) {
-        var ax = [], bx = [];
-        //console.log(a, b);
-        a.get('tags')[0].name.replace(/(\d+)|(\D+)/g, function(_, $1, $2) { ax.push([$1 || Infinity, $2 || ""]) });
-        b.get('tags')[0].name.replace(/(\d+)|(\D+)/g, function(_, $1, $2) { bx.push([$1 || Infinity, $2 || ""]) });
-        
-        while(ax.length && bx.length) {
-            var an = ax.shift();
-            var bn = bx.shift();
-            var nn = (an[0] - bn[0]) || an[1].localeCompare(bn[1]);
-            if(nn) return nn;
-        }
-            return ax.length - bx.length;
-        }
   
-  
-
   var ThemesView = Backbone.View.extend({
   
     events: {
      // "shown.bs.tab a[data-toggle='tab']": "updateRoute"
-     "click .theme-pills a[data-toggle='tab']": "updateRoute",
+     "click a[data-toggle='tab']": "updateRoute",
      "click .audio-icon": "onAudioPlayer"
     },
     initialize: function(options){
@@ -69,6 +37,7 @@ define([
      // this.getData();
      // this.listenTo(this.model, "change:theme", this.getData);
       this.listenTo(this.model, "change:theme", this.getData);
+      this.listenTo(this.model, "change:theme", this.sandboxManager);
       this.listenTo(this.model, "change:section", this.toggleTabs);
       this.listenTo(this.model, "change:section", this.dataSanitizer);
       //this.listenTo(this.model, "change:section", this.updateRoute);
@@ -126,12 +95,18 @@ define([
  
     },
     loading: function() {
+
       console.log("loading...");
     },
     getData: function(){
        var self = this;
        //this method will be called every time the route param Theme changes
+       if(this.model.get('theme') !== 'sandbox'){
+        
+        //renders the bootstrap tabs for the relevant template
         self.render();
+       
+        
        //request omeka items - requestParam is the id of the collection in omeka
        //add +9 because the api import plugin has ids starting after 8
        // untill collection id 8 is reserved in ncbs25/omeka from live server
@@ -154,6 +129,7 @@ define([
           //console.log(self.omekaItems);
          //self.dataSanitizer();
        }); 
+     }
       self.loading();
       
     },
@@ -202,6 +178,11 @@ define([
     toggleTabs: function(){
       this.$el.find('a[href="#'+this.model.get('section')+'"]').tab('show');
       return;
+    },
+    sandboxManager: function (){
+      if(this.model.get('theme') === 'sandbox'){
+        this.sandboxView = new SandboxView({section: this.model.get('section')});
+      }
     },
     componentManager: function () {
       var collectionelements=this.$el.find("[data-tag]");
@@ -315,6 +296,8 @@ define([
       this.subViewManager();
     },
     updateRoute: function(event){
+      //Build url pattern for maintiaing restful states in Themes View
+      // this logic controls all url update in Theme navigation level
       event.preventDefault();
       $(event.currentTarget).tab('show');
       var urlFragmentPath = "", //variable to build url path
@@ -388,7 +371,7 @@ var sliderThumbView = Backbone.View.extend({
      // orderedContent.sort(naturalCompare);
       console.log(orderedContent, "ordered content");
       self.album = _.compact(orderedContent.map(function(item, index){
-                
+        //console.log(item.get('element_texts')[2].text);
         var thisfileurl = self.fileurls.filter(function (filesresponse){
                   
           if(filesresponse.item.id === item.get('id')) {
@@ -437,7 +420,7 @@ var sliderThumbView = Backbone.View.extend({
     console.log(self.options, this.$el, "img slider render")
     self.options.thumbnail.collection.getFileByUrl(self.options.thumbnail.get('files').url).then(function (response){
       console.log(response);
-      self.$el.html(self.sliderThumbTemplate(response[0]));
+      self.$el.html(self.sliderThumbTemplate({files: response[0], thumbnail:self.options.thumbnail.toJSON()}));
       self.sanitizeData();
     }, self);
     console.log("rendering slider thumb", self.options.thumbnail.toJSON());
@@ -452,7 +435,10 @@ var sliderThumbView = Backbone.View.extend({
         dynamic: true,
         closable: true,
         hash:false,
-        dynamicEl: self.album/*[{
+        share: false,
+        download: false,
+        dynamicEl: self.album
+        /*[{
             "src": this.options.content[0].toJSON().fileurls.fullsize,
             'thumb': this.options.content[0].toJSON().fileurls.square_thumbnail,
             'subHtml': this.options.content[0].toJSON().description.text

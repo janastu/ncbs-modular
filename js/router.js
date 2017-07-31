@@ -10,8 +10,7 @@ define([
   'views/aboutView',
   'views/themeMenu',
   'views/themeSingleton',
-  'models/theme/ThemeModel',
-  'views/sandBox'
+  'models/theme/ThemeModel'
 ], function($, _, Backbone, HomeView, ProjectsView, 
             ContributorsView, FooterView, AboutView, 
             ThemeMenu, ThemesView, ThemeModel, SandboxView) {
@@ -26,7 +25,7 @@ define([
       "theme/:name/:section": "themeHandler",
       "theme/:name/:section/": "themeHandler",
       'about': 'about',
-      "sandbox/:name": "sandboxHandler",
+     
       // Default
       '*actions': 'defaultAction'
     }
@@ -36,7 +35,12 @@ define([
 
     var app_router = new AppRouter;
     //this.currentView = [];
-     window.ThemesViewInstance = new ThemesView({el: "#page", model: new ThemeModel({"theme": "string", "section": "string"})});
+     window.ThemesViewInstance = new ThemesView({el: "#page", 
+                            model: new ThemeModel({
+                                      "theme": "string", 
+                                      "section": "string"
+                                    })
+                          });
 
     /*app_router.on('route:showProjects', function(){
    
@@ -73,7 +77,7 @@ define([
     });
 
     app_router.on('route:themeHandler', function (theme, section) {
-     
+
       this.now = section;
       if(!this.now){
         this.now = "curatorial-note";
@@ -92,11 +96,7 @@ define([
      // console.log(theme, section, this.Themes, this.now);
     });
 
-    app_router.on('route:sandboxHandler', function (section) {
-      console.log('section', section);
-      var sandboxView = new SandboxView();
-    });
-
+    
     Backbone.history.start();
   };
   return { 
