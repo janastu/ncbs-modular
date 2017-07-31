@@ -17,6 +17,7 @@ define([
   'views/components/slideComponent',
   'views/sandBox',
   'libs/utilities',
+  'gallery',
   'bootstrap'
 ], function($, _, Backbone, identityTemplate, institutionBuilding, growthTemplate,
             researchTemplate, educationTemplate, rippleTemplate, intersectionTemplate, 

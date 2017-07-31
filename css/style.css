@@ -207,9 +207,9 @@ a:hover {
 #page {
   min-height:100vh;
 }
-#page button {
+/*#page button {
   background-color: #fff;
-}
+}*/
 
 #themeMenu{
   min-height: 185px;
