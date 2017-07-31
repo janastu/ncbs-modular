@@ -2,7 +2,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'text!templates/sandbox/sandBox.html'
+  'text!templates/sandbox/sandbox.html'
   ], function($, _, Backbone, SandboxTemplate){
 
   	var sandboxView = Backbone.View.extend({
