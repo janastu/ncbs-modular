@@ -4,16 +4,13 @@ define([
   'underscore',
   'backbone',
   'views/home/HomeView',
-  'views/projects/ProjectsView',
-  'views/contributors/ContributorsView',
   'views/footer/FooterView',
   'views/aboutView',
   'views/themeMenu',
   'views/themeSingleton',
   'models/theme/ThemeModel'
-], function($, _, Backbone, HomeView, ProjectsView, 
-            ContributorsView, FooterView, AboutView, 
-            ThemeMenu, ThemesView, ThemeModel, SandboxView) {
+], function($, _, Backbone, HomeView, FooterView, AboutView, 
+            ThemeMenu, ThemesView, ThemeModel) {
   
   var AppRouter = Backbone.Router.extend({
     routes: {
