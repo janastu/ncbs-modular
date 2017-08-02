@@ -9,12 +9,12 @@ console.log(SocialShare);
   
   var MenuView = Backbone.View.extend({
     el: $("#themeMenu"),
-   /* events: {
-      "change #search-form": "onSearch",
-      "click a": "onNavClicked",
+    events: {
+      /*"change #search-form": "onSearch",
+      "click a": "onNavClicked",*/
       "mouseover nav li": "onMouseOver",
       "mouseout nav li": "onMouseOut"
-    },*/
+    },
     initialize: function(){
       this.ontology = ["identity", "institution-building", "growth", "research", "education",
                         "ripple-effect", "intersections", "sandbox"];
@@ -57,29 +57,11 @@ console.log(SocialShare);
         $(this.prevItem).find('img')[0].src = $(this.prevItem).find('img')[0].dataset.mouseout;
       }
       
-      console.log(this.prevItem, model, ThemesViewInstance.model, $(this.el).find("li")[this.ontology.indexOf(model.get('theme'))]);
+  
       //set active icon
       this.activeItem = $(this.el).find("li")[this.ontology.indexOf(model.get('theme'))];
       $(this.activeItem).addClass("active");
       $(this.activeItem).find('img')[0].src = $(this.activeItem).find('img')[0].dataset.mousein;
-    /*  console.log($(this.el).find(".active"), "nav changed");
-      //Hack: very bad jQuery traversing
-      //FIXIT: need better way of modelling using backbone models
-      var activeSrc = $(this.el).find(".active img")[0].dataset.mousein;
-      //activeSrc = src.slice(0, src.indexOf('.svg'));
-      console.log(activeSrc, $(this.el).find(".active img"));
-      $(this.el).find(".active img")[0].src=activeSrc;
-*/
-    },
-    onNavClicked: function(event){
-      //on nav menu item click, the state of the active link has to be maintained
-      //event.preventDefault();
-      //var toggleEl =  $(this.el).find(".active img")[0];
-      //toggleEl.src = toggleEl.dataset.mouseout;
-      $(this.el).find(".active").removeClass('active');
-      $(event.target).closest('li').addClass('active');
-      this.onNavChange();
-      console.log(event, event.target, $(this.el).find(".active"), "nav clicked");
     },
     onSearch: function(event){
       event.preventDefault();
