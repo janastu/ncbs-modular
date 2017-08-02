@@ -16,6 +16,7 @@ define([
   'text!templates/themes/sliderIconTemplate.html',
   'views/components/slideComponent',
   'views/sandBox',
+  
   'libs/utilities',
   'gallery',
   'bootstrap'
@@ -25,7 +26,6 @@ define([
             sliderIconTemplate, ImageSliderView, SandboxView){
 
 
-  
   var ThemesView = Backbone.View.extend({
   
     events: {
