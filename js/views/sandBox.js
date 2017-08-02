@@ -17,6 +17,9 @@ define([
   		render: function () {
   			console.log("rendering sandbox", SandboxTemplate);
   			this.$el.html(SandboxTemplate);
+        //show first tab by default
+        $('a:first').tab('show');
+        //this.$el.find('iframe')[0].
   		},
   		tabShown: function(e){
   			//Hack: Iframe loading content after tabshown, 
