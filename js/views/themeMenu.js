@@ -35,8 +35,11 @@ console.log(SocialShare);
     onMouseOver: function (event) {
       event.stopPropagation();
       var targetImage = $(event.currentTarget).find('img')[0];
-      var newSRC = targetImage.dataset.mousein;
-      $(event.currentTarget).find('img')[0].src = newSRC;
+      if(targetImage){
+        var newSRC = targetImage.dataset.mousein;
+        $(event.currentTarget).find('img')[0].src = newSRC;
+      }
+
     },
     onMouseOut: function(event){
       event.stopPropagation();
