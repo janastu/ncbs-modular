@@ -17,7 +17,7 @@
                <p>The history of NCBS is tied to this broader quest for building a name for biological research in India. The Identity theme has four chapters of stories that explore this: from the ways in which people made the case for a separate space for biology, to weighing the pros and cons of doing science in India. Identity is about building a recognizable brand of research. And it is about contemplating on the scientific method itself – picking research questions and probing what distinguishes biology. Reflections on science is a selection of comments from researchers at NCBS and beyond.</p> 
              </div>
            </div>
-        </div>
+          </div>
 
             <div class="tab-pane" id="space-for-biology">
               <div class="row">
@@ -133,7 +133,13 @@
               </div>
                 <!--Gallery-->
               <div>
+
+                <button class="bttn btn-success btn-lg mrb50" onclick="lightGallery(spaceGallery)">IMAGES</button>
+
+                <!--<a class="btn btn-success center-block gallery-btn" role="button" data-toggle="collapse" href="#1-gallery" aria-expanded="false" aria-controls="1-gallery">GALLERY</a>
+
                 <a class="btn btn-success center-block gallery-btn" role="button" data-toggle="collapse" href="#1-gallery" aria-expanded="false" aria-controls="1-gallery">GALLERY</a>
+
 
                 <div class="in" id="1-gallery" style="height: auto;">
                 <div class="audio-gallery-item col-sm-3" style="height:200px; overflow:hidden; margin-top:5px;">
@@ -164,7 +170,7 @@
                 <div class="img-gallery-item col-sm-3">
                 <img src="https://www.ncbs.res.in/ncbs25/omeka/files/square_thumbnails/82e2d948f52da3401f770111273f51d4.jpg" data-high-res-src="https://www.ncbs.res.in/ncbs25/omeka/files/original/82e2d948f52da3401f770111273f51d4.jpg" class="img-responsive pannable">
                 </div>
-                </div>
+                </div>-->
               </div>
               <!--Gallery-Ends-->
             </div>             
@@ -246,9 +252,16 @@
             </div>
             <!--Gallery-->
                   <div>
+
+                    <h3 class="text-center">GALLERY</h3>
+                    <button class="bttn btn-success btn-lg mrb50" onclick="lightGallery(indiaGallery)">IMAGES</button>
+                    <!--<a class="btn btn-success center-block gallery-btn" role="button" data-toggle="collapse" href="#2-gallery" aria-expanded="false" aria-controls="2-gallery">GALLERY</a>-->
+                    <!--<div class="in" id="2-gallery" style="height: auto;">
+
                      <a class="btn btn-success center-block gallery-btn" role="button" data-toggle="collapse" href="#2-gallery" aria-expanded="false" aria-controls="2-gallery">GALLERY</a>
 
                     <div class="in" id="2-gallery" style="height: auto;">
+
                     <div class="img-gallery-item col-sm-3">
                     <img src="https://www.ncbs.res.in/ncbs25/omeka/files/square_thumbnails/347ef717c9c71763ae5215060cc99ff2.jpg" data-high-res-src="https://www.ncbs.res.in/ncbs25/omeka/files/original/347ef717c9c71763ae5215060cc99ff2.jpg" class="img-responsive pannable">
                     </div>
@@ -284,11 +297,11 @@
                         <em></em>
                         </div>
                     </div>
-                  </div>
+                  </div>-->
+                   </div>
                   <!--Gallery-Ends-->
-          </div>
-
-
+                  </div>
+          
               <div class="tab-pane" id="recognition">
                 <div class="row">
                   <div class="col-md-5">
@@ -361,9 +374,15 @@
               <!--Gallery-->
 
                    <div>
-                     <a class="btn btn-success center-block gallery-btn" role="button" data-toggle="collapse" href="#3-gallery" aria-expanded="false" aria-controls="3-gallery">GALLERY</a>
 
-                     <div class="in" id="3-gallery" style="height: auto;">
+                     <h3 class="text-center">GALLERY</h3>
+                     <button class="bttn btn-success btn-lg mrb50" onclick="lightGallery(recognitionGallery)">IMAGES</button>
+                     <!--<a class="btn btn-success center-block gallery-btn" role="button" data-toggle="collapse" href="#3-gallery" aria-expanded="false" aria-controls="3-gallery">GALLERY</a>
+
+                     <a class="btn btn-success center-block gallery-btn" role="button" data-toggle="collapse" href="#3-gallery" aria-expanded="false" aria-controls="3-gallery">GALLERY</a>-->
+
+
+                     <!--<div class="in" id="3-gallery" style="height: auto;">
                      <div class="audio-gallery-item col-sm-3" style="height:200px; overflow:hidden; margin-top:5px;">
                      <img src="imgs/components/small-sound.svg" onmouseover="this.src='imgs/components/small-sound-hover.svg';" onmouseout="this.src='imgs/components/small-sound.svg';" class="audio-icon">
                      <span>Jayant Udgaonkar, faculty member at NCBS: On the actual name for NCBS, and his memories of changing the name to make it less of a mouthful.</span>
@@ -439,7 +458,7 @@
                           <em>NCBS Archives</em>
                           </div>
 
-                     </div>
+                     </div>-->
                    </div>
             </div>           
 
@@ -484,11 +503,12 @@
                <div class="col-md-7">
                  <p> One of Siddiqi’s long-time collaborators and friends, Martin Heisenberg, wrote a 2012 Journal of Neurogenetics essay that began with an exploration of the differences between biology, physics and chemistry. An excerpt can be seen in the slideshow. “In order to be taken seriously by physicists and chemists, a biologist has to formulate his findings as objective facts,” he wrote. But that is difficult in biology, and experiments may not always have the same results. “To understand why, we have to consider the process of life. There is only one such process on earth. It has been going on without interruption for about 4.5 billion years. From very early on it had the three features of biological evolution: variation, reproduction, and selection. Due to this property — we might call it the Darwinian principle, life on earth is a continuously changing process that allows biological phenomena to appear de novo and others to disappear forever.”  </p>
                </div>
-                  <div class="col-md-offset-5">
-                  </div>
             </div>
+            </div>
+   
+            <!-- gallery -->
+            <script type="text/template" src="js/gallery.js"></script>
           </div>
-       </div>
   
 
 
@@ -986,3 +1006,7 @@
   </div>
 
 	</div>
+<!-- gallery -->
+  <script type="text/template" src="js/gallery.js"></script>
+  
+ 
