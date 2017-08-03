@@ -7,6 +7,9 @@ define([
 
   	var sandboxView = Backbone.View.extend({
   		el: '#page',
+  		events: {
+  			'show.bs.tab': 'tabShown'
+  		},
   		initialize: function (){
   			var self = this;
   			self.render();
@@ -14,6 +17,19 @@ define([
   		render: function () {
   			console.log("rendering sandbox", SandboxTemplate);
   			this.$el.html(SandboxTemplate);
+        //show first tab by default
+        $('a:first').tab('show');
+        //this.$el.find('iframe')[0].
+  		},
+  		tabShown: function(e){
+  			//Hack: Iframe loading content after tabshown, 
+  			//else content rendering is buggy
+  			paneID = $(e.target).attr('href');
+		    src = $(paneID+" iframe").attr('data-src');
+		    if($(paneID+" iframe").attr("src")==""){
+		    	$(paneID+" iframe").attr("src",src);
+		    }
+		    
   		}
   	});
 

@@ -32,7 +32,8 @@ define([
 
     var app_router = new AppRouter;
     //this.currentView = [];
-     window.ThemesViewInstance = new ThemesView({el: "#page", 
+     window.ThemesViewInstance = new ThemesView({
+                            el: "#page", 
                             model: new ThemeModel({
                                       "theme": "string", 
                                       "section": "string"

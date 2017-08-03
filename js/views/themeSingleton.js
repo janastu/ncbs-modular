@@ -16,7 +16,9 @@ define([
   'text!templates/themes/sliderIconTemplate.html',
   'views/components/slideComponent',
   'views/sandBox',
+  
   'libs/utilities',
+  'gallery',
   'bootstrap'
 ], function($, _, Backbone, identityTemplate, institutionBuilding, growthTemplate,
             researchTemplate, educationTemplate, rippleTemplate, intersectionTemplate, 
@@ -24,7 +26,6 @@ define([
             sliderIconTemplate, ImageSliderView, SandboxView){
 
 
-  
   var ThemesView = Backbone.View.extend({
   
     events: {
@@ -97,15 +98,18 @@ define([
     loading: function() {
 
       console.log("loading...");
+      this.$el.toggleClass("loading");
+      return;
     },
     getData: function(){
        var self = this;
+        
        //this method will be called every time the route param Theme changes
        if(this.model.get('theme') !== 'sandbox'){
-        
+        self.loading();
         //renders the bootstrap tabs for the relevant template
         self.render();
-       
+        
         
        //request omeka items - requestParam is the id of the collection in omeka
        //add +9 because the api import plugin has ids starting after 8
@@ -124,13 +128,10 @@ define([
        }).then(function (response){
           console.log(response, self);
           self.omekaItems.reset(response);
-          console.log(self.omekaItems);
-          //self.omekaItems.set(response);
-          //console.log(self.omekaItems);
-         //self.dataSanitizer();
+          self.loading();
        }); 
      }
-      self.loading();
+      
       
     },
     render: function(){
@@ -163,28 +164,26 @@ define([
           console.log('default');
 
       }
-      /*if(this.model.get('theme')==='identity'){
-        this.$el.html(identityTemplate); 
-      } else if(this.model.get('theme')==='institution-building'){
-        this.$el.html(institutionBuilding);
-      } else if (this.model.get('theme')==='research') {
-        this.$el.html(researchTemplate);
-      }*/
-      
-   //   console.log(this.model);
+      //Handle Bootstrap tab show and hide 
       this.toggleTabs();
+      //Handling of Dynamic Dom elements -> which creates a components collection object
       this.componentManager();
     },
     toggleTabs: function(){
+      // Show the relevant tab as per route theme:section param
       this.$el.find('a[href="#'+this.model.get('section')+'"]').tab('show');
       return;
     },
     sandboxManager: function (){
+      //Handle Sandbox route
       if(this.model.get('theme') === 'sandbox'){
         this.sandboxView = new SandboxView({section: this.model.get('section')});
       }
     },
     componentManager: function () {
+      //Create a backbone collection for all dynamic elements
+      // But looks like this collection is not used in the subview Manager
+      // need to check if this method is still needed.
       var collectionelements=this.$el.find("[data-tag]");
       //collection of components for every theme
       this.componentsCollection = new ComponentCollection;
@@ -193,7 +192,8 @@ define([
       }, this);
     },
     subViewManager: function() {
-
+      // Gets all dynamic dom componenets namely audio, image and slides
+      //and creates relevant child views
       var self = this;
       //Audio player references from the DOM
       var audiosDom = this.$el.find(".tab-pane.active [data-component='audio']");
@@ -201,7 +201,7 @@ define([
       var sliderDoms = this.$el.find(".tab-pane.active [data-component='slide']");
       // Images 
       var imageDoms = this.$el.find(".tab-pane.active [data-component='image']");
-      console.log(audiosDom, sliderDoms, imageDoms);
+     // console.log(audiosDom, sliderDoms, imageDoms);
       //Iterate thru audio references to find the data
       _.each(audiosDom, function (element) {
         console.log(self.sectionData);
@@ -211,12 +211,14 @@ define([
           });
           console.log(audioModel, element, "audio model");
           self.subView.audios.push(new audioIconView({item: audioModel[0], el: $(element)}));
+
         } else {
           console.log("waiting for data . . .");
+         
         }
       }, self);
       //Iterate to slider references to find the DATA
-     console.log(sliderDoms, self.sectionData, this.model.toJSON());
+     //console.log(sliderDoms, self.sectionData, this.model.toJSON());
      _.each(sliderDoms, function (element){
 
         if(self.sectionData){
@@ -249,6 +251,7 @@ define([
           self.subView.sliders.push(new sliderThumbView({content: sliderModels, el: $(element), thumbnail: sliderModels[0], slider:true}));
           
         } else {
+           //self.loading();
           console.log("data unavailable");
         }
 
@@ -277,16 +280,21 @@ define([
             thumbnail: imageModel[0], 
             slider:false
           }));
-           
+            
          } else {
           console.log("data unavailable");
+           //self.loading();
          }
 
        }, self);
       console.log(sliderDoms, self.subView);
+      // 
     },
     dataSanitizer: function () {
-      //based on the section, query the omeka collection for media tags
+      //Group the api data as per sections using the groupByTags api of the collection
+      //which will group by the index of the tag split by '-' 
+      //0: group by theme, 1:group by Section, 2:group by component, 3: group by order
+      
       var self = this;
       self.subView.audios= [];
       self.subView.sliders=[];
@@ -296,9 +304,11 @@ define([
       this.subViewManager();
     },
     updateRoute: function(event){
+      // Triggered when the tabs are clicked
       //Build url pattern for maintiaing restful states in Themes View
       // this logic controls all url update in Theme navigation level
       event.preventDefault();
+       
       $(event.currentTarget).tab('show');
       var urlFragmentPath = "", //variable to build url path
       eventEmittedby = event.target.innerText.toLowerCase().trim(), //text of the event target
@@ -330,6 +340,23 @@ define([
 
   });
 
+/* Using the Light slider plugin DynamicEl method, the data structure should be in below
+format, This view also handles making api calls to Omeka files endpoint to fetch file
+urls for each item
+ /*[{
+            "src": this.options.content[0].toJSON().fileurls.fullsize,
+            'thumb': this.options.content[0].toJSON().fileurls.square_thumbnail,
+            'subHtml': this.options.content[0].toJSON().description.text
+        }, {
+            "src": this.options.content[1].toJSON().fileurls.fullsize,
+            'thumb': this.options.content[1].toJSON().fileurls.square_thumbnail,
+            'subHtml': this.options.content[1].toJSON().description.text
+        }, {
+            "src": this.options.content[2].toJSON().fileurls.fullsize,
+            'thumb': this.options.content[2].toJSON().fileurls.square_thumbnail,
+            'subHtml': this.options.content[2].toJSON().description.text
+        }]*/
+
 var sliderThumbView = Backbone.View.extend({
   sliderThumbTemplate: _.template(sliderIconTemplate),
   events: {
@@ -341,15 +368,10 @@ var sliderThumbView = Backbone.View.extend({
     console.log(self.options);
     self.fileurls = [];
     self.getData();
-    /*this.model = this.options.model || this.model;
-    this.model.set("content", this.options.content);
-    this.model.set("total", this.options.content.length);*/
-    
-    //console.log(self.album, "Albums");
-    
   },
   getData: function () {
     var self = this;
+    //make ajax call to the files end point to get the fileurl
       self.options.content.forEach(function (item){
           item.collection.getFileByUrl(item.get('files').url).then(function (response){
           self.fileurls.push(response[0]);
@@ -357,11 +379,11 @@ var sliderThumbView = Backbone.View.extend({
       });
     });
       self.render();
-      console.log(self.fileurls, "img slider file urls");
-
-    // self.sanitizeData();
+      //console.log(self.fileurls, "img slider file urls");
   },
   sanitizeData: function() {
+    // handles data sanitization as required by the Lightslider (vendor) Plugin
+    // based on component type image || slide
     var self = this;
     if(self.options.slider){
       var orderedContent = _.sortBy(self.options.content, function(item){
@@ -416,6 +438,7 @@ var sliderThumbView = Backbone.View.extend({
     }
   },
   render: function(){
+    // Render Thumbnail with Caption and icon
     var self = this;
     console.log(self.options, this.$el, "img slider render")
     self.options.thumbnail.collection.getFileByUrl(self.options.thumbnail.get('files').url).then(function (response){
@@ -427,10 +450,10 @@ var sliderThumbView = Backbone.View.extend({
     
   },
   onClicked: function (event){
+    //pass the album object to the plugin to render 
     //console.log(event, this);
     var self = this;
-    
-    console.log(self.album, "on clicked gallery");
+   // console.log(self.album, "on clicked gallery");
     $(this).lightGallery({
         dynamic: true,
         closable: true,
@@ -438,20 +461,7 @@ var sliderThumbView = Backbone.View.extend({
         share: false,
         download: false,
         dynamicEl: self.album
-        /*[{
-            "src": this.options.content[0].toJSON().fileurls.fullsize,
-            'thumb': this.options.content[0].toJSON().fileurls.square_thumbnail,
-            'subHtml': this.options.content[0].toJSON().description.text
-        }, {
-            "src": this.options.content[1].toJSON().fileurls.fullsize,
-            'thumb': this.options.content[1].toJSON().fileurls.square_thumbnail,
-            'subHtml': this.options.content[1].toJSON().description.text
-        }, {
-            "src": this.options.content[2].toJSON().fileurls.fullsize,
-            'thumb': this.options.content[2].toJSON().fileurls.square_thumbnail,
-            'subHtml': this.options.content[2].toJSON().description.text
-        }]*/
-    })
+    });
   }
 });
   
@@ -511,6 +521,7 @@ var sliderThumbView = Backbone.View.extend({
       return this;
     },
     closePlayer: function(){
+      //Remove view
       console.log("closing");
       //event.preventDefault();
       // COMPLETELY UNBIND THE VIEW
@@ -525,85 +536,7 @@ var sliderThumbView = Backbone.View.extend({
     }
    });
 
-
-  
-
-   var imgSliderModel = Backbone.Model.extend({
-    defaults: {
-      content: [],
-      currentIndex: 1,
-      total: "",
-      currentZoom: 0
-    },
-    initialize: function() {
-
-    }
-   });
-   /* ==================================================
-   Deprecated View
-   ============================================================
-
-   /* The Image slider view
-    using http://ignitersworld.com/lab/imageViewer.html 
-
-   var imgSliderView = Backbone.View.extend({
-    template: _.template($("#img-slider-template").html()),
-    footerTemplate: _.template($("#img-slider-footer").html()),
-    captionTemplate: _.template($("#caption-template").html()),
-    events: {
-      "click .prev": "slideDecrement",
-      "click .next": "slideIncrement",
-      "click img": "zoomControl"
-    },
-    initialize: function(options){
-      //Image slider view using http://ignitersworld.com/lab/imageViewer.html
-      //expects options - el, content(array of objects for imgurls)
-      this.options = options || {};
-      this.model = this.options.model;
-      this.model.set("content", this.options.content);
-      this.model.set("total", this.options.content.length);
-      this.$el.html(this.template(this.model.toJSON()));
-      console.log(this.$('.image-container'), "img container");
-      this.viewer = ImageViewer(this.$('.image-container'), {
-        zoomOnMouseWheel: false
-      });
-   
-      this.listenTo(this.model, "change:currentIndex", this.render, this);
-      this.render();
-
-    },
-    render: function(){
-      if(this.model.get('currentIndex') > this.model.get('total')) {
-        this.model.set('currentIndex', 1);
-      } else if( this.model.get('currentIndex')<1) {
-        this.model.set('currentIndex', this.model.get('total'));
-      }
-      this.viewer.load(this.model.get('content')[this.model.get('currentIndex')-1].get('fileurls').square_thumbnail, this.model.get('content')[this.model.get('currentIndex')-1].get('fileurls').original);
-      //this.viewer.load(this.model.get('content')[this.model.get('currentIndex')-1].get('fileurls').thumbnail);
-      this.$(".featured-img-caption").remove();
-      //window.imager = this.model;
-      //console.log(this.model.get('content')[this.model.get('currentIndex')-1].get('description').text, this.model.get('content')[this.model.get('currentIndex')-1].get('rights').text);
-      this.$el.append(this.captionTemplate({description: this.model.get('content')[this.model.get('currentIndex')-1].get('description'),
-                          rights: this.model.get('content')[this.model.get('currentIndex')-1].get('rights') || ""}));
-      this.$('.footer-info').remove();
-      this.$el.append(this.footerTemplate(this.model.toJSON()));
-      this.model.set("total", this.options.content.length);
-      //this.viewer.refresh();
-      this.$('img').css('max-width', '100%', 'max-height', '100%');
-    },
-    slideDecrement: function(e){
-      this.model.set('currentIndex', this.model.get('currentIndex')-1);
-    },
-    slideIncrement: function(e){
-      this.model.set('currentIndex', this.model.get('currentIndex')+1);
-    },
-    zoomControl: function(e){
-      e.preventDefault();
-      //zoom on one click instead of default doubleclick
-      this.viewer.zoom(200, {x:500, y:500});
-    }
-   });
-*/
+// return the view object -> will be instantiated in the router with el and model
   return ThemesView;
 
 });
