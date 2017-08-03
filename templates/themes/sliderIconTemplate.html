@@ -1,11 +1,11 @@
 <!-- Onn mouseover and mouse out events for toggling the icons is inline -->
-
+ 
 <div class="image-thumb-wrap" onmouseover="this.children[1].children[0].src='imgs/components/slider-hover.svg';" onmouseout="this.children[1].children[0].src='imgs/components/slider.svg';">
 
 <img src='<%= files.file_urls.square_thumbnail %>' data-url='<%= files.file_urls.original%>' class="slider-thumb-icon"/>
 
-<div class="img-thumbnail-text" > 
-<img src="imgs/components/slider.svg"  class="audio-icon">
+<div class="img-thumbnail-text featured-img-caption" > 
+<img src="imgs/components/slider.svg"  class="slider-caption-icon">
 <%= thumbnail.element_texts[1].text.substr(0, 150) || '' + thumbnail.element_texts[2].text || ''%>...
 </div>
 
