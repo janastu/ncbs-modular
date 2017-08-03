@@ -8,7 +8,7 @@ body {
   background: #fff;
   font-family: 'Open Sans', sans-serif;
   line-height: 28px;
-  font-size:17px;
+  font-size:15px;
   color: rgb(51,51,51);
 }
 
@@ -35,7 +35,9 @@ padding-bottom: 6px;
 }
 .nav-pills > li {
   border-right: 2px solid #aaa;
-  max-height: 30px;
+  max-height: 20px;
+  font-size: 12px;
+  line-height: 14px;
 }
 .nav-pills > li.active > a, 
 .nav-pills > li.active > a:focus, 
@@ -218,7 +220,7 @@ a:hover {
   font-size:16px;
 }
 .audio-icon {
-  width: 30px;
+  width: 27px;
 }
 
 #curatorial-note {
@@ -229,8 +231,25 @@ a:hover {
 color: #aaa;
 text-align: left;
 font-size: 12px;
+line-height:14px;
+padding:15px;
 }
 
+.featured-slide img {
+  width: 84px;
+  float: left;
+  margin-right: 15px;
+}
+.featured-slide-text {
+  color: #aaa;
+  text-align: left;
+  font-size: 12px;
+  padding: 26px;
+  line-height: 17px;
+}
+.slider-caption-icon {
+  width: 20px;
+}
 
 .img-gallery-item{
   display: inline-block;
@@ -345,17 +364,19 @@ COMPONENTS ala Audio player, slide show and more
   margin-left: auto;
 }
 
-[data-component='image'], 
-[data-component='slide']{
+[data-component='image'] .slider-thumb-icon, 
+[data-component='slide'] .slider-thumb-icon {
   min-height: 300px;
   cursor: pointer;
   border: 1px solid #ccc;
-  padding-top: 15px; 
+  /*padding-top: 15px; */
   display: block;
 }
 
 [data-tag='1-India-V1'] > .video-wrap{
- // margin-top:90px;
+ /*margin-top:90px;*/
+ padding:15px;
+ padding-bottom:0px;
 }
 
 
@@ -402,16 +423,15 @@ COMPONENTS ala Audio player, slide show and more
   font-size:15px;
 }
 
-.img-thumbnail-text{
-  font-size: 14px;
-  color: #333;
-  text-align: justify;
-  padding: 15px;
-}
+
 
 #share-item {
   font-size: 14px !important;
   margin-top:-50px;
+}
+
+.inline-highlight {
+  color:#aaa;
 }
 /*=============================================================================
 SANDBOX
