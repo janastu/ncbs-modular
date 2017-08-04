@@ -17,7 +17,7 @@
             }]*/
 
 
-window.lightGallery = function(album) {
+/*window.lightGallery = function(album) {
         console.log("licked gallery", album);
         $(this).lightGallery({
             dynamic: true,
@@ -28,12 +28,12 @@ window.lightGallery = function(album) {
             dynamicEl: album
         })
      
-    };
+    };*/
 
 
 //JSON data of galleries in each chapter is a globar variable
 //Images of space for biology in Identity themes
-spaceGallery = [{
+/*spaceGallery = [{
                 "src": 'http://archives.ncbs.res.in/files/original/d04ef3f34052b4776c21d2c4cdbf8317.jpg',
                 'thumb': 'http://archives.ncbs.res.in/files/original/d04ef3f34052b4776c21d2c4cdbf8317.jpg',
                 'subHtml': 'The DAE sanction order to TIFR to set up the Centre for Fundamental Research in Biological Sciences, which would eventually become the National Centre for Biological Sciences. The Oct 22, 1991, letter was followed up by another one on Oct 23 due to a typo in the cost breakdown. Records Office, TIFR'
@@ -57,13 +57,13 @@ spaceGallery = [{
                 'src': 'http://archives.ncbs.res.in/files/original/f8e6445882e2f006175961d943218f16.jpg',
                 'thumb': 'http://archives.ncbs.res.in/files/original/f8e6445882e2f006175961d943218f16.jpg',
                 'subHtml': 'The first official proposal for an independent centre for biology under TIFR, as seen in the TIFR Five Year Plan from 1980-85. It was called the &#34;TIFR-IISC Joint Centre for Biological Research&#34;'
-            }] ;
+            }] ;*/
 
             //end of space for biology
 
 //India gallery in Identity theme
 
-indiaGallery =[{
+/*indiaGallery =[{
 
         "src": 'http://archives.ncbs.res.in/files/original/2924b41778e2a4e06706a94cede81c67.mp4',
         'thumb': 'http://archives.ncbs.res.in/files/original/2924b41778e2a4e06706a94cede81c67.mp4',
@@ -88,13 +88,13 @@ indiaGallery =[{
         'src': 'http://archives.ncbs.res.in/files/original/e01569e87addb25396526e5a29d066cf.jpg',
         'thumb': "http://archives.ncbs.res.in/files/original/e01569e87addb25396526e5a29d066cf.jpg",
         'subHtml': 'Extracts from AV Hill&#39;s letter in January 1945 to Homi Bhabha, reflecting on scientific cooperation. TIFR Archives'
-    }] ;
+    }] ;*/
 
    // end of science in India
 
    //Recognition Gallery in Identity theme
 
-   recognitionGallery =[{
+   /*recognitionGallery =[{
 
             "src": 'http://archives.ncbs.res.in/files/original/ab05321d23441800e687b0d4757d64b2.jpg',
             'thumb': 'http://archives.ncbs.res.in/files/original/ab05321d23441800e687b0d4757d64b2.jpg',
@@ -147,13 +147,13 @@ indiaGallery =[{
             'src': 'http://archives.ncbs.res.in/files/original/96761968cb5f36e84499b4afa02fee40.mp4',
             'thumb': "http://archives.ncbs.res.in/files/original/96761968cb5f36e84499b4afa02fee40.mp4",
             'subHtml': 'The gleam in the eye-P Balaram'
-        }] ;
+        }] ;*/
 
         //end of Recognition Gallery
 
     //space and autonomy in institution building theme
 
-    autonomyGallery =[{
+    /*autonomyGallery =[{
 
              "src": 'http://archives.ncbs.res.in/files/original/25b161363e5fc6d40918c3e720c7ea5a.jpg',
              'thumb': 'http://archives.ncbs.res.in/files/original/25b161363e5fc6d40918c3e720c7ea5a.jpg',
@@ -190,14 +190,14 @@ indiaGallery =[{
              'src': 'http://archives.ncbs.res.in/files/original/cc779b13b8e90ad23bbb797c6897c41e.jpg',
              'thumb': 'http://archives.ncbs.res.in/files/original/cc779b13b8e90ad23bbb797c6897c41e.jpg',
              'subHtml': 'Obaid Siddiqi wrote a proposal for a new biology centre as part of TIFR’s 1980-1985 Five Year Plan, based on S. Ramaseshan’s invitation to set it up at IISc. But even though it was approved by the government, the IISc plan lost steam. This extract shows the first time the idea came up for discussion in the TIFR Council Meeting Minutes. December 2, 1981. Office of the Registrar, Tata Institute for Fundamental Research'
-         }] ;
+         }] ;*/
 
 
          //end of space and autonomy
 
     //Paper trails in institution building theme
 
-         paperGallery =[{
+     /*    paperGallery =[{
 
                   "src": 'http://archives.ncbs.res.in/files/original/a892b8e4fb234451642a3ca11d1f055a.mp4',
                   'thumb': 'http://archives.ncbs.res.in/files/original/a892b8e4fb234451642a3ca11d1f055a.mp4',
@@ -250,14 +250,14 @@ indiaGallery =[{
                   'src': 'http://archives.ncbs.res.in/files/original/7057909a79cb04aaefd17f510ac65aa3.jpg',
                   'thumb': 'http://archives.ncbs.res.in/files/original/7057909a79cb04aaefd17f510ac65aa3.jpg',
                   'subHtml': 'The first official proposal for an independent centre for biology under TIFR, as seen in the TIFR Five Year Plan from 1980-85. It was called the "TIFR-IISC Joint Centre for Biological Research"'
-              }] ;
+              }] ;*/
 
               //end of paper trial
 
 
    //Architecture Gallery in institution building theme
 
-   archGallery =[{
+   /*archGallery =[{
 
             "src": 'http://archives.ncbs.res.in/files/original/5f9fb58bac851ef1b3c89ea6070010ad.jpg',
             'thumb': 'http://archives.ncbs.res.in/files/original/5f9fb58bac851ef1b3c89ea6070010ad.jpg',
@@ -299,4 +299,4 @@ indiaGallery =[{
             'thumb': 'http://archives.ncbs.res.in/files/original/d644b9a61a4727e7ba0242d2ece601e8.jpg',
             'subHtml': 'First floor plan of the TIFR Centre, Bangalore, in 1995. While NCBS was being built, the early faculty continued to work at the TIFR Centre on the IISc Campus. Courtesy of TM Sahadevan'
         }] ;
-   }]
+   }]*/
