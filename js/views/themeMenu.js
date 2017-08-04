@@ -14,7 +14,8 @@ console.log(SocialShare);
       "click a": "onNavClicked",*/
       "mouseover nav li": "onMouseOver",
       "mouseout nav li": "onMouseOut",
-      "click #menu-target": "onMenuToggle"
+      "click #menu-target": "onMenuToggle",
+      "click #menu-after-collapse": "onMenuToggle"
     },
     initialize: function(){
       this.ontology = ["identity", "institution-building", "growth", "research", "education",
