@@ -17,7 +17,7 @@
             }]*/
 
 
-window.lightGallery = function(album) {
+/*window.lightGallery = function(album) {
         console.log("licked gallery", album);
         $(this).lightGallery({
             dynamic: true,
@@ -33,7 +33,7 @@ window.lightGallery = function(album) {
 
 //JSON data of galleries in each chapter is a globar variable
 //Images of space for biology in Identity themes
-spaceGallery = [{
+/*spaceGallery = [{
                 "src": 'http://archives.ncbs.res.in/files/original/d04ef3f34052b4776c21d2c4cdbf8317.jpg',
                 'thumb': 'http://archives.ncbs.res.in/files/original/d04ef3f34052b4776c21d2c4cdbf8317.jpg',
                 'subHtml': 'The DAE sanction order to TIFR to set up the Centre for Fundamental Research in Biological Sciences, which would eventually become the National Centre for Biological Sciences. The Oct 22, 1991, letter was followed up by another one on Oct 23 due to a typo in the cost breakdown. Records Office, TIFR'
@@ -63,7 +63,7 @@ spaceGallery = [{
 
 //India gallery in Identity theme
 
-indiaGallery =[{
+/*indiaGallery =[{
 
         "src": 'http://archives.ncbs.res.in/files/original/2924b41778e2a4e06706a94cede81c67.mp4',
         'thumb': 'http://archives.ncbs.res.in/files/original/2924b41778e2a4e06706a94cede81c67.mp4',
@@ -94,7 +94,7 @@ indiaGallery =[{
 
    //Recognition Gallery in Identity theme
 
-   recognitionGallery =[{
+   /*recognitionGallery =[{
 
             "src": 'http://archives.ncbs.res.in/files/original/ab05321d23441800e687b0d4757d64b2.jpg',
             'thumb': 'http://archives.ncbs.res.in/files/original/ab05321d23441800e687b0d4757d64b2.jpg',
@@ -153,7 +153,7 @@ indiaGallery =[{
 
     //space and autonomy in institution building theme
 
-    autonomyGallery =[{
+    /*autonomyGallery =[{
 
              "src": 'http://archives.ncbs.res.in/files/original/25b161363e5fc6d40918c3e720c7ea5a.jpg',
              'thumb': 'http://archives.ncbs.res.in/files/original/25b161363e5fc6d40918c3e720c7ea5a.jpg',
@@ -197,7 +197,7 @@ indiaGallery =[{
 
     //Paper trails in institution building theme
 
-         paperGallery =[{
+     /*    paperGallery =[{
 
                   "src": 'http://archives.ncbs.res.in/files/original/a892b8e4fb234451642a3ca11d1f055a.mp4',
                   'thumb': 'http://archives.ncbs.res.in/files/original/a892b8e4fb234451642a3ca11d1f055a.mp4',
@@ -257,7 +257,7 @@ indiaGallery =[{
 
    //Architecture Gallery in institution building theme
 
-   archGallery =[{
+   /*archGallery =[{
 
             "src": 'http://archives.ncbs.res.in/files/original/5f9fb58bac851ef1b3c89ea6070010ad.jpg',
             'thumb': 'http://archives.ncbs.res.in/files/original/5f9fb58bac851ef1b3c89ea6070010ad.jpg',
