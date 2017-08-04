@@ -193,6 +193,7 @@ a:hover {
 }
 #page button {
   background-color: #fff;
+  color:#333;
 }
 
 #themeMenu{
@@ -227,14 +228,49 @@ a:hover {
   border: none;
 }
 
+/* Modal styles for site map menu */
+#menuModal{
+  margin-top: -32px;
+}
+#menuModal .modal-dialog {
+  width:100vw;
+}
+
+#menuModal .modal-dialog .modal-body {
+  height:100vh;
+}
+#menuModal .modal-header{
+  border-bottom: none;
+}
+#menuModal .modal-header .logo-responsive img{
+  width:80px;
+}
+#menuModal .modal-content {
+  border-radius: 0px;
+  background-color: #FFA008;
+  opacity:0.8;
+}
+
+#menuModal .modal-header .close{
+  margin-right: 25px;
+  font-size: 50px;
+}
+
+/*====================================================================*/
+
 .featured-img-caption {
 color: #aaa;
 text-align: left;
-font-size: 12px;
+font-size: 14px;
 line-height:14px;
-padding:15px;
+padding-top:15px;
+padding-bottom: 15px;
 }
 
+.featured-slide {
+  max-width: 420px;
+  min-height:100px;
+}
 .featured-slide img {
   width: 84px;
   float: left;
@@ -244,7 +280,8 @@ padding:15px;
   color: #aaa;
   text-align: left;
   font-size: 12px;
-  padding: 26px;
+  padding-top: 26px;
+  padding-bottom:25px;
   line-height: 17px;
 }
 .slider-caption-icon {
@@ -362,16 +399,12 @@ COMPONENTS ala Audio player, slide show and more
   display: block;
   margin-right: auto;
   margin-left: auto;
-}
-
-[data-component='image'] .slider-thumb-icon, 
-[data-component='slide'] .slider-thumb-icon {
   min-height: 300px;
   cursor: pointer;
   border: 1px solid #ccc;
-  /*padding-top: 15px; */
-  display: block;
+  width:100%;
 }
+
 
 [data-tag='1-India-V1'] > .video-wrap{
  /*margin-top:90px;*/
