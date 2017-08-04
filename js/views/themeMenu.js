@@ -13,7 +13,8 @@ console.log(SocialShare);
       /*"change #search-form": "onSearch",
       "click a": "onNavClicked",*/
       "mouseover nav li": "onMouseOver",
-      "mouseout nav li": "onMouseOut"
+      "mouseout nav li": "onMouseOut",
+      "click #menu-target": "onMenuToggle"
     },
     initialize: function(){
       this.ontology = ["identity", "institution-building", "growth", "research", "education",
@@ -65,6 +66,10 @@ console.log(SocialShare);
       this.activeItem = $(this.el).find("li")[this.ontology.indexOf(model.get('theme'))];
       $(this.activeItem).addClass("active");
       $(this.activeItem).find('img')[0].src = $(this.activeItem).find('img')[0].dataset.mousein;
+    },
+    onMenuToggle: function(event){
+      event.preventDefault();
+      $("#menuModal").modal('show');
     },
     onSearch: function(event){
       event.preventDefault();
