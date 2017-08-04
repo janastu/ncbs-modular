@@ -228,6 +228,36 @@ a:hover {
   border: none;
 }
 
+/* Modal styles for site map menu */
+#menuModal{
+  margin-top: -32px;
+}
+#menuModal .modal-dialog {
+  width:100vw;
+}
+
+#menuModal .modal-dialog .modal-body {
+  height:100vh;
+}
+#menuModal .modal-header{
+  border-bottom: none;
+}
+#menuModal .modal-header .logo-responsive img{
+  width:80px;
+}
+#menuModal .modal-content {
+  border-radius: 0px;
+  background-color: #FFA008;
+  opacity:0.8;
+}
+
+#menuModal .modal-header .close{
+  margin-right: 25px;
+  font-size: 50px;
+}
+
+/*====================================================================*/
+
 .featured-img-caption {
 color: #aaa;
 text-align: left;
