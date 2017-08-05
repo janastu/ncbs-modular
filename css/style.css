@@ -203,7 +203,7 @@ a:hover {
 
 .home-curatorial-note {
   margin-bottom:-20px;
-  width: 60%;
+ 
 }
 .home-curatorial-note .btn{
   font-size: 11px;
@@ -247,7 +247,7 @@ a:hover {
 }
 #menuModal .modal-content {
   border-radius: 0px;
-  background-color: #FFA008;
+  background-color: #FFBC03;/* #FFA008 - dull color*/
   opacity:0.8;
 }
 
@@ -255,13 +255,22 @@ a:hover {
   margin-right: 25px;
   font-size: 50px;
 }
+#menuModal th, #menuModal td {
+  text-align: center !important;
+  padding: 5px;
+  border:none !important;
+  color: #822d1a;
+}
+#menuModal a {
+  color: #822d1a;
+}
 
 /*====================================================================*/
 
 .featured-img-caption {
 color: #aaa;
 text-align: left;
-font-size: 14px;
+font-size: 12px;
 line-height:14px;
 padding-top:15px;
 padding-bottom: 15px;
@@ -305,11 +314,7 @@ MEDIA QUERIES
 
 To change breakpoint for nav collapse
 ==============================================================================================*/
-@media only screen and (max-width: 500px) {
-    #home-curatorial-note.dropdown-menu {
-       max-width: 100%;
-    }
-}
+
 
 
 @media (max-width: 1120px) {
@@ -322,6 +327,8 @@ To change breakpoint for nav collapse
 
   }
 
+
+
  
 }
 
@@ -333,6 +340,8 @@ To change breakpoint for nav collapse
   .navbar-collapse {
     text-align: center;
   }
+
+
 
 }
 
@@ -382,8 +391,52 @@ To change breakpoint for nav collapse
   .collapse.in{
       display:block !important;
   }
+
+
 }
 
+
+/*========================================================
+  
+Bootstrap 3 Media Queries
+
+/*==========  Mobile First Method  ==========*/
+
+/* Custom, iPhone Retina */ 
+@media only screen and (min-width : 320px) {
+  .home-curatorial-note{
+     width: 100%;
+  }
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (min-width : 480px) {
+  .home-curatorial-note{
+     width: 100%;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+  .home-curatorial-note{
+     width: 100%;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+  .home-curatorial-note{
+     width: 60%;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+  .home-curatorial-note{
+     width: 60%;
+  }
+
+}
 
 /* ================================================================
 COMPONENTS ala Audio player, slide show and more
