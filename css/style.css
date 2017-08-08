@@ -10,6 +10,7 @@ body {
   line-height: 28px;
   font-size:15px;
   color: rgb(51,51,51);
+  overflow-x: hidden;
 }
 
 blockquote {
@@ -205,7 +206,8 @@ a:hover {
   margin-bottom:-20px;
  
 }
-.home-curatorial-note .btn{
+.home-curatorial-note .btn,
+#menu-share-btn .btn {
   font-size: 11px;
   font-weight: 700;
   background-color:#fff;
@@ -513,7 +515,15 @@ COMPONENTS ala Audio player, slide show and more
 
 #share-item {
   font-size: 14px !important;
-  margin-top:-50px;
+  /*margin-top:-50px;*/
+}
+
+#menu-share-btn{
+  margin-right: 50px;
+  margin-top: -35px;
+}
+#menu-share-btn .open > .dropdown-menu {
+  /*display: contents !important;*/
 }
 
 .inline-highlight {
