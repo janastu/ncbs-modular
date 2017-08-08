@@ -529,6 +529,9 @@ COMPONENTS ala Audio player, slide show and more
 .inline-highlight {
   color:#aaa;
 }
+.captionEphImg.in {
+  display:contents !important;
+}
 /*=============================================================================
 SANDBOX
 ==============================================================================*/
