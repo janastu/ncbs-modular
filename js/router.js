@@ -84,11 +84,12 @@ define([
       if(ThemesViewInstance.model.get("theme") === theme){
         ThemesViewInstance.model.set({"section": section});
       }
-     /* if(this.currentView[0].model.get("theme") === theme){
-        this.currentView[0].model.set({"section": section});
+
+      if( ThemesViewInstance.model.get("menuModal")){
+         console.log(ThemesViewInstance.model.get("menuModal"));
+         $("#menuModal").modal('toggle');
+         ThemesViewInstance.model.set({"menuModal": false});
       }
-      this.currentView.push(new ThemesView({el: "#page", model: new ThemeModel({"theme": theme, "section": section})}));
-      */
       ThemesViewInstance.model.set({"theme": theme, "section": section});
     
      // console.log(theme, section, this.Themes, this.now);
