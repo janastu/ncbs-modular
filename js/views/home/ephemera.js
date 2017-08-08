@@ -39,7 +39,7 @@ var EphermeraView = Backbone.View.extend({
 	    	var captionDiv = document.createElement('div');
 	    	captionDiv.id = "view-caption";
 	        captionDiv.innerHTML = img.get('caption');
-	       	captionDiv.className = 'captionEphImg collapse col-md-12';
+	       	captionDiv.className = 'captionEphImg featured-img-caption collapse col-md-12';
 
 	       	//ephemeraDiv.appendChild(curatorialNote);
 	       	
