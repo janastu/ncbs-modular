@@ -201,22 +201,7 @@ define([
       var sliderDoms = this.$el.find(".tab-pane.active [data-component='slide']");
       // Images 
       var imageDoms = this.$el.find(".tab-pane.active [data-component='image']");
-     // console.log(audiosDom, sliderDoms, imageDoms);
-      //Iterate thru audio references to find the data
-      _.each(audiosDom, function (element) {
-        console.log(self.sectionData);
-        if(self.sectionData){
-          var audioModel = self.sectionData.filter(function (item){
-            return item.get('tags')[0].name === $(element).data().tag.trim();
-          });
-          console.log(audioModel, element, "audio model");
-          self.subView.audios.push(new audioIconView({item: audioModel[0], el: $(element)}));
-
-        } else {
-          console.log("waiting for data . . .");
-         
-        }
-      }, self);
+     
       //Iterate to slider references to find the DATA
      //console.log(sliderDoms, self.sectionData, this.model.toJSON());
      _.each(sliderDoms, function (element){
@@ -287,8 +272,24 @@ define([
          }
 
        }, self);
-      console.log(sliderDoms, self.subView);
+      //console.log(sliderDoms, self.subView);
       // 
+      // console.log(audiosDom, sliderDoms, imageDoms);
+       //Iterate thru audio references to find the data
+       _.each(audiosDom, function (element) {
+         console.log(self.sectionData);
+         if(self.sectionData){
+           var audioModel = self.sectionData.filter(function (item){
+             return item.get('tags')[0].name === $(element).data().tag.trim();
+           });
+           console.log(audioModel, element, "audio model");
+           self.subView.audios.push(new audioIconView({item: audioModel[0], el: $(element)}));
+
+         } else {
+           console.log("waiting for data . . .");
+          
+         }
+       }, self);
     },
     dataSanitizer: function () {
       //Group the api data as per sections using the groupByTags api of the collection
