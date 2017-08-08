@@ -461,8 +461,14 @@ COMPONENTS ala Audio player, slide show and more
 }
 
 
+.gallery-thumb {
+  width: 175px;
+  height: 175px;
+}
 
-
+.gallery-thumb {
+  cursor:pointer;
+}
 
 #audio-player-container{
   position: fixed;
