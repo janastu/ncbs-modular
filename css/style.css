@@ -267,6 +267,10 @@ a:hover {
   color: #822d1a;
 }
 
+#menuModal .table-responsive{
+  padding:50px;
+}
+
 /*====================================================================*/
 
 .featured-img-caption {
