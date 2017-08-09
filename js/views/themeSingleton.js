@@ -190,6 +190,8 @@ define([
       _.each(collectionelements, function (item) {
         this.componentsCollection.add($(item).data());
       }, this);
+
+      console.log(this.componentsCollection, "Components collection");
     },
     subViewManager: function() {
       // Gets all dynamic dom componenets namely audio, image and slides
@@ -201,22 +203,8 @@ define([
       var sliderDoms = this.$el.find(".tab-pane.active [data-component='slide']");
       // Images 
       var imageDoms = this.$el.find(".tab-pane.active [data-component='image']");
-     // console.log(audiosDom, sliderDoms, imageDoms);
-      //Iterate thru audio references to find the data
-      _.each(audiosDom, function (element) {
-        console.log(self.sectionData);
-        if(self.sectionData){
-          var audioModel = self.sectionData.filter(function (item){
-            return item.get('tags')[0].name === $(element).data().tag.trim();
-          });
-          console.log(audioModel, element, "audio model");
-          self.subView.audios.push(new audioIconView({item: audioModel[0], el: $(element)}));
-
-        } else {
-          console.log("waiting for data . . .");
-         
-        }
-      }, self);
+     
+     
       //Iterate to slider references to find the DATA
      //console.log(sliderDoms, self.sectionData, this.model.toJSON());
      _.each(sliderDoms, function (element){
@@ -287,8 +275,41 @@ define([
          }
 
        }, self);
-      console.log(sliderDoms, self.subView);
+      //console.log(sliderDoms, self.subView);
       // 
+      // console.log(audiosDom, sliderDoms, imageDoms);
+       //Iterate thru audio references to find the data
+       _.each(audiosDom, function (element) {
+         console.log(self.sectionData);
+         if(self.sectionData){
+           var audioModel = self.sectionData.filter(function (item){
+             return item.get('tags')[0].name === $(element).data().tag.trim();
+           });
+           console.log(audioModel, element, "audio model");
+           self.subView.audios.push(new audioIconView({item: audioModel[0], el: $(element)}));
+
+         } else {
+           console.log("waiting for data . . .");
+          
+         }
+       }, self);
+       self.makeGallery();
+    },
+    makeGallery: function(){
+      var self = this;
+      //Gallery
+      var galleryDom = self.$el.find(".tab-pane.active [data-component='gallery']");
+      console.log(galleryDom, "gallery dom");
+      if(self.sectionData){
+        var galleryItems = self.sectionData.filter(function(item){
+          return item.get('tags')[0].name === galleryDom[0].dataset.tag;
+        });
+        var groupedByMediaType = _.groupBy(galleryItems, function(item){
+          return item.get('item_type').name;
+        });
+        self.subView.sliders.push(new sliderThumbView({content: groupedByMediaType['Still Image'], el: $(galleryDom[0]), thumbnail: groupedByMediaType['Still Image'][0], gallery:true}));
+        console.log(galleryItems, groupedByMediaType, "gallery Items");
+      }
     },
     dataSanitizer: function () {
       //Group the api data as per sections using the groupByTags api of the collection
@@ -385,6 +406,7 @@ var sliderThumbView = Backbone.View.extend({
     // handles data sanitization as required by the Lightslider (vendor) Plugin
     // based on component type image || slide
     var self = this;
+    //FIXIT: Lot of repetition code, needs refactor
     if(self.options.slider){
       var orderedContent = _.sortBy(self.options.content, function(item){
         return item.get('tags')[0].name.split('-')[3];
@@ -442,8 +464,13 @@ var sliderThumbView = Backbone.View.extend({
     var self = this;
     console.log(self.options, this.$el, "img slider render")
     self.options.thumbnail.collection.getFileByUrl(self.options.thumbnail.get('files').url).then(function (response){
-      console.log(response);
-      self.$el.html(self.sliderThumbTemplate({files: response[0], thumbnail:self.options.thumbnail.toJSON()}));
+      console.log(response, self.options, "is gallery");
+      if(!self.options.gallery){
+        self.$el.html(self.sliderThumbTemplate({files: response[0], thumbnail:self.options.thumbnail.toJSON(), gallery:false}));  
+      } else {
+        self.$el.html(self.sliderThumbTemplate({files: response[0], thumbnail:'imgs/components/slider.svg', gallery: true}));
+      }
+      
       self.sanitizeData();
     }, self);
     console.log("rendering slider thumb", self.options.thumbnail.toJSON());

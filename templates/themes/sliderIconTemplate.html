@@ -1,5 +1,16 @@
-<!-- Onn mouseover and mouse out events for toggling the icons is inline -->
- 
+<!--FIXIT: Onn mouseover and mouse out events for toggling the icons is inline -->
+<% if(gallery){ %> 
+<!-- Gallery with icon thumbnail -->
+<div class="gallery-thumb">
+	<img src='<%= thumbnail %>' data-url='<%= files.file_urls.original%>' class="slider-thumb-icon"/>
+	<div class="img-thumbnail-text featured-img-caption" > 
+		<em>Click to open Image and Video Gallery</em>		
+	</div>
+	</div>
+
+
+<%} else {%>
+<!-- single image and slider -->
 <div class="image-thumb-wrap" onmouseover="this.children[1].children[0].src='imgs/components/slider-hover.svg';" onmouseout="this.children[1].children[0].src='imgs/components/slider.svg';">
 
 <img src='<%= files.file_urls.square_thumbnail %>' data-url='<%= files.file_urls.original%>' class="slider-thumb-icon"/>
@@ -10,3 +21,5 @@
 </div>
 
 </div>
+<%}%>
+

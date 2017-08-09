@@ -70,6 +70,7 @@ console.log(SocialShare);
     },
     onMenuToggle: function(event){
       event.preventDefault();
+      ThemesViewInstance.model.set({"menuModal": true});
       $("#menuModal").modal('show');
     },
     onSearch: function(event){
