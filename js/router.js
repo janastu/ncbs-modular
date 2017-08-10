@@ -1,4 +1,7 @@
 // Filename: router.js
+//Routes is the entry point of the App's business logic
+//Params :theme -> Theme name
+// : section -> subtheme
 define([
   'jquery',
   'underscore',
@@ -14,9 +17,7 @@ define([
   
   var AppRouter = Backbone.Router.extend({
     routes: {
-      // Define some URL routes
-      //'projects': 'showProjects',
-      //'users': 'showContributors',
+      // Define  URL routes and params
       "theme/:name": "themeHandler",
       "theme/:name/": "themeHandler",
       "theme/:name/:section": "themeHandler",
@@ -31,7 +32,8 @@ define([
   var initialize = function(){
 
     var app_router = new AppRouter;
-    //this.currentView = [];
+    //ThemesViewInstance is the Global singleton view which handles the 
+    //Themes and sub themes
      window.ThemesViewInstance = new ThemesView({
                             el: "#page", 
                             model: new ThemeModel({
@@ -40,26 +42,7 @@ define([
                                     })
                           });
 
-    /*app_router.on('route:showProjects', function(){
-   
-        // Call render on the module we loaded in via the dependency array
-        var projectsView = new ProjectsView();
-        projectsView.render();
-
-    });
-
-    app_router.on('route:showContributors', function () {
-    
-        // Like above, call render but know that this view has nested sub views which 
-        // handle loading and displaying data from the GitHub API  
-        var contributorsView = new ContributorsView();
-    });
-
-*/
-    // Unlike the above, we don't call render on this view as it will handle
-    // the render call internally after it loads data. Further more we load it
-    // outside of an on-route function to have it loaded no matter which page is
-    // loaded initially.
+    // Initialize the general Menu and footer view 
     var menu = new ThemeMenu();
     var footerView = new FooterView();
 
@@ -75,21 +58,23 @@ define([
     });
 
     app_router.on('route:themeHandler', function (theme, section) {
-
+      //Handle empty section param
       this.now = section;
       if(!this.now){
         this.now = "curatorial-note";
       }
-
+    //Check if the route action is to Change the Tabs in Themes
       if(ThemesViewInstance.model.get("theme") === theme){
         ThemesViewInstance.model.set({"section": section});
       }
-
+    //Check for navigation trigger by State
       if( ThemesViewInstance.model.get("menuModal")){
          console.log(ThemesViewInstance.model.get("menuModal"));
          $("#menuModal").modal('toggle');
          ThemesViewInstance.model.set({"menuModal": false});
       }
+      //Set the model of the ThemeViewInstance which will trigger changes
+      //in the view component themeSingleton.js
       ThemesViewInstance.model.set({"theme": theme, "section": section});
     
      // console.log(theme, section, this.Themes, this.now);

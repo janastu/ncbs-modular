@@ -1,3 +1,13 @@
+
+//================DOCUMENTATION==================================================
+//This file contains all the Views required in the Themes view
+//The ThemeSingleton is the global view that listens to 
+//Route changes and triggers appropriate methods
+//All subviews like Image slider, Audio Player also reside in this file.
+//All data is fetched in getData() methods of the views
+//All data is formatted in the sanitizeData() methods
+//================================================================================
+
 define([
   'jquery',
   'underscore',
