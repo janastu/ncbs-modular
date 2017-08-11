@@ -26,9 +26,7 @@ define([
   'text!templates/themes/sliderIconTemplate.html',
   'views/components/slideComponent',
   'views/sandBox',
-  
   'libs/utilities',
-  'gallery',
   'bootstrap'
 ], function($, _, Backbone, identityTemplate, institutionBuilding, growthTemplate,
             researchTemplate, educationTemplate, rippleTemplate, intersectionTemplate, 
@@ -314,11 +312,11 @@ define([
         var galleryItems = self.sectionData.filter(function(item){
           return item.get('tags')[0].name === galleryDom[0].dataset.tag;
         });
-        var groupedByMediaType = _.groupBy(galleryItems, function(item){
+        var groupedByItemType = _.groupBy(galleryItems, function(item){
           return item.get('item_type').name;
         });
-        self.subView.sliders.push(new sliderThumbView({content: groupedByMediaType['Still Image'], el: $(galleryDom[0]), thumbnail: groupedByMediaType['Still Image'][0], gallery:true}));
-        console.log(galleryItems, groupedByMediaType, "gallery Items");
+        self.subView.sliders.push(new sliderThumbView({content: groupedByItemType['Still Image'], el: $(galleryDom[0]), thumbnail: groupedByItemType['Still Image'][0], gallery:true}));
+        console.log(galleryItems, groupedByItemType, "gallery Items");
       }
     },
     dataSanitizer: function () {
