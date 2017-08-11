@@ -566,14 +566,7 @@ Loading Illustration
 ===============================================================================
 */
 
-.st-custom-button[data-network] {
-   background-color: #9EEC46;
-   display: inline-block;
-   padding: 5px 10px;
-   cursor: pointer;
-   font-weight: bold;
-   color: #fff;
-   }
+
 
 /*
 #page.loading:after {
