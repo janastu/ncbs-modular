@@ -16,7 +16,9 @@ body {
 blockquote {
   border: none !important;
    color: #822d1a;
-   width:80%;
+}
+.short-width-quote{
+  width:80%;
 }
 blockquote p {
   font-size: 20px;
@@ -538,6 +540,9 @@ COMPONENTS ala Audio player, slide show and more
 .captionEphImg.in {
   display:contents !important;
 }
+.tweet-embed {
+  min-height:150px;
+}
 /*=============================================================================
 SANDBOX
 ==============================================================================*/
@@ -560,7 +565,7 @@ SANDBOX
 Loading Illustration
 ===============================================================================
 */
-
+/*
 #page.loading:after {
   /* with no content, nothing is rendered */
   content: "";
@@ -616,3 +621,4 @@ Loading Illustration
     transform: rotate(360deg);
   }
 }
+*/
