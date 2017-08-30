@@ -453,7 +453,7 @@ var sliderThumbView = Backbone.View.extend({
           return {
             'src': thisfileurl[0].file_urls.fullsize || '.././imgs/slider.svg', 
             'thumb': thisfileurl[0].file_urls.square_thumbnail || '.././imgs/slider.svg', 
-            'subHtml': '<p>'+item.get('element_texts')[1].text +'<em>'+ ' '+ item.get('element_texts')[2].text+'</em>' + '</p>'
+            'subHtml': '<p>'+item.get('element_texts')[1].text + ' <em> ' + ' '+ item.get('element_texts')[2].text+'</em>' + '</p>'
           }
         }
         
@@ -476,7 +476,7 @@ var sliderThumbView = Backbone.View.extend({
           return {
             'src': thisfileurl[0].file_urls.fullsize,  
             'thumb': thisfileurl[0].file_urls.square_thumbnail, 
-            'subHtml': '<p>'+item.get('element_texts')[1].text + '<em>'+ item.get('element_texts')[2].text  +'</em>' +'</p>'
+            'subHtml': '<p>'+item.get('element_texts')[1].text + ' <em> ' + item.get('element_texts')[2].text  +'</em>' +'</p>'
           }
         }
         
