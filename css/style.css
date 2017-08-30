@@ -260,7 +260,7 @@ a:hover {
   font-size: 50px;
 }
 #menuModal th, #menuModal td {
-  text-align: center !important;
+  vertical-align: middle;
   padding: 5px;
   border:none !important;
   color: #822d1a;

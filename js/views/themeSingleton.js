@@ -224,12 +224,12 @@ define([
             
            // console.log(item.get('tags'), tagArray);
             if(tagArray.length === 3){
-              console.log('tag length === 3', tagArray, "No popping needed");
+             // console.log('tag length === 3', tagArray, "No popping needed");
             } else if (tagArray.length > 3){
-              console.log('tag length > 3', tagArray, "popping one item");
+              //console.log('tag length > 3', tagArray, "popping one item");
               tagArray.pop();
               if(tagArray.length > 3){
-                console.log('tag length > 4', tagArray, "popping two item");
+                //console.log('tag length > 4', tagArray, "popping two item");
                 tagArray.pop();
               }
             } /*else if (tagArray.length > 4){
@@ -315,25 +315,35 @@ define([
         var groupedByItemType = _.groupBy(galleryItems, function(item){
           return item.get('item_type').name;
         });
-        self.subView.sliders.push(new sliderThumbView({content: groupedByItemType['Still Image'], el: $(galleryDom[0]), thumbnail: groupedByItemType['Still Image'][0], gallery:true}));
-        console.log(galleryItems, groupedByItemType, "gallery Items");
+        // For credits fields in images and videos related to issue #161
+        var sanitizeItem_type = groupedByItemType['Still Image'].map(function(item){
+          if(item.get('element_texts').length<4){
+            item.get('element_texts')[2] = {'text': ""};
+          } 
+          return item; 
+        });
+        self.subView.sliders.push(new sliderThumbView({content: sanitizeItem_type, el: $(galleryDom[0]), thumbnail: sanitizeItem_type[0], gallery:true}));
+        //console.log(galleryItems, groupedByItemType, sanitizeItem_type, "gallery Items");
       }
     },
     dataSanitizer: function () {
-      //Group the api data as per sections using the groupByTags api of the collection
-      //which will group by the index of the tag split by '-' 
-      //0: group by theme, 1:group by Section, 2:group by component, 3: group by order
+      //NOTE: Group the api data as per sections using the groupByTags api of the collection
+      //which will take a number as first argument and group by the index of the tag split at '-' 
+      //Index and its meaning ->
+      //0: group by theme, 1:group by Section, 
+      //2:group by component, 
+      //3: group by order
       
       var self = this;
       self.subView.audios= [];
       self.subView.sliders=[];
-      //self.sectionData = this.cacheStory.groupByTags(1)[capitalizeFirstLetter(this.ontology[this.model.get("section")])];
+      //REMOVE: self.sectionData = this.cacheStory.groupByTags(1)[capitalizeFirstLetter(this.ontology[this.model.get("section")])];
       self.sectionData = this.omekaItems.groupByTags(1)[capitalizeFirstLetter(this.ontology[this.model.get("section")])];
       console.log(self.sectionData, capitalizeFirstLetter(this.ontology[this.model.get("section")]), this.ontology);
       this.subViewManager();
     },
     updateRoute: function(event){
-      // Triggered when the tabs are clicked
+      //Note: Triggered when the tabs are clicked
       //Build url pattern for maintiaing restful states in Themes View
       // this logic controls all url update in Theme navigation level
       event.preventDefault();
@@ -348,7 +358,7 @@ define([
       } else {
         urlFragmentPath = "/"+eventEmittedby.split(" ").join("-");
       }
-      //build url to navigate
+      //Note: build url to navigate
       var finalURL = "#/theme/"+urlThemeparam+urlFragmentPath;
       console.log(this.model.toJSON().theme, finalURL);
       //navigate to built path
@@ -369,9 +379,11 @@ define([
 
   });
 
-/* Using the Light slider plugin DynamicEl method, the data structure should be in below
+/*NOTE: http://sachinchoolur.github.io/lightGallery/demos/dynamic.html
+Using the Light Gallery jQuery plugin DynamicEl method, the data structure should be in below
 format, This view also handles making api calls to Omeka files endpoint to fetch file
 urls for each item
+
  /*[{
             "src": this.options.content[0].toJSON().fileurls.fullsize,
             'thumb': this.options.content[0].toJSON().fileurls.square_thumbnail,
@@ -421,7 +433,7 @@ var sliderThumbView = Backbone.View.extend({
         
       }).sort(naturalCompare);
      // orderedContent.sort(naturalCompare);
-      console.log(orderedContent, "ordered content");
+      //console.log(orderedContent, "ordered content");
       self.album = _.compact(orderedContent.map(function(item, index){
         //console.log(item.get('element_texts')[2].text);
         var thisfileurl = self.fileurls.filter(function (filesresponse){
@@ -433,6 +445,11 @@ var sliderThumbView = Backbone.View.extend({
 
  
         if(thisfileurl.length > 0 ){
+          if(item.get('element_texts').length<4){
+            item.get('element_texts')[2] = {'text': ''};
+
+          }
+          console.log(item.get('element_texts')[2].text, self.options, item.toJSON());
           return {
             'src': thisfileurl[0].file_urls.fullsize || '.././imgs/slider.svg', 
             'thumb': thisfileurl[0].file_urls.square_thumbnail || '.././imgs/slider.svg', 
@@ -442,12 +459,12 @@ var sliderThumbView = Backbone.View.extend({
         
       }));
 
-      console.log(self.album, "from slider images");
+     // console.log(self.album, "from slider images");
     } else {
 
       self.album = _.compact(self.options.content.map(function (item){
         var thisfileurl = self.fileurls.filter(function (filesresponse){
-          console.log(filesresponse.item, item.get('id'), "files responser");
+         // console.log(filesresponse.item, item.get('id'), "files responser");
           if(filesresponse.item.id === item.get('id')) {
             console.log(filesresponse, "mat hed files");
             return filesresponse;
@@ -455,6 +472,7 @@ var sliderThumbView = Backbone.View.extend({
         });
 
         if(thisfileurl.length > 0){
+          console.log(item.get('element_texts')[2].text, self.options, item.toJSON());
           return {
             'src': thisfileurl[0].file_urls.fullsize,  
             'thumb': thisfileurl[0].file_urls.square_thumbnail, 
