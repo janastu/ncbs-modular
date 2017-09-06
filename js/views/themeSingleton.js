@@ -90,6 +90,12 @@ define([
       self.subView = {};
       self.subView.audios = [];
       self.subView.sliders = [];
+      // bind animatation events 
+      self.$el.on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', 
+        function (event) {
+          self.$el.toggleClass("animated fadeIn");
+         //console.log("end animated", event);
+        });
       //self.render();
 
      /* self.cacheStory.fetch({
@@ -139,13 +145,14 @@ define([
           self.loading();
        }); 
      }
-      
+
       
     },
     render: function(){
       //this.getData();
       //console.log(this.omekaItems, "omeka items from render");
 
+     
       switch(this.model.get('theme')) {
         case 'identity':
           this.$el.html(identityTemplate); 
@@ -172,6 +179,7 @@ define([
           console.log('default');
 
       }
+      
       //Handle Bootstrap tab show and hide 
       this.toggleTabs();
       //Handling of Dynamic Dom elements -> which creates a components collection object
@@ -180,6 +188,7 @@ define([
     toggleTabs: function(){
       // Show the relevant tab as per route theme:section param
       this.$el.find('a[href="#'+this.model.get('section')+'"]').tab('show');
+
       return;
     },
     sandboxManager: function (){
@@ -212,6 +221,7 @@ define([
       // Images 
       var imageDoms = this.$el.find(".tab-pane.active [data-component='image']");
      
+     //this.cleanupAnimations();
      
       //Iterate to slider references to find the DATA
      //console.log(sliderDoms, self.sectionData, this.model.toJSON());
@@ -372,6 +382,9 @@ define([
       }
       self.audioPlayer = new AudioPlayerView({model: new Backbone.Model(event.target.dataset)});
       self.audioPlayer.render();
+    },
+    cleanupAnimations: function() {
+      $("#page").removeClass("animated fadeIn");
     },
     close: function(){
       this.stopListening(this.model);

@@ -26,6 +26,15 @@ define([
      
       // Default
       '*actions': 'defaultAction'
+    },
+    before: function () {
+
+   
+      console.log("Before working");
+    },
+    after: function () {
+      $("#page").addClass("animated fadeIn");
+      console.log("After working");
     }
   });
   
