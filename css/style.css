@@ -538,7 +538,9 @@ COMPONENTS ala Audio player, slide show and more
   color:#aaa;
 }
 .captionEphImg.in {
-  display:contents !important;
+  /*display:contents !important;*/
+  float: right;
+  width: 94%;
 }
 .tweet-embed {
   min-height:150px;
