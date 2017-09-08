@@ -198,11 +198,17 @@
 
                     <li class="">
                          <div class="menu-item menu-right-item">
-                        <a href="#" title="search">
-                          <img src="imgs/menu/search.svg"  class="img-responsive " style="width:50px;" data-mouseout="imgs/menu/search.svg" data-mousein="imgs/menu/search-hover.svg"/>
-                           
-
-                        </a>
+                          <a href="#" title="search" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <img src="imgs/menu/search.svg"  class="img-responsive " style="width:50px;" data-mouseout="imgs/menu/search.svg" data-mousein="imgs/menu/search-hover.svg"/>
+                          </a>
+                            <div class="dropdown-menu open" role="combobox" style="padding: 0px;">
+                              <div class="input-group">
+                                <input type="text" class="form-control">
+                                <span class="input-group-btn">
+                                  <button class="btn btn-default" type="button">Go!</button>
+                                </span>
+                              </div>
+                            </div>
                       </div>
                       <!--div>
                        <input type="text" placeholder="Search" id="search-form"/>
