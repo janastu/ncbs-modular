@@ -548,7 +548,9 @@ COMPONENTS ala Audio player, slide show and more
   color:#aaa;
 }
 .captionEphImg.in {
-  display:contents !important;
+  /*display:contents !important;*/
+  float: right;
+  width: 94%;
 }
 .tweet-embed {
   min-height:150px;
@@ -570,6 +572,31 @@ SANDBOX
   width:50px;
 }
 
+/*=============================================================================
+DISCLAIMER
+==============================================================================*/
+#header-item{
+  font-family: roboto; 
+  border-radius:0px; 
+  color:#822d1a;
+}
+
+#header-text{
+  font-family: roboto;
+}
+
+#body-text{
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+#footer-btn{
+  font-family: roboto; 
+  border-radius:0px; 
+  color:#822d1a ;
+  background-color: white;
+}
 
 /*============================================================================
 Loading Illustration

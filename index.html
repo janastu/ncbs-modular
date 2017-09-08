@@ -56,6 +56,7 @@
 
   <!--link rel="stylesheet" href="css/styles.css"-->
 
+     
   
 </head>
 <body>
@@ -194,9 +195,38 @@
         </ul>
         </div>
       </div>
+      </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!--Disclaimer-->
+<div id="disclaimerModal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content" id="header-item">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="header-text">Disclaimer</h4>
+            </div>
+            <div class="modal-body" id="body-text">
+        <p>
+
+                The exhibit contains records (images, audio and video excerpts, text) under copyright or under third party ownership. These records are given on loan to NCBS for this exhibit. Material may only be reproduced for academic and non-commercial use, and only with the explicit permission of the record owners, as mentioned in the caption for each image, and audio and video clip. Please respect the honour code and the generosity of the donors in sharing this material with a wider audience. 
+
+                </p>
+
+                <p>If you would like to contact any of the record owners, we’d be happy to connect you. Get in touch: archives@ncbs.res.in
+                </p>
+                
+                    
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-dismiss="modal" class="btn" id="footer-btn">Accept & Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Disclaimer-->
 
 
 <!-- subtheme identity content start-->
@@ -239,8 +269,12 @@
   <!--script type="text/javascript" src='js/libs/ImageViewer-master/imageviewer.min.js'
 ></script-->
   <script data-main="js/main" src="js/libs/require/require.js"></script>
-  <!-- Bootstrap Dropdown Hover JS -->
-  <script src="js/libs/bootstrap-hover/js/bootstrap-dropdownhover.js"></script>
+  <!-- Bootstrap Dropdown Hover JS 
+  <script src="js/libs/bootstrap-hover/js/bootstrap-dropdownhover.js"></script>-->
+
+  <!--Disclaimer-->
+  <script type="text/javascript" src="js/disclaimer.js"></script>
+
 
   <script>
     window.fbAsyncInit = function() {
@@ -282,8 +316,7 @@
   <script type="text/javascript">
   $(document).ready(function () {
       $('[data-toggle=dropdown').dropdown();
-
-      
+      $("#disclaimerModal").modal('show');
   });
   </script>
   
