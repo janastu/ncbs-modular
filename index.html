@@ -272,9 +272,6 @@
   <!-- Bootstrap Dropdown Hover JS 
   <script src="js/libs/bootstrap-hover/js/bootstrap-dropdownhover.js"></script>-->
 
-  <!--Disclaimer-->
-  <script type="text/javascript" src="js/disclaimer.js"></script>
-
 
   <script>
     window.fbAsyncInit = function() {
@@ -317,6 +314,16 @@
   $(document).ready(function () {
       $('[data-toggle=dropdown').dropdown();
       $("#disclaimerModal").modal('show');
+
+      twttr.widgets.createShareButton(
+        'http://archives.ncbs.res.in/exhibit/13ways/',
+        document.getElementById('EmailButton'),
+        {
+          text: '13 Ways'
+        }
+      ).then( function( el ) {
+          console.log('Tweet button added.');
+        });
   });
   </script>
   

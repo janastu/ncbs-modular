@@ -48,20 +48,21 @@ define([
                 this.twitterInit();
             },
             twitterInit: function () {
-                twttr.widgets.createShareButton(
-                  'http://archives.ncbs.res.in/exhibit/13ways/',
-                  document.getElementById('EmailButton'),
-                  {
-                    text: '13 Ways'
-                  }
-                ).then( function( el ) {
-                    console.log('Tweet button added.');
-                  });
+                 
             },
             onFacebook: function () {
                 var currentLink = window.location.href,
-                captionText = $('#page .active p').first()[0].textContent.trim(),
-                imageThumb = $('#page .active .slider-thumb-icon').first();
+                captionText,
+                imageThumb,
+                foo = $('#page .active');
+                if(foo.length > 0){
+                    captionText = $('#page .active p').first()[0].textContent.trim() || this.model.get('message');
+                    imageThumb = $('#page .active .slider-thumb-icon').first() || 'http://localhost:8000/imgs/Ephemera/TIFR-Penthouse-2.jpg';
+                } else {
+                    captionText = $('p').first()[0].textContent.trim() || this.model.get('message');
+                    imageThumb = '/imgs/Ephemera/TIFR-Penthouse-2.jpg';
+                }
+                
                 FB.ui({
                   method: 'feed',
                   link: currentLink,
