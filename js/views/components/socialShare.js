@@ -32,10 +32,9 @@ define([
         '<div>' +
         '<ul class="nav">' +
         '<li><a href="https://twitter.com/share?url=<%= encodeURIComponent(readUrl) %>&text=<%= encodeURIComponent(name) %> - <%= encodeURIComponent(message) %>" target="_blank" id="TwitterButton">Twitter</a></li>'+
-        '<!--li><a href="mailto:friend@somewhere.com?subject=Made Fresh Coffee - <%= name %>&body=by <%= author %>, <%= message %> <%= readUrl %>" target="_blank"><button id="EmailButton">Email</button></a></li-->' +
-        '<li><a href="https://plus.google.com/share?url=<%= encodeURIComponent(readUrl) %>" target="_blank" id="GoogleButton">Google+</a></li>'+    
-        '<!--li><a href="#" id="URLButton">URL</a></li-->' +
-        '<li><a href="https://www.facebook.com/dialog/share?app_id=505599936281672&display=popup&link=<%= encodeURIComponent(readUrl) %>&redirect_uri=http://archives.ncbs.res.in/exhibit/13ways/" target="_blank" id="FacebookButton">Facebook</a></li>' +
+        '<!--li><a href="#" id="EmailButton" class="twitter-share-button" >Email</a></li-->' +
+        '<!--li><a href="https://plus.google.com/share?url=<%= encodeURIComponent(readUrl) %>" target="_blank" id="GoogleButton">Google+</a></li-->'+    
+        '<li><a href="javascript:void(0);" id="FacebookButton">Facebook</a></li>' +
         '</ul>' +
         '</div>' +
         '</div>',
@@ -46,9 +45,30 @@ define([
                 var html = compiledTemplate(dataContext);
                 
                 this.$el.html(html);
+                this.twitterInit();
             },
-
+            twitterInit: function () {
+                twttr.widgets.createShareButton(
+                  'http://archives.ncbs.res.in/exhibit/13ways/',
+                  document.getElementById('EmailButton'),
+                  {
+                    text: '13 Ways'
+                  }
+                ).then( function( el ) {
+                    console.log('Tweet button added.');
+                  });
+            },
             onFacebook: function () {
+                var currentLink = window.location.href,
+                captionText = $('#page .active p').first()[0].textContent.trim(),
+                imageThumb = $('#page .active .slider-thumb-icon').first();
+                FB.ui({
+                  method: 'feed',
+                  link: currentLink,
+                  caption: captionText,
+                  picture: imageThumb,
+                }, function(response){});
+                FB.AppEvents.logPageView();
                 // TODO: register analytics event
             },
 
@@ -57,6 +77,7 @@ define([
             },
 
             onEmail: function () {
+              
                 // TODO: register analytics event
             },
             
