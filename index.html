@@ -229,27 +229,16 @@
 <!--End of Disclaimer-->
 
 
-<!-- subtheme identity content start-->
-<script type="text/template" id="img-slider-template">
-<div class="slider-wrap">
-    <div class="image-container"></div>
-    <%if(total >1){%>
-  <span class="prev fa fa-chevron-left pull-left" style="font-size: 24px; top: -300px; cursor: pointer;"/></span>
-  <span  class="next fa fa-chevron-right pull-right" style="font-size: 24px; top: -300px; cursor: pointer;"/></span>
-<%}%>
-   </div> 
+
+<!--Scroll helper -->
+<script type="text/template" id="scroll-template">
+  
+    <i class="fa fa-chevron-up" aria-hidden="true" id="scroll-to-top" data-toggle="tooltip" data-placement="top" title="Up"></i>
+ 
 </script>
 
-<script type="text/template" id="img-slider-footer">
-<div class="footer-info">
-<div class="text-center">
-<%if(total >1){%>
-    <span class="current"><%=currentIndex%></span>/
-    <span class="total"><%=total%></span>
- <%}%>
- </div>
-</div>
-</script>
+
+
 
 <script type="text/template" id="caption-template">
 <div class="featured-img-caption">

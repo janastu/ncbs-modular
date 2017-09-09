@@ -45,6 +45,7 @@ define([
       this.options = options || {};
      // this.getData();
      // this.listenTo(this.model, "change:theme", this.getData);
+      
       this.listenTo(this.model, "change:theme", this.getData);
       this.listenTo(this.model, "change:theme", this.sandboxManager);
       this.listenTo(this.model, "change:section", this.toggleTabs);
@@ -601,6 +602,7 @@ var sliderThumbView = Backbone.View.extend({
 
     }
    });
+
 
 // return the view object -> will be instantiated in the router with el and model
   return ThemesView;

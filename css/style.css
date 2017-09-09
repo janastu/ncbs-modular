@@ -595,6 +595,14 @@ DISCLAIMER
   background-color: white;
 }
 
+
+.scrollHelper {
+  font-size: 30px;
+  margin: 5px;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+}
 /*============================================================================
 Loading Illustration
 ===============================================================================
