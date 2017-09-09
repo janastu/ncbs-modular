@@ -7,13 +7,21 @@ define([
 
   var FooterView = Backbone.View.extend({
     el: $("#footer"),
+    events: {
+      "click #menu-foot-target": "onMenuToggle"
+    },
     initialize: function(){
       this.render();
       this.scroller = new ScrollHelper();
     },
     render: function(){
       this.$el.html(footerTemplate); 
-    }
+    },
+    onMenuToggle: function(event){
+      event.preventDefault();
+      ThemesViewInstance.model.set({"menuModal": true});
+      $("#menuModal").modal('show');
+    },
 
   });
 
