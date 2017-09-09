@@ -10,8 +10,8 @@ console.log(SocialShare);
   var MenuView = Backbone.View.extend({
     el: $("#themeMenu"),
     events: {
-      /*"change #search-form": "onSearch",
-      "click a": "onNavClicked",*/
+      "change #search-form": "onSearch",
+      /*"click a": "onNavClicked",*/
       "mouseover nav li": "onMouseOver",
       "mouseout nav li": "onMouseOut",
       "click #menu-target": "onMenuToggle",
@@ -75,10 +75,10 @@ console.log(SocialShare);
     },
     onSearch: function(event){
       event.preventDefault();
-      var remoteURL = "https://www.ncbs.res.in/ncbs25/omeka/search?query="
+      var remoteURL = "http://archives.ncbs.res.in/search?query="
       var queryStr = event.target.value.trim()+"&query_type=keyword&record_types[]=Item&record_types[]=File&record_types[]=Collection&submit_search=Search"
       console.log("changes",event.target.value, encodeURI(remoteURL+queryStr));
-      window.open(encodeURI(remoteURL+queryStr), "_self");
+      window.open(encodeURI(remoteURL+queryStr), "_blank");
     }
 
   });
