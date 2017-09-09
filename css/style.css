@@ -576,14 +576,11 @@ SANDBOX
 DISCLAIMER
 ==============================================================================*/
 #header-item{
-  font-family: roboto; 
   border-radius:0px; 
   color:#822d1a;
 }
 
-#header-text{
-  font-family: roboto;
-}
+
 
 #body-text{
   font-weight: 300;
