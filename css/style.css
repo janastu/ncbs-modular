@@ -253,13 +253,13 @@ a:hover {
   border-radius: 0px;
   background-color: #FFBC03;/* #FFA008 - dull color*/
   opacity:0.8;
-  display: block;
+  display: flow-root;
 }
 
 #menuModal .modal-header .close{
   margin-right: 25px;
   font-size: 50px;
-  margin-top: -7%;
+  /*margin-top: -7%;*/
 }
 
 #menuModal a {
@@ -283,28 +283,13 @@ a:hover {
   padding: 5px 0px 0px 0px;
   width: 150px;
 }
-
-#menu-about{
-  width: 50px;
-  margin-top: -189%;
-  margin-left: 864px;
+.menu-search {
+  width:75%;
 }
-
-#menu-searchbtn{
-  width: 32px;
-  float: right;
-  margin-top: -12%;
-  margin-right: 3%;
-}
-
-#menu-search{
-  margin-top: -12%;
-  margin-left: 60%;
-  width: 150px;
-  border-bottom: 2px solid #FFA008;
-  border-left: none;
-  border-top: none;
-  border-right: none;
+.menu-search li{
+        display: inline-block;
+        margin-right: 15%;
+        margin-left: 23px;
 }
 /*====================================================================*/
 
