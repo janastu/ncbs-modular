@@ -96,7 +96,7 @@ padding-bottom: 6px;
   padding-right: 0px !important;
 }
 .logo-responsive img {
-  width:138px;
+  width:100%;
   padding:15px;
   height:auto;
   margin-top:-15px;
@@ -127,12 +127,19 @@ padding-bottom: 6px;
   font-size:11px;
 }
 .menu-item {
-  margin: 15px 13px 0px 13px;
-  width: 85px;
+  margin-top: 15px;
   height:auto;
-  min-width:50px;
-  min-height:55px;
 }
+
+.menu-item  img {
+  width:100%;
+  height:auto;
+  padding-bottom: 5px;
+  margin-right:auto;
+  margin-left:auto;
+
+}
+
 .menu-item  span {
   display: block;
   color: rgb(51,51,51);
@@ -149,13 +156,6 @@ a:hover {
 
 }
 
-.menu-item  img {
-  /*width:53px;
-  height:53px;*/
-  padding-bottom: 5px;
-  margin-right:auto;
-  margin-left:auto;
-}
 
 .menu-text {
   display: table;
@@ -200,7 +200,8 @@ a:hover {
 }
 
 #themeMenu{
-  min-height: 185px;
+  height:auto;
+ 
   border-bottom: 2px solid #666;
 }
 
@@ -334,8 +335,20 @@ To change breakpoint for nav collapse
 ==============================================================================================*/
 
 
+@media (max-width: 480px) {
+  .navbar-nav{
+    display: inline-block !important;
+    vertical-align: top !important;
+  }
+  .navbar-collapse {
+    text-align: center;
+  }
 
-@media (max-width: 1120px) {
+
+
+}
+
+@media (max-width: 767px) {
   .navbar-nav {
       float: none!important;
       margin-top: 7.5px;
@@ -350,22 +363,7 @@ To change breakpoint for nav collapse
  
 }
 
-@media (max-width: 900px) {
-  .navbar-nav{
-    display: inline-block !important;
-    vertical-align: top !important;
-  }
-  .navbar-collapse {
-    text-align: center;
-  }
-
-
-
-}
-
-
-
-@media (max-width: 1280px) {
+@media (max-width: 995px) {
   .visible-lg-menu {
     display:none !important;
   }
@@ -425,6 +423,9 @@ Bootstrap 3 Media Queries
   .home-curatorial-note{
      width: 100%;
   }
+  .logo-responsive img {
+    width:120px;
+  }
 }
 
 /* Extra Small Devices, Phones */ 
@@ -432,6 +433,8 @@ Bootstrap 3 Media Queries
   .home-curatorial-note{
      width: 100%;
   }
+
+
 }
 
 /* Small Devices, Tablets */
@@ -439,12 +442,30 @@ Bootstrap 3 Media Queries
   .home-curatorial-note{
      width: 100%;
   }
+
+  .menu-item{
+    width: 65px;
+  }
 }
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) {
   .home-curatorial-note{
      width: 60%;
+  }
+
+  .logo-responsive img {
+    width:110px;
+  }
+
+  .menu-item{
+    width: 65px;
+    margin-right:8px;
+    margin-left:8px;
+  }
+
+  #themeMenu {
+    min-height: 152px;
   }
 }
 
@@ -454,6 +475,20 @@ Bootstrap 3 Media Queries
      width: 60%;
   }
 
+
+  .logo-responsive img {
+    width:126px;
+  }
+
+  .menu-item{
+    width: 80px;
+    margin-right:13px;
+    margin-left:13px;
+  }
+
+  #themeMenu {
+    min-height: 172px;
+  }
 }
 
 /* ================================================================
