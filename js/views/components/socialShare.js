@@ -55,9 +55,10 @@ define([
                 captionText,
                 imageThumb,
                 foo = $('#page .active');
+                // TODO: imageThumb needs to be dynamic
                 if(foo.length > 0){
                     captionText = $('#page .active p').first()[0].textContent.trim() || this.model.get('message');
-                    imageThumb = $('#page .active .slider-thumb-icon').first() || 'http://localhost:8000/imgs/Ephemera/TIFR-Penthouse-2.jpg';
+                    imageThumb = 'http://archives.ncbs.res.in/exhibit/13ways/imgs/Ephemera/TIFR-Penthouse-2.jpg';
                 } else {
                     captionText = $('p').first()[0].textContent.trim() || this.model.get('message');
                     imageThumb = 'http://archives.ncbs.res.in/exhibit/13ways/imgs/Ephemera/TIFR-Penthouse-2.jpg';
