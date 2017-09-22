@@ -24,6 +24,7 @@ define([
   'text!templates/themes/audioIcon.html',
   'text!templates/themes/audioPlayer.html',
   'text!templates/themes/sliderIconTemplate.html',
+  'text!templates/themes/audioGalleryIcon.html',
   'views/components/slideComponent',
   'views/sandBox',
   'libs/utilities',
@@ -31,7 +32,7 @@ define([
 ], function($, _, Backbone, identityTemplate, institutionBuilding, growthTemplate,
             researchTemplate, educationTemplate, rippleTemplate, intersectionTemplate, 
             ComponentCollection, storyCollection, audioIconTemplate, audioPlayerTemplate, 
-            sliderIconTemplate, ImageSliderView, SandboxView){
+            sliderIconTemplate, audioGalleryIcon, ImageSliderView, SandboxView){
 
 
   var ThemesView = Backbone.View.extend({
@@ -319,6 +320,7 @@ define([
       //Gallery
       var galleryDom = self.$el.find(".tab-pane.active [data-component='gallery']");
       console.log(galleryDom, "gallery dom");
+      $(galleryDom[0]).html('');
       if(self.sectionData){
         var galleryItems = self.sectionData.filter(function(item){
           return item.get('tags')[0].name === galleryDom[0].dataset.tag;
@@ -333,7 +335,23 @@ define([
           } 
           return item; 
         });
-        self.subView.sliders.push(new sliderThumbView({content: sanitizeItem_type, el: $(galleryDom[0]), thumbnail: sanitizeItem_type[0], gallery:true}));
+        self.subView.sliders.push(new sliderThumbView({
+                                                        content: sanitizeItem_type, 
+                                                        el: $(galleryDom[0]), 
+                                                        thumbnail: sanitizeItem_type[0], 
+                                                        gallery:true
+                                                      }));
+        var sanitizedSound = groupedByItemType['Sound'].map(function(item){
+          if(item.get('element_texts').length<4){
+            item.get('element_texts')[2] = {'text': ""};
+          } 
+          return item; 
+        });
+        self.subView.audios.push(new audioGalleryIconView({
+                                                        content: sanitizedSound, 
+                                                        el: $(galleryDom[0]), 
+                                                        thumbnail: sanitizeItem_type[0]
+                                                      }));
         //console.log(galleryItems, groupedByItemType, sanitizeItem_type, "gallery Items");
       }
     },
@@ -414,12 +432,15 @@ urls for each item
 
 var sliderThumbView = Backbone.View.extend({
   sliderThumbTemplate: _.template(sliderIconTemplate),
+  
   events: {
-    'click': 'onClicked'
+    'click': 'onClicked' 
   },
   initialize: function(options){
     var self = this;
     self.options = options || {};
+   // _.bindAll(self, 'onclicked');
+   this.on('click', 'onClicked', self);
     console.log(self.options);
     self.fileurls = [];
     self.getData();
@@ -508,17 +529,20 @@ var sliderThumbView = Backbone.View.extend({
       if(!self.options.gallery){
         self.$el.html(self.sliderThumbTemplate({files: response[0], thumbnail:self.options.thumbnail.toJSON(), gallery:false}));  
       } else {
-        self.$el.html(self.sliderThumbTemplate({files: response[0], thumbnail:'imgs/components/slider.svg', gallery: true}));
+        console.log($.parseHTML(self.sliderThumbTemplate({files: response[0], thumbnail:'imgs/components/slider.svg', text: 'Click to open Image Gallery', gallery: true})), "Image gallery ren");
+        self.$el.append($.parseHTML(self.sliderThumbTemplate({files: response[0], thumbnail:'imgs/components/slider.svg', text: 'Click to open Image Gallery', gallery: true}))[4]);
       }
       
       self.sanitizeData();
     }, self);
-    console.log("rendering slider thumb", self.options.thumbnail.toJSON());
+    console.log("rendering slider thumb", self, self.options.thumbnail.toJSON());
+   // self.delegateEvents();
     
   },
   onClicked: function (event){
     //pass the album object to the plugin to render 
-    //console.log(event, this);
+    event.preventDefault();
+    console.log(event, this);
     var self = this;
    // console.log(self.album, "on clicked gallery");
     $(this).lightGallery({
@@ -603,6 +627,159 @@ var sliderThumbView = Backbone.View.extend({
     }
    });
 
+// split into two parts
+// 1) oplayer
+
+  window.audioGalleryIconView = Backbone.View.extend({
+    thumbnailTemplate: _.template(audioGalleryIcon),
+    className: "gallery-icon-wrap",
+    /*events: {
+      "click": "onClicked"
+    },*/
+    initialize: function(options){
+      var self = this;
+      //self.options = options;
+      self.model = new Backbone.Model(options);
+      self.player = new audioGalleryPlayerView({model: self.model});
+      this.listenTo(self.model, "change:state", self.onClose);
+      self.filesData = [];
+      self.getData();
+      self.render();
+      var cssSelector =  {jPlayer: "#jquery_jplayer_N", cssSelectorAncestor: "#jp_container_N"};
+      var options = {
+        playlistOptions: {
+          autoPlay: true,
+          enableRemoveControls: true
+        },
+        swfPath: "/js/libs/jplayer/jplayer",
+        useStateClassSkin: true,
+        smoothPlayBar: true,
+        supplied: "mp3"
+      };
+      var playlist = [];
+      self.player['playlist'] = new jPlayerPlaylist(cssSelector, playlist, options);
+
+    },
+    getData: function () {
+      var self = this;
+      console.log(self.model.get('content')[0], this.$el, "getter for data in audio icon");
+      var jqueryResponses = self.model.get('content')[0].collection.getFileByUrlArray(self.model.get('content'));
+      _.each(jqueryResponses, function(item){
+        item.then(function (response){
+          self.filesData.push(response);
+        });
+      });
+
+
+      //self.render();
+      //console.log(jqueryResponses, self.filesData, "getter files");
+
+    },
+    sanitizeData: function(){
+      var self = this;
+      var groupedDataByType = _.groupBy(_.flatten(self.filesData), function(item){
+        return item.mime_type;
+      });
+      
+      // function to find the appropriate item for the file
+      // to display metadata
+      function getDescription(id){
+        var found = _.find(self.model.get('content'), function(item){
+          return item.get('id') === id;
+        });
+        return found.get('element_texts')[1].text;
+      }
+
+      //playlist data structure
+      /*[{
+              title:"Cro Magnon Man",
+              artist:"The Stark Palace",
+              mp3:"http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3",
+              
+              poster: "http://www.jplayer.org/audio/poster/The_Stark_Palace_640x360.png"
+            }];*/
+
+      var finalAudios = _.map(groupedDataByType['audio/mpeg'], function (file){
+        return {mp3: file.file_urls.original,
+                title: getDescription(file.item.id)
+              }
+      });
+      console.log(groupedDataByType, finalAudios);
+      return finalAudios;
+    },
+    render: function() {
+      var self = this;
+      console.log(this,this.thumbnailTemplate);
+      self.childNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/sound.svg', gallery: true}))[1];
+      self.$el.append(self.childNode);
+      $(self.childNode).on('click', function(event){ 
+        self.onClicked(event);
+       });
+      return;
+    },
+    onClicked: function(event) {
+      //event.stopImmediatePropagation();
+      event.stopPropagation();
+      event.preventDefault();
+      var self = this;
+      self.player.model.set({state: 'show'});
+      console.log("clicked audio gallery", event, this.model.get('content'), self.filesData);
+      //playlist data structure
+      /*[{
+              title:"Cro Magnon Man",
+              artist:"The Stark Palace",
+              mp3:"http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3",
+              
+              poster: "http://www.jplayer.org/audio/poster/The_Stark_Palace_640x360.png"
+            }];*/
+    
+      var playList = self.sanitizeData();
+  
+      self.player['playlist'].setPlaylist(playList);
+    
+    },
+    onClose: function(){
+      if(this.model.get("state") === "hide"){
+        console.log("hidden and stopped");
+        this.player['playlist'].remove();
+      }
+      console.log("shown and playing");
+    }
+  });
+//2) data store
+   window.audioGalleryPlayerView = Backbone.View.extend({
+    el: "#media-player-widget",
+    thumbnailTemplate: _.template(audioGalleryIcon),
+    events: {
+      "click .close": "closePlayer"
+    },
+    initialize: function(options){
+      console.log(options, "from audio gallery view");
+      var self = this;
+      self.model = options.model;
+      this.listenTo(self.model, "change:state", this.toggleView);
+      self.model.set({"state": "hide"});
+      console.log(self.model, "media mmodel");
+      self.options = options;
+     
+     // self.$parent = $('#page .active .gallery')[0];
+      //self.getData();
+    },
+    closePlayer: function() {
+      this.model.set({state: 'hide'});
+    },
+    toggleView: function() {
+      console.log(this, "Gallery view toggler");
+      if(this.model.previous('state') === 'show'){
+        this.$el.removeClass('show');
+      } else {
+        this.$el.removeClass('hide');
+      }
+
+      this.$el.addClass(this.model.get("state"));
+      
+    }
+   });
 
 // return the view object -> will be instantiated in the router with el and model
   return ThemesView;

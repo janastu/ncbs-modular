@@ -30,6 +30,18 @@
 					return response;
 				}
 			});
+		},
+		getFileByUrlArray: function(array){
+			return _.map(array, function(item){
+				return $.get({
+					url: item.get('files').url/*, 
+					success: function(response){
+						return response;
+					}*/
+				}).then(function(response){
+					return response;
+				});
+			});
 		}
 	});
 	return storyCollection;
