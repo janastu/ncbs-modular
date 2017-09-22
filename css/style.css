@@ -526,12 +526,21 @@ COMPONENTS ala Audio player, slide show and more
 .gallery-thumb {
   width: 175px;
   height: 175px;
-}
-
-.gallery-thumb {
   cursor:pointer;
+  display: inline-block;
 }
 
+#media-player-widget {
+  position: fixed;
+  right:0px;
+  bottom:40px;
+}
+
+#media-player-widget .close{
+  margin-top: -27px; 
+  color: #000;
+  font-size: 30px;
+}
 #audio-player-container{
   position: fixed;
   bottom: 0px;

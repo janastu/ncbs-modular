@@ -39,6 +39,7 @@
          <link href="js/libs/bootstrap-hover/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
          <link href="js/libs/ImageViewer-master/imageviewer.css" rel="stylesheet">
          <link href="js/libs/lightgallery/css/lightgallery.min.css" rel="stylesheet">
+         <link href="js/libs/jplayer/skin/pink.flag/css/jplayer.pink.flag.css" rel="stylesheet">
 
          <!--link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,700" rel="stylesheet"-->
          <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i,400,400i,700" rel="stylesheet">  
@@ -48,10 +49,10 @@
       
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <script type="text/javascript" 
+      <!--script type="text/javascript" 
       src="//platform-api.sharethis.com/js/sharethis.js#product=custom-share-buttons"></script>
       <script type="text/javascript" 
-      src="//platform-api.sharethis.com/js/sharethis.js#property=598dde74b25a6f00127f1e93&product=inline-share-buttons"></script>
+      src="//platform-api.sharethis.com/js/sharethis.js#property=598dde74b25a6f00127f1e93&product=inline-share-buttons"></script>-->
 
 
   <!--link rel="stylesheet" href="css/styles.css"-->
@@ -233,6 +234,64 @@
 <!--End of Disclaimer-->
 
 
+<!-- Audio player -->
+<div class="media-player-container hide" id="media-player-widget">
+  <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</button>
+ <div id="jp_container_N" class="jp-video jp-video-270p" role="application" aria-label="media player">
+  <div class="jp-type-playlist">
+    <div id="jquery_jplayer_N" class="jp-jplayer" ></div>
+    <div class="jp-gui">
+      <div class="jp-video-play" style="display: none;">
+        <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
+      </div>
+      <div class="jp-interface">
+        <div class="jp-progress">
+          <div class="jp-seek-bar" style="width: 100%;">
+            <div class="jp-play-bar" style="width: 8.41511%;"></div>
+          </div>
+        </div>
+        <div class="jp-current-time" role="timer" aria-label="time"></div>
+        <div class="jp-duration" role="timer" aria-label="duration"></div>
+        <div class="jp-details" style="display: none;">
+          <div class="jp-title" aria-label="title"></div>
+        </div>
+        <div class="jp-controls-holder">
+          <div class="jp-volume-controls">
+            <button class="jp-mute" role="button" tabindex="0">mute</button>
+            <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+            <div class="jp-volume-bar">
+              <div class="jp-volume-bar-value" style="width: 80%;"></div>
+            </div>
+          </div>
+          <div class="jp-controls">
+            <button class="jp-previous" role="button" tabindex="0">previous</button>
+            <button class="jp-play" role="button" tabindex="0">play</button>
+            <button class="jp-next" role="button" tabindex="0">next</button>
+            <button class="jp-stop" role="button" tabindex="0">stop</button>
+          </div>
+          <div class="jp-toggles">
+            <button class="jp-repeat" role="button" tabindex="0">repeat</button>
+            <button class="jp-shuffle" role="button" tabindex="0">shuffle</button>
+            <!--button class="jp-full-screen" role="button" tabindex="0">full screen</button-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="jp-playlist">
+      <ul style="display: block;">
+        <li></li>
+      </ul>
+    </div>
+    <div class="jp-no-solution" style="display: none;">
+      <span>Update Required</span>
+      To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+    </div>
+  </div>
+ </div>
+ </div>
+
+</div>
+
 
 <!--Scroll helper -->
 <script type="text/template" id="scroll-template">
@@ -259,6 +318,9 @@
   <script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
 
    <script type="text/javascript" src="js/libs/lightGallery-master/dist/js/lightgallery-all.js"></script>
+   <script type="text/javascript" src="js/libs/jplayer/jplayer/jquery.jplayer.min.js"></script>
+   <script type="text/javascript" src="js/libs/jplayer/jplayer/jquery.jplayer.swf"></script>
+   <script src="js/libs/jplayer/add-on/jplayer.playlist.min.js"></script>
   <!--script type="text/javascript" src='js/libs/ImageViewer-master/imageviewer.min.js'
 ></script-->
   <script data-main="js/main" src="js/libs/require/require.js"></script>
@@ -286,43 +348,36 @@
      }(document, 'script', 'facebook-jssdk'));
   </script>
   
-  <script>window.twttr = (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0],
-      t = window.twttr || {};
-    if (d.getElementById(id)) return t;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "https://platform.twitter.com/widgets.js";
-    fjs.parentNode.insertBefore(js, fjs);
-
-    t._e = [];
-    t.ready = function(f) {
-      t._e.push(f);
-    };
-
-    return t;
-  }(document, "script", "twitter-wjs"));</script>
 
   <script type="text/javascript">
   $(document).ready(function () {
       $('[data-toggle=dropdown').dropdown();
       $("#disclaimerModal").modal('show');
 
-      twttr.widgets.createShareButton(
-        'http://archives.ncbs.res.in/exhibit/13ways/',
-        document.getElementById('EmailButton'),
-        {
-          text: '13 Ways'
-        }
-      ).then( function( el ) {
-          console.log('Tweet button added.');
-        });
+      <!-- /*Twitter init*/ -->
+      window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+          t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function(f) {
+          t._e.push(f);
+        };
+
+        return t;
+      }(document, "script", "twitter-wjs"));
+
+      
   });
   </script>
   
 
  
-
 
   <!-- Go to www.addthis.com/dashboard to customize your tools -->
   <!--<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-598cb0eaba9ca7c1"></script>-->

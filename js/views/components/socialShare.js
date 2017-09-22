@@ -32,7 +32,7 @@ define([
         '<div>' +
         '<ul class="nav">' +
         '<li><a href="https://twitter.com/share?url=<%= encodeURIComponent(readUrl) %>&text=<%= encodeURIComponent(name) %> - <%= encodeURIComponent(message) %>" target="_blank" id="TwitterButton">Twitter</a></li>'+
-        '<!--li><a href="#" id="EmailButton" class="twitter-share-button" >Email</a></li-->' +
+        '<!--li><div  id="EmailButton"><a href="#" class="twitter-share-button" >Email</a></div></li-->' +
         '<!--li><a href="https://plus.google.com/share?url=<%= encodeURIComponent(readUrl) %>" target="_blank" id="GoogleButton">Google+</a></li-->'+    
         '<li><a href="javascript:void(0);" id="FacebookButton">Facebook</a></li>' +
         '</ul>' +
@@ -48,16 +48,26 @@ define([
                 this.twitterInit();
             },
             twitterInit: function () {
-                 
+                 /*console.log(window.twttr, twttr);
+                 twttr.widgets.createShareButton(
+                   'http://archives.ncbs.res.in/exhibit/13ways/',
+                   document.getElementById('EmailButton'),
+                   {
+                     text: '13 Ways'
+                   }
+                 ).then( function( el ) {
+                     console.log('Tweet button added.');
+                   });*/
             },
             onFacebook: function () {
                 var currentLink = window.location.href,
                 captionText,
                 imageThumb,
                 foo = $('#page .active');
+                // TODO: imageThumb needs to be dynamic
                 if(foo.length > 0){
                     captionText = $('#page .active p').first()[0].textContent.trim() || this.model.get('message');
-                    imageThumb = $('#page .active .slider-thumb-icon').first() || 'http://localhost:8000/imgs/Ephemera/TIFR-Penthouse-2.jpg';
+                    imageThumb = 'http://archives.ncbs.res.in/exhibit/13ways/imgs/Ephemera/TIFR-Penthouse-2.jpg';
                 } else {
                     captionText = $('p').first()[0].textContent.trim() || this.model.get('message');
                     imageThumb = 'http://archives.ncbs.res.in/exhibit/13ways/imgs/Ephemera/TIFR-Penthouse-2.jpg';
@@ -75,6 +85,7 @@ define([
 
             onTwitter: function () {
                 // TODO: register analytics event
+ 
             },
 
             onEmail: function () {
