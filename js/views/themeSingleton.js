@@ -360,8 +360,8 @@ define([
       //which will take a number as first argument and group by the index of the tag split at '-' 
       //Index and its meaning ->
       //0: group by theme, 1:group by Section, 
-      //2:group by component, 
-      //3: group by order
+      //2:group by component (either picture slide, audio slide or audio), 
+      //3: group by order (order for sliders)
       
       var self = this;
       self.subView.audios= [];
@@ -630,7 +630,7 @@ var sliderThumbView = Backbone.View.extend({
 // split into two parts
 // 1) oplayer
 
-  window.audioGalleryIconView = Backbone.View.extend({
+  var audioGalleryIconView = Backbone.View.extend({
     thumbnailTemplate: _.template(audioGalleryIcon),
     className: "gallery-icon-wrap",
     /*events: {
@@ -687,7 +687,7 @@ var sliderThumbView = Backbone.View.extend({
         var found = _.find(self.model.get('content'), function(item){
           return item.get('id') === id;
         });
-        return found.get('element_texts')[1].text;
+        return found.get('element_texts')[1].text +'<em> '+ found.get('element_texts')[2].text || ''+' </em>';
       }
 
       //playlist data structure
@@ -746,8 +746,8 @@ var sliderThumbView = Backbone.View.extend({
       console.log("shown and playing");
     }
   });
-//2) data store
-   window.audioGalleryPlayerView = Backbone.View.extend({
+
+   var audioGalleryPlayerView = Backbone.View.extend({
     el: "#media-player-widget",
     thumbnailTemplate: _.template(audioGalleryIcon),
     events: {
