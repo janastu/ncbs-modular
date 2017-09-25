@@ -705,16 +705,21 @@ var sliderThumbView = Backbone.View.extend({
               }
       });
       console.log(groupedDataByType, finalAudios);
-      return finalAudios;
+
+        return finalAudios;
+      
     },
     render: function() {
       var self = this;
       console.log(this,this.thumbnailTemplate);
-      self.childNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/sound.svg', gallery: true}))[1];
-      self.$el.append(self.childNode);
-      $(self.childNode).on('click', function(event){ 
-        self.onClicked(event);
-       });
+      if(self.$el.data().audio){
+        self.childNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/sound.svg', gallery: true}))[1];
+        self.$el.append(self.childNode);
+        $(self.childNode).on('click', function(event){ 
+          self.onClicked(event);
+         });
+      }
+      
       return;
     },
     onClicked: function(event) {
@@ -722,7 +727,7 @@ var sliderThumbView = Backbone.View.extend({
       event.stopPropagation();
       event.preventDefault();
       var self = this;
-      self.player.model.set({state: 'show'});
+      
       console.log("clicked audio gallery", event, this.model.get('content'), self.filesData);
       //playlist data structure
       /*[{
@@ -734,8 +739,13 @@ var sliderThumbView = Backbone.View.extend({
             }];*/
     
       var playList = self.sanitizeData();
-  
-      self.player['playlist'].setPlaylist(playList);
+      if(playList.length > 0){
+        self.player.model.set({state: 'show'});
+        self.player['playlist'].setPlaylist(playList);
+      } else {
+        self.player.model.set({state: 'hide'});
+      }
+      
     
     },
     onClose: function(){
