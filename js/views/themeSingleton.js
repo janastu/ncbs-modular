@@ -675,8 +675,9 @@ var sliderThumbView = Backbone.View.extend({
       //console.log(jqueryResponses, self.filesData, "getter files");
 
     },
-    sanitizeData: function(){
+    sanitizeData: function(arg){
       var self = this;
+
       var groupedDataByType = _.groupBy(_.flatten(self.filesData), function(item){
         return item.mime_type;
       });
@@ -698,24 +699,44 @@ var sliderThumbView = Backbone.View.extend({
               
               poster: "http://www.jplayer.org/audio/poster/The_Stark_Palace_640x360.png"
             }];*/
-
-      var finalAudios = _.map(groupedDataByType['audio/mpeg'], function (file){
-        return {mp3: file.file_urls.original,
-                title: getDescription(file.item.id)
-              }
-      });
-      console.log(groupedDataByType, finalAudios);
+      if(arg === "audio"){
+        var finalAudios = _.map(groupedDataByType['audio/mpeg'], function (file){
+          return {mp3: file.file_urls.original,
+                  title: getDescription(file.item.id)
+                }
+        });
+        console.log(groupedDataByType, finalAudios);
 
         return finalAudios;
+      } else if(arg === "video"){
+        console.log("video data sanitization");
+        var finalVideos = _.map(groupedDataByType['video/mp4'], function (file){
+          return {
+                  'subHtml': '<p>'+getDescription(file.item.id)+'</p>',
+               
+                  'html': '<video class="lg-video-object lg-html5" controls preload="metadata"><source src="'+file.file_urls.original+'" type="video/mp4">Your browser does not support HTML5 video</video>'
+                }
+        });
+        return finalVideos;
+      }
+
+      
       
     },
     render: function() {
       var self = this;
       console.log(this,this.thumbnailTemplate);
       if(self.$el.data().audio){
-        self.childNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/sound.svg', gallery: true}))[1];
+        self.childNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/sound.svg', data: "audio", text: "Click to open Audio Gallery", gallery: true}))[1];
         self.$el.append(self.childNode);
         $(self.childNode).on('click', function(event){ 
+          self.onClicked(event);
+         });
+      }
+      if(self.$el.data().video){
+        self.vidNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/small-video.svg', data: "video", text: "Click to open Video Gallery", gallery: true}))[1];
+        self.$el.append(self.vidNode);
+        $(self.vidNode).on('click', function(event){ 
           self.onClicked(event);
          });
       }
@@ -727,23 +748,38 @@ var sliderThumbView = Backbone.View.extend({
       event.stopPropagation();
       event.preventDefault();
       var self = this;
-      
-      console.log("clicked audio gallery", event, this.model.get('content'), self.filesData);
-      //playlist data structure
-      /*[{
-              title:"Cro Magnon Man",
-              artist:"The Stark Palace",
-              mp3:"http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3",
-              
-              poster: "http://www.jplayer.org/audio/poster/The_Stark_Palace_640x360.png"
-            }];*/
-    
-      var playList = self.sanitizeData();
-      if(playList.length > 0){
-        self.player.model.set({state: 'show'});
-        self.player['playlist'].setPlaylist(playList);
+      if(event.currentTarget.dataset.audio){
+        console.log("clicked audio gallery", event, this.model.get('content'), self.filesData);
+        //playlist data structure
+        /*[{
+                title:"Cro Magnon Man",
+                artist:"The Stark Palace",
+                mp3:"http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3",
+                
+                poster: "http://www.jplayer.org/audio/poster/The_Stark_Palace_640x360.png"
+              }];*/
+        
+        var playList = self.sanitizeData("audio");
+        if(playList.length > 0){
+          self.player.model.set({state: 'show'});
+          self.player['playlist'].setPlaylist(playList);
+        } else {
+          self.player.model.set({state: 'hide'});
+        }
+        
       } else {
-        self.player.model.set({state: 'hide'});
+        var videoPlaylist = self.sanitizeData("video");
+        $(this).lightGallery({
+            dynamic: true,
+            closable: true,
+            hash:false,
+            share: false,
+            download: false,
+            thumbnail:false,
+            videojs: true,
+            dynamicEl: videoPlaylist
+        });
+        console.log("clicked video gallery", event.currentTarget.dataset, videoPlaylist);
       }
       
     
@@ -757,6 +793,8 @@ var sliderThumbView = Backbone.View.extend({
     }
   });
 
+// audio gallery player uses jquery plugin
+// http://jplayer.org -> documentation
    var audioGalleryPlayerView = Backbone.View.extend({
     el: "#media-player-widget",
     thumbnailTemplate: _.template(audioGalleryIcon),
