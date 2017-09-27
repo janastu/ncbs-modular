@@ -329,29 +329,35 @@ define([
           return item.get('item_type').name;
         });
         // For credits fields in images and videos related to issue #161
-        var sanitizeItem_type = groupedByItemType['Still Image'].map(function(item){
-          if(item.get('element_texts').length<4){
-            item.get('element_texts')[2] = {'text': ""};
-          } 
-          return item; 
-        });
-        self.subView.sliders.push(new sliderThumbView({
-                                                        content: sanitizeItem_type, 
-                                                        el: $(galleryDom[0]), 
-                                                        thumbnail: sanitizeItem_type[0], 
-                                                        gallery:true
-                                                      }));
-        var sanitizedSound = groupedByItemType['Sound'].map(function(item){
-          if(item.get('element_texts').length<4){
-            item.get('element_texts')[2] = {'text': ""};
-          } 
-          return item; 
-        });
-        self.subView.audios.push(new audioGalleryIconView({
-                                                        content: sanitizedSound, 
-                                                        el: $(galleryDom[0]), 
-                                                        thumbnail: sanitizeItem_type[0]
-                                                      }));
+        if(groupedByItemType['Still Image']){
+          var sanitizeItem_type = groupedByItemType['Still Image'].map(function(item){
+            if(item.get('element_texts').length<4){
+              item.get('element_texts')[2] = {'text': ""};
+            } 
+            return item; 
+          });
+          self.subView.sliders.push(new sliderThumbView({
+                                                          content: sanitizeItem_type, 
+                                                          el: $(galleryDom[0]), 
+                                                          thumbnail: sanitizeItem_type[0], 
+                                                          gallery:true
+                                                        }));
+        }
+
+        if(groupedByItemType['Sound']){
+          var sanitizedSound = groupedByItemType['Sound'].map(function(item){
+            if(item.get('element_texts').length<4){
+              item.get('element_texts')[2] = {'text': ""};
+            } 
+            return item; 
+          });
+          self.subView.audios.push(new audioGalleryIconView({
+                                                          content: sanitizedSound, 
+                                                          el: $(galleryDom[0]), 
+                                                          thumbnail: sanitizeItem_type[0]
+                                                        }));
+        }
+        
         //console.log(galleryItems, groupedByItemType, sanitizeItem_type, "gallery Items");
       }
     },
@@ -391,7 +397,7 @@ define([
       var finalURL = "#/theme/"+urlThemeparam+urlFragmentPath;
       console.log(this.model.toJSON().theme, finalURL);
       //navigate to built path
-      Backbone.history.navigate(finalURL, false);
+      Backbone.history.navigate(finalURL, {trigger: true });
     },
     onAudioPlayer: function(event){
       event.preventDefault();
