@@ -342,7 +342,7 @@ define([
                                                           thumbnail: sanitizeItem_type[0], 
                                                           gallery:true
                                                         }));
-          console.log(galleryItems, groupedByItemType,  sanitizeItem_type, "gallery Items");
+          //console.log(galleryItems, groupedByItemType,  sanitizeItem_type, "gallery Items");
         }
         
         if(groupedByItemType['Sound']){
@@ -357,7 +357,7 @@ define([
                                                           el: $(galleryDom[0])
                                                           
                                                         }));
-          console.log(galleryItems, groupedByItemType, sanitizedSound, "gallery Items");
+          //console.log(galleryItems, groupedByItemType, sanitizedSound, "gallery Items");
         }
         
         
@@ -376,7 +376,7 @@ define([
       self.subView.sliders=[];
       //REMOVE: self.sectionData = this.cacheStory.groupByTags(1)[capitalizeFirstLetter(this.ontology[this.model.get("section")])];
       self.sectionData = this.omekaItems.groupByTags(1)[capitalizeFirstLetter(this.ontology[this.model.get("section")])];
-      console.log(self.sectionData, capitalizeFirstLetter(this.ontology[this.model.get("section")]), this.ontology);
+      //console.log(self.sectionData, capitalizeFirstLetter(this.ontology[this.model.get("section")]), this.ontology);
       this.subViewManager();
     },
     updateRoute: function(event){
@@ -397,7 +397,7 @@ define([
       }
       //Note: build url to navigate
       var finalURL = "#/theme/"+urlThemeparam+urlFragmentPath;
-      console.log(this.model.toJSON().theme, finalURL);
+      //console.log(this.model.toJSON().theme, finalURL);
       //navigate to built path
       Backbone.history.navigate(finalURL, {trigger: true });
     },
@@ -449,7 +449,7 @@ var sliderThumbView = Backbone.View.extend({
     self.options = options || {};
    // _.bindAll(self, 'onclicked');
    this.on('click', 'onClicked', self);
-    console.log(self.options);
+    //console.log(self.options);
     self.fileurls = [];
     self.getData();
   },
@@ -492,7 +492,7 @@ var sliderThumbView = Backbone.View.extend({
             item.get('element_texts')[2] = {'text': ''};
 
           }
-          console.log(item.get('element_texts')[2].text, self.options, item.toJSON());
+          //console.log(item.get('element_texts')[2].text, self.options, item.toJSON());
           return {
             'src': thisfileurl[0].file_urls.fullsize || '.././imgs/slider.svg', 
             'thumb': thisfileurl[0].file_urls.square_thumbnail || '.././imgs/slider.svg', 
@@ -509,13 +509,13 @@ var sliderThumbView = Backbone.View.extend({
         var thisfileurl = self.fileurls.filter(function (filesresponse){
          // console.log(filesresponse.item, item.get('id'), "files responser");
           if(filesresponse.item.id === item.get('id')) {
-            console.log(filesresponse, "mat hed files");
+            //console.log(filesresponse, "mat hed files");
             return filesresponse;
           }
         });
 
         if(thisfileurl.length > 0){
-          console.log(item.get('element_texts')[2].text, self.options, item.toJSON());
+          //console.log(item.get('element_texts')[2].text, self.options, item.toJSON());
           return {
             'src': thisfileurl[0].file_urls.fullsize,  
             'thumb': thisfileurl[0].file_urls.square_thumbnail, 
@@ -525,7 +525,7 @@ var sliderThumbView = Backbone.View.extend({
         
       }));
 
-      console.log(self.album, "from single image");
+      //console.log(self.album, "from single image");
     }
   },
   render: function(){
@@ -757,7 +757,7 @@ var sliderThumbView = Backbone.View.extend({
       event.preventDefault();
       var self = this;
       if(event.currentTarget.dataset.audio){
-        console.log("clicked audio gallery", event, this.model.get('content'), self.filesData);
+        //console.log("clicked audio gallery", event, this.model.get('content'), self.filesData);
         //playlist data structure
         /*[{
                 title:"Cro Magnon Man",
@@ -787,17 +787,17 @@ var sliderThumbView = Backbone.View.extend({
             videojs: true,
             dynamicEl: videoPlaylist
         });
-        console.log("clicked video gallery", event.currentTarget.dataset, videoPlaylist);
+        //console.log("clicked video gallery", event.currentTarget.dataset, videoPlaylist);
       }
       
     
     },
     onClose: function(){
       if(this.model.get("state") === "hide"){
-        console.log("hidden and stopped");
+        //console.log("hidden and stopped");
         this.player['playlist'].remove();
       }
-      console.log("shown and playing");
+      //console.log("shown and playing");
     }
   });
 
@@ -810,12 +810,12 @@ var sliderThumbView = Backbone.View.extend({
       "click .close": "closePlayer"
     },
     initialize: function(options){
-      console.log(options, "from audio gallery view");
+      //console.log(options, "from audio gallery view");
       var self = this;
       self.model = options.model;
       this.listenTo(self.model, "change:state", this.toggleView);
       self.model.set({"state": "hide"});
-      console.log(self.model, "media mmodel");
+      //console.log(self.model, "media mmodel");
       self.options = options;
      
      // self.$parent = $('#page .active .gallery')[0];
@@ -825,7 +825,7 @@ var sliderThumbView = Backbone.View.extend({
       this.model.set({state: 'hide'});
     },
     toggleView: function() {
-      console.log(this, "Gallery view toggler");
+      //console.log(this, "Gallery view toggler");
       if(this.model.previous('state') === 'show'){
         this.$el.removeClass('show');
       } else {
