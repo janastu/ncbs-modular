@@ -342,8 +342,9 @@ define([
                                                           thumbnail: sanitizeItem_type[0], 
                                                           gallery:true
                                                         }));
+          console.log(galleryItems, groupedByItemType,  sanitizeItem_type, "gallery Items");
         }
-
+        
         if(groupedByItemType['Sound']){
           var sanitizedSound = groupedByItemType['Sound'].map(function(item){
             if(item.get('element_texts').length<4){
@@ -353,12 +354,13 @@ define([
           });
           self.subView.audios.push(new audioGalleryIconView({
                                                           content: sanitizedSound, 
-                                                          el: $(galleryDom[0]), 
-                                                          thumbnail: sanitizeItem_type[0]
+                                                          el: $(galleryDom[0])
+                                                          
                                                         }));
+          console.log(galleryItems, groupedByItemType, sanitizedSound, "gallery Items");
         }
         
-        //console.log(galleryItems, groupedByItemType, sanitizeItem_type, "gallery Items");
+        
       }
     },
     dataSanitizer: function () {
