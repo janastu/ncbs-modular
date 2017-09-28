@@ -440,6 +440,7 @@ Bootstrap 3 Media Queries
 
   #menuModal .modal-dialog{
     margin-left: -15px;
+    width: 103vw;
   }
 }
 
