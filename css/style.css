@@ -437,6 +437,11 @@ Bootstrap 3 Media Queries
   .logo-responsive img {
     width:120px;
   }
+
+  #menuModal .modal-dialog{
+    margin-left: -15px;
+    width: 103vw;
+  }
 }
 
 /* Extra Small Devices, Phones */ 
