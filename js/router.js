@@ -35,8 +35,10 @@ define([
     after: function () {
       $("#page").addClass("animated fadeIn");
       //send page view to google analytics
-      var path = Backbone.history.getFragment();
-      ga('send', 'pageview', {page: "/" + path});
+      var path = "/" + Backbone.history.getFragment();
+      var pageTitle = Backbone.history.getFragment().split('/')[1];
+      ga('set', {page: path, title: pageTitle});
+      ga('send', 'pageview');
       console.log("After working");
     }
   });
