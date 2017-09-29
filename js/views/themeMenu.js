@@ -5,7 +5,7 @@ define([
   'text!templates/themeMenu.html',
   'views/components/socialShare'
 ], function($, _, Backbone, menuTemplate, SocialShare){
-console.log(SocialShare);
+
   
   var MenuView = Backbone.View.extend({
     el: $("#themeMenu"),
@@ -15,7 +15,8 @@ console.log(SocialShare);
       "mouseover nav li": "onMouseOver",
       "mouseout nav li": "onMouseOut",
       "click #menu-target": "onMenuToggle",
-      "click #menu-after-collapse": "onMenuToggle"
+      "click #menu-after-collapse": "onMenuToggle",
+      'click .stop-propagation': "onStopPropagation"
     },
     initialize: function(){
       this.ontology = ["identity", "institution-building", "growth", "research", "education",
@@ -79,6 +80,10 @@ console.log(SocialShare);
       var queryStr = event.target.value.trim()+"&query_type=keyword&record_types[]=Item&record_types[]=File&record_types[]=Collection&submit_search=Search"
       console.log("changes",event.target.value, encodeURI(remoteURL+queryStr));
       window.open(encodeURI(remoteURL+queryStr), "_blank");
+    },
+    onStopPropagation: function(event){
+      event.stopPropagation();
+      $("#search-form").focus();
     }
 
   });
