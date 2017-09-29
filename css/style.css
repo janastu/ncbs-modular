@@ -615,6 +615,9 @@ COMPONENTS ala Audio player, slide show and more
 .tweet-embed {
   min-height:150px;
 }
+.foot-temp{
+  display: inline-block;
+}
 /*=============================================================================
 SANDBOX
 ==============================================================================*/
