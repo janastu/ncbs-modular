@@ -254,7 +254,8 @@ a:hover {
   border-radius: 0px;
   background-color: #FFBC03;/* #FFA008 - dull color*/
   opacity:0.8;
-  display: flow-root;
+  display: inline-block;
+  padding: 25px;
 }
 
 #menuModal .modal-header .close{
@@ -438,10 +439,10 @@ Bootstrap 3 Media Queries
     width:120px;
   }
 
-  #menuModal .modal-dialog{
+  /*#menuModal .modal-dialog{
     margin-left: -15px;
     width: 103vw;
-  }
+  }*/
 }
 
 /* Extra Small Devices, Phones */ 
