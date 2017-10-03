@@ -28,7 +28,12 @@ define([
       '*actions': 'defaultAction'
     },
     before: function () {
-
+      //Check for navigation trigger by State
+        if( ThemesViewInstance.model.get("menuModal")){
+           console.log(ThemesViewInstance.model.get("menuModal"));
+           $("#menuModal").modal('toggle');
+           ThemesViewInstance.model.set({"menuModal": false});
+        }
    
       console.log("Before working");
     },
@@ -81,12 +86,7 @@ define([
       if(ThemesViewInstance.model.get("theme") === theme){
         ThemesViewInstance.model.set({"section": section});
       }
-    //Check for navigation trigger by State
-      if( ThemesViewInstance.model.get("menuModal")){
-         console.log(ThemesViewInstance.model.get("menuModal"));
-         $("#menuModal").modal('toggle');
-         ThemesViewInstance.model.set({"menuModal": false});
-      }
+    
       //Set the model of the ThemeViewInstance which will trigger changes
       //in the view component themeSingleton.js
       ThemesViewInstance.model.set({"theme": theme, "section": section});

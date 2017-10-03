@@ -402,7 +402,17 @@
   });
   </script>
   
+<script type="text/javascript">
+$("#menu-search").on('change', function(event){
+  event.preventDefault();
+  var remoteURL = "http://archives.ncbs.res.in/search?query="
+  var queryStr = event.target.value.trim()+"&query_type=keyword&record_types[]=Item&record_types[]=File&record_types[]=Collection&submit_search=Search"
+  console.log("changes",event.target.value, event.target, encodeURI(remoteURL+queryStr));
+  event.target.value = "";
+  window.open(encodeURI(remoteURL+queryStr), "_blank");
+});
 
+</script>
  
 
   <!-- Go to www.addthis.com/dashboard to customize your tools -->
