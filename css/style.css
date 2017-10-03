@@ -612,6 +612,7 @@ COMPONENTS ala Audio player, slide show and more
   /*display:contents !important;*/
   float: right;
   width: 94%;
+  display: inline-table;
 }
 .tweet-embed {
   min-height:150px;
