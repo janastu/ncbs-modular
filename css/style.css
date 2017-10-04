@@ -416,8 +416,9 @@ To change breakpoint for nav collapse
       padding-top: 10px;
       padding-bottom: 10px;
   }
-  .collapse.in{
-      display:block !important;
+  .featured-img-caption.collapse.in{
+      display:inline-table !important;
+      width: 90%;
   }
 
 
@@ -437,6 +438,11 @@ Bootstrap 3 Media Queries
   }
   .logo-responsive img {
     width:120px;
+  }
+
+  .featured-img-caption.collapse.in{
+    width: 76%;
+    display: inline-table; 
   }
 
   /*#menuModal .modal-dialog{
@@ -463,6 +469,13 @@ Bootstrap 3 Media Queries
   .menu-item{
     width: 65px;
   }
+
+  .featured-img-caption.collapse.in{
+    width: 90%;
+    display: inline-table; 
+  }
+
+
 }
 
 /* Medium Devices, Desktops */
@@ -505,6 +518,11 @@ Bootstrap 3 Media Queries
 
   #themeMenu {
     min-height: 172px;
+  }
+
+  .featured-img-caption.collapse.in{
+    width: 94%;
+    display: inline-table; 
   }
 }
 
@@ -611,8 +629,7 @@ COMPONENTS ala Audio player, slide show and more
 .captionEphImg.in {
   /*display:contents !important;*/
   float: right;
-  width: 94%;
-  display: inline-table;
+  
 }
 .tweet-embed {
   min-height:150px;
