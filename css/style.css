@@ -27,6 +27,12 @@ blockquote p {
 blockquote span {
   font-size: 17px;
 }
+
+.exhibit-intro-title{
+  width: 120px;
+  margin-bottom: 20px;
+}
+
 .tab-content {
   margin-top:40px;
 }
