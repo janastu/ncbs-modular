@@ -570,6 +570,7 @@ var sliderThumbView = Backbone.View.extend({
         hash:false,
         share: false,
         download: false,
+        thumbnail: false,
         dynamicEl: self.album
     });
   }
