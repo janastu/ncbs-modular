@@ -54,7 +54,8 @@
   padding: 20px 20px 10px 20px; }
 
 .jp-video-270p {
-  width: 480px; }
+  /*width: 480px; */
+    width: 320px;}
 
 .jp-video-360p {
   width: 640px; }
@@ -107,7 +108,8 @@
 /* @group CONTROLS */
 .jp-video .jp-controls-holder {
   clear: both;
-  width: 440px;
+  /*width: 440px;*/
+  width:100%;
   margin: 0 auto 10px auto;
   position: relative;
   overflow: hidden; }
