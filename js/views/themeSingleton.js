@@ -549,7 +549,7 @@ var sliderThumbView = Backbone.View.extend({
         self.$el.html(self.sliderThumbTemplate({files: response[0], thumbnail:self.options.thumbnail.toJSON(), gallery:false}));  
       } else {
         //console.log($.parseHTML(self.sliderThumbTemplate({files: response[0], thumbnail:'imgs/components/slider.svg', text: 'Click to open Image Gallery', gallery: true})), "Image gallery ren");
-        self.$el.append($.parseHTML(self.sliderThumbTemplate({files: response[0], thumbnail:'imgs/components/slider.svg', text: 'Click to open Image Gallery', gallery: true}))[4]);
+        self.$el.append($.parseHTML(self.sliderThumbTemplate({files: response[0], thumbnail:'imgs/components/slider.svg', text: 'Image Gallery', gallery: true}))[4]);
       }
       
       self.sanitizeData();
@@ -570,6 +570,7 @@ var sliderThumbView = Backbone.View.extend({
         hash:false,
         share: false,
         download: false,
+        thumbnail: false,
         dynamicEl: self.album
     });
   }
@@ -746,14 +747,14 @@ var sliderThumbView = Backbone.View.extend({
       var self = this;
       //console.log(this,this.thumbnailTemplate);
       if(self.$el.data().audio){
-        self.childNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/sound.svg', data: "audio", text: "Click to open Audio Gallery", gallery: true}))[1];
+        self.childNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/sound.svg', data: "audio", text: "Audio Gallery", gallery: true}))[1];
         self.$el.append(self.childNode);
         $(self.childNode).on('click', function(event){ 
           self.onClicked(event);
          });
       }
       if(self.$el.data().video){
-        self.vidNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/small-video.svg', data: "video", text: "Click to open Video Gallery", gallery: true}))[1];
+        self.vidNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/small-video.svg', data: "video", text: "Video Gallery", gallery: true}))[1];
         self.$el.append(self.vidNode);
         $(self.vidNode).on('click', function(event){ 
           self.onClicked(event);

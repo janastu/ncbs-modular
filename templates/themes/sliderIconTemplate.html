@@ -2,10 +2,11 @@
 <% if(gallery){ %> 
 <!-- Gallery with icon thumbnail -->
 <div class="gallery-thumb">
-	<img src='<%= thumbnail %>' data-url='<%= files.file_urls.original%>' class="slider-thumb-icon"/>
-	<div class="img-thumbnail-text featured-img-caption" > 
-		<em><%= text %></em>		
+	<div class="gallery-heading" > 
+		<b><%= text %></b>		
 	</div>
+	<img src='<%= thumbnail %>' data-url='<%= files.file_urls.original%>' class="slider-thumb-icon"/>
+
 	</div>
 
 
