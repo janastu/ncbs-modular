@@ -555,10 +555,16 @@ COMPONENTS ala Audio player, slide show and more
 
 
 .gallery-thumb {
-  width: 175px;
-  height: 175px;
+  width: 130px;
+  height: auto;
   cursor:pointer;
   display: inline-block;
+  padding:5px;
+  margin:10px;
+}
+
+.gallery-heading{
+  text-align: center;
 }
 
 #media-player-widget {
@@ -651,6 +657,8 @@ COMPONENTS ala Audio player, slide show and more
 .foot-temp{
   display: inline-block;
 }
+
+
 /*=============================================================================
 SANDBOX
 ==============================================================================*/
