@@ -311,6 +311,7 @@ font-size: 12px;
 line-height:14px;
 padding-top:15px;
 padding-bottom: 15px;
+cursor: pointer;
 }
 
 .featured-slide {
