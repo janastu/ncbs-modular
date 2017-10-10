@@ -31,7 +31,7 @@ define([
       //Check for navigation trigger by State
         if( ThemesViewInstance.model.get("menuModal")){
            console.log(ThemesViewInstance.model.get("menuModal"));
-           $("#menuModal").modal('toggle');
+           $("#menuModal").modal('hide');
            ThemesViewInstance.model.set({"menuModal": false});
         }
    
