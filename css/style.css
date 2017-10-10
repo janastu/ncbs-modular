@@ -267,16 +267,26 @@ a:hover {
 #menuModal .modal-header .close{
   margin-right: 25px;
   font-size: 50px;
-  /*margin-top: -7%;*/
+  color: #FFBC03;
+  opacity: 1;
+}
+
+#menuModal .modal-header .close:hover{
+  color: #fff;
 }
 
 #menuModal a {
   color: #FFBC03;
 }
 
+#menuModal a:active,
 #menuModal a:hover {
   color: #fff;
+  background: transparent !important;
+  text-decoration: none;
 }
+
+ 
 
 #menuModal .content{
   
@@ -424,6 +434,7 @@ To change breakpoint for nav collapse
   .navbar-nav {
       float: none!important;
       margin-top: 7.5px;
+      margin-left: 1px;
       display: inline-flex;
       display: -moz-inline-flex;
       display: -webkit-inline-flex;
@@ -599,6 +610,7 @@ COMPONENTS ala Audio player, slide show and more
   position: relative;
   padding-left: 5px;
 }
+
 #audio-player-container{
   position: fixed;
   bottom: 0px;
