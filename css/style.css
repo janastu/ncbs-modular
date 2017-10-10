@@ -312,6 +312,9 @@ a:hover {
   color: rgb(51,51,51);
 }
 
+.tab-content>.tab-pane{
+  margin-left: 17px;
+}
 /*====================================================================*/
 
 .featured-img-caption {
