@@ -754,7 +754,7 @@ var sliderThumbView = Backbone.View.extend({
          });
       }
       if(self.$el.data().video){
-        self.vidNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/small-video.svg', data: "video", text: "Video Gallery", gallery: true}))[1];
+        self.vidNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/video-icon.svg', data: "video", text: "Video Gallery", gallery: true}))[1];
         self.$el.append(self.vidNode);
         $(self.vidNode).on('click', function(event){ 
           self.onClicked(event);
