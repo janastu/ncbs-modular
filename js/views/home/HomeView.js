@@ -19,7 +19,7 @@ define([
       $('.menu li a[href="#"]').parent().addClass('active');
       this.$el.html(homeTemplate); 
       Ephemera.render();
-      $('[data-toggle=dropdown').dropdown();
+      //$('[data-toggle=dropdown').dropdown();
     }
 
   });
