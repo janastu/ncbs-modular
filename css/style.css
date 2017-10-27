@@ -267,6 +267,7 @@ a:hover {
   font-size: 50px;
   color: #FFBC03;
   opacity: 1;
+  text-shadow:none;
 }
 
 #menuModal .modal-header .close:hover{
