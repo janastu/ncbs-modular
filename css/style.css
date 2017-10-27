@@ -275,22 +275,19 @@ a:hover {
 
 #menuModal a {
   color: #FFBC03;
+  background-color: transparent;
 }
 
 #menuModal a:active,
 #menuModal a:hover {
   color: #fff;
-  background: transparent !important;
+  background-color: transparent !important;
   text-decoration: none;
 }
 
  
 
-#menuModal .content{
-  
-  height: 425px;
-  width: 160px;
-
+#menuModal .content{  
   float: left;
 }
 #menuModal  .content ul
@@ -479,6 +476,12 @@ Bootstrap 3 Media Queries
     display: inline-table; 
   }
 
+  #menuModal .content{
+    
+    height: auto;
+    width: 100%;
+
+  }
   /*#menuModal .modal-dialog{
     margin-left: -15px;
     width: 103vw;
@@ -491,6 +494,12 @@ Bootstrap 3 Media Queries
      width: 100%;
   }
 
+  #menuModal .content{
+    
+    height: 425px;
+    width: 160px;
+
+  }
 
 }
 
@@ -511,6 +520,8 @@ Bootstrap 3 Media Queries
     font-weight: 600;
     font-size: 10px;
   }
+
+
 
 }
 
