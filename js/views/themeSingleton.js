@@ -98,6 +98,21 @@ define([
           self.$el.toggleClass("animated fadeIn");
          //console.log("end animated", event);
         });
+
+      
+      var cssSelector =  {jPlayer: "#jquery_jplayer_N", cssSelectorAncestor: "#jp_container_N"};
+      var playerOptions = {
+        playlistOptions: {
+          autoPlay: true,
+          enableRemoveControls: true
+        },
+        swfPath: "/js/libs/jplayer/jplayer",
+        useStateClassSkin: true,
+        smoothPlayBar: true,
+        supplied: "mp3"
+      };
+      var playlist = [];
+      self.player = new jPlayerPlaylist(cssSelector, playlist, playerOptions);
       //self.render();
 
      /* self.cacheStory.fetch({
@@ -409,11 +424,24 @@ define([
     onAudioPlayer: function(event){
       event.preventDefault();
       var self=this;
-      if(self.audioPlayer){
+      var model = new Backbone.Model(event.target.dataset);
+      self.player = new audioGalleryIconView({content: {title: model.get('description') +''+ model.get('rights'), 
+                          mp3: model.get('url')
+                        }, el: $(event.target), referer: 'inline'});
+      self.player.onClicked(event);
+      /*self.playlist = [];
+
+      self.playlist.push({title: model.get('description') +''+ model.get('rights'), 
+                          mp3: model.get('url')
+                        });
+      self.player.setPlaylist(self.playlist);*/
+
+      /*if(self.audioPlayer){
         self.audioPlayer.closePlayer();
       }
       self.audioPlayer = new AudioPlayerView({model: new Backbone.Model(event.target.dataset)});
-      self.audioPlayer.render();
+      self.audioPlayer.render();*/
+      console.log(self.player, new Backbone.Model(event.target.dataset).toJSON() );
     },
     onFeatured: function(event){
       //BUG: currently buggy due to hardcoding the first slide,
@@ -549,7 +577,7 @@ var sliderThumbView = Backbone.View.extend({
         self.$el.html(self.sliderThumbTemplate({files: response[0], thumbnail:self.options.thumbnail.toJSON(), gallery:false}));  
       } else {
         //console.log($.parseHTML(self.sliderThumbTemplate({files: response[0], thumbnail:'imgs/components/slider.svg', text: 'Click to open Image Gallery', gallery: true})), "Image gallery ren");
-        self.$el.append($.parseHTML(self.sliderThumbTemplate({files: response[0], thumbnail:'imgs/components/slider.svg', text: 'Image Gallery', gallery: true}))[4]);
+        self.$el.append($.parseHTML(self.sliderThumbTemplate({files: response[0], thumbnail:'imgs/components/slider.svg', text: 'Image Reserve', gallery: true}))[4]);
       }
       
       self.sanitizeData();
@@ -623,6 +651,38 @@ var sliderThumbView = Backbone.View.extend({
     initialize: function(options){
       this.options = options || {};
       this.$parent = $('body');
+      this.sanitizeData();
+    },
+    sanitizeData: function(){
+      var self = this;
+
+      // function to find the appropriate item for the file
+      // to display metadata
+      function getDescription(id){
+        var found = _.find(self.model.get('content'), function(item){
+          return item.get('id') === id;
+        });
+        return found.get('element_texts')[1].text +'<em> '+ found.get('element_texts')[2].text || ''+' </em>';
+      }
+
+      //playlist data structure
+      /*[{
+              title:"Cro Magnon Man",
+              artist:"The Stark Palace",
+              mp3:"http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3",
+              
+              poster: "http://www.jplayer.org/audio/poster/The_Stark_Palace_640x360.png"
+            }];*/
+    
+        var finalAudios = _.map(self.options.item, function (file){
+          return {mp3: file.file_urls.original,
+                  title: getDescription(file.item.id)
+                }
+        });
+        console.log(finalAudios);
+
+        return finalAudios;
+      
     },
     render: function(){
       this.$el.html(this.template({original: this.model.get('url'), 
@@ -660,13 +720,17 @@ var sliderThumbView = Backbone.View.extend({
       var self = this;
       //self.options = options;
       self.model = new Backbone.Model(options);
+      console.log(self.model);
       self.player = new audioGalleryPlayerView({model: self.model});
       this.listenTo(self.model, "change:state", self.onClose);
       self.filesData = [];
-      self.getData();
+      if(!self.model.get('referer')){
+        self.getData();
+      }
+      
       self.render();
       var cssSelector =  {jPlayer: "#jquery_jplayer_N", cssSelectorAncestor: "#jp_container_N"};
-      var options = {
+      var playerOptions = {
         playlistOptions: {
           autoPlay: true,
           enableRemoveControls: true
@@ -677,7 +741,7 @@ var sliderThumbView = Backbone.View.extend({
         supplied: "mp3"
       };
       var playlist = [];
-      self.player['playlist'] = new jPlayerPlaylist(cssSelector, playlist, options);
+      self.player['playlist'] = new jPlayerPlaylist(cssSelector, playlist, playerOptions);
 
     },
     getData: function () {
@@ -747,14 +811,14 @@ var sliderThumbView = Backbone.View.extend({
       var self = this;
       //console.log(this,this.thumbnailTemplate);
       if(self.$el.data().audio){
-        self.childNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/sound.svg', data: "audio", text: "Audio Gallery", gallery: true}))[1];
+        self.childNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/sound.svg', data: "audio", text: "Audio Reserve", gallery: true}))[1];
         self.$el.append(self.childNode);
         $(self.childNode).on('click', function(event){ 
           self.onClicked(event);
          });
       }
       if(self.$el.data().video){
-        self.vidNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/video-icon.svg', data: "video", text: "Video Gallery", gallery: true}))[1];
+        self.vidNode = $.parseHTML(this.thumbnailTemplate({thumbnail:'imgs/components/video-icon.svg', data: "video", text: "Video Reserve", gallery: true}))[1];
         self.$el.append(self.vidNode);
         $(self.vidNode).on('click', function(event){ 
           self.onClicked(event);
@@ -768,6 +832,7 @@ var sliderThumbView = Backbone.View.extend({
       event.stopPropagation();
       event.preventDefault();
       var self = this;
+      console.log(event.currentTarget);
       if(event.currentTarget.dataset.audio){
         //console.log("clicked audio gallery", event, this.model.get('content'), self.filesData);
         //playlist data structure
@@ -787,7 +852,14 @@ var sliderThumbView = Backbone.View.extend({
           self.player.model.set({state: 'hide'});
         }
         
-      } else {
+      } 
+      // this block plays the inline audio click
+      else if(event.currentTarget.dataset.url) {
+        var audioToPlay = [self.model.get('content')];
+        self.player.model.set({state: 'show'});
+        self.player['playlist'].setPlaylist(audioToPlay);
+      }
+      else {
         var videoPlaylist = self.sanitizeData("video");
         $(this).lightGallery({
             dynamic: true,
