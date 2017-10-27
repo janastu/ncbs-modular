@@ -310,6 +310,7 @@ a:hover {
         display: inline-block;
         margin-right: 12%;
         margin-left: 0px;
+
 }
 .col-md-9 h3{
   color: #822d1a;
@@ -762,6 +763,7 @@ DISCLAIMER
   bottom: 0px;
   right: 0px;
   color: #822d1a;
+  cursor: pointer;
 }
 
 .scrollHelper i:hover{
