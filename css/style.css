@@ -288,28 +288,30 @@ a:hover {
 
 #menuModal .content{
   
-  height: 260px;
+  height: 425px;
   width: 160px;
 
   float: left;
 }
 #menuModal  .content ul
 {
-
-  list-style-type: none;
+  padding-left: 0px;
+  list-style: none;
 }
 
 #menuModal  .content li{
-  padding: 5px 0px 0px 0px;
+  padding: 5px;
   width: 150px;
+  height: 60px;
+  line-height: 25px;
 }
 .menu-search {
   width:75%;
 }
 .menu-search li{
         display: inline-block;
-        margin-right: 15%;
-        margin-left: 40px;
+        margin-right: 12%;
+        margin-left: 0px;
 }
 .col-md-9 h3{
   color: #822d1a;
