@@ -622,6 +622,7 @@ COMPONENTS ala Audio player, slide show and more
   right:0px;
   top:170px;
   cursor:move;
+  z-index: 1000;
 }
 
 #media-player-widget .close{
