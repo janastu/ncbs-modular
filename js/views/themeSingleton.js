@@ -901,7 +901,7 @@ var sliderThumbView = Backbone.View.extend({
       self.model.set({"state": "hide"});
       //console.log(self.model, "media mmodel");
       self.options = options;
-     
+      self.$el.draggable();
      // self.$parent = $('#page .active .gallery')[0];
       //self.getData();
     },
