@@ -187,7 +187,7 @@ a:hover {
   border-width: 2px;
 }
 
-#search-form {
+#search-form, #menuModal>#menu-search-form {
   width: 150px;
   border-bottom: 2px solid #FFA008;
   border-left: none;
