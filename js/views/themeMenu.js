@@ -29,7 +29,7 @@ define([
       this.$el.html(_.template(menuTemplate)); 
 
       $(this.activeItem).addClass("active");
-      
+      $('[data-toggle="dropdown"]').dropdown();
       this.socialControl = new SocialShare.App();
       this.socialControl.init();
       console.log(this.socialControl);
@@ -74,6 +74,10 @@ define([
       event.preventDefault();
       ThemesViewInstance.model.set({"menuModal": true});
       $("#menuModal").modal('show');
+      $('#menuModal .dropdown').on('shown.bs.dropdown', function () {
+        $("#modal-search-form").focus()
+      });
+      
     },
     onSearch: function(event){
         event.preventDefault();

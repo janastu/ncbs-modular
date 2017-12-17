@@ -139,7 +139,7 @@
                           <a href="#" title="SEARCH" data-toggle="dropdown" role="button" aria-expanded="false"><strong>SEARCH</strong></a>
                             <div class="dropdown-menu open animated fadeIn stop-propagation" role="combobox" style="padding: 0px;">
                               <div class="input-group">
-                                <input type="text" id="menu-search-form " placeholder="Search..." class="form-control">
+                                <input type="text" id="modal-search-form " placeholder="Search..." class="form-control">
                                 <!--span class="input-group-btn">
                                   <button class="btn btn-default" type="button">Go!</button>
                                 </span-->
@@ -357,12 +357,9 @@
   <script type="text/javascript" src="js/libs/jquery/jquery-min.js"></script>
   <script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
   
-   <script type="text/javascript" src="js/libs/lightGallery-master/dist/js/lightgallery-all.js"></script>
-   <script type="text/javascript" src="js/libs/lightGallery-master/modules/lg-video.js"></script>
-   <script type="text/javascript" src="js/libs/jplayer/jplayer/jquery.jplayer.min.js"></script>
-   <script type="text/javascript" src="js/libs/jplayer/jplayer/jquery.jplayer.swf"></script>
-   <script src="js/libs/jplayer/add-on/jplayer.playlist.min.js"></script>
-      <script type="text/javascript" src="js/libs/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/libs/lightGallery-master/dist/js/lightgallery-all.js"></script>
+  <script type="text/javascript" src="js/libs/lightGallery-master/modules/lg-video.js"></script>
+  <script type="text/javascript" src="js/libs/jquery-ui.js"></script>
 
   <!--script type="text/javascript" src='js/libs/ImageViewer-master/imageviewer.min.js'
 ></script-->
@@ -396,8 +393,11 @@
 
   <script type="text/javascript">
   $(document).ready(function () {
-      $('[data-toggle="dropdown"]').dropdown();
+    
+     
+
       $("#disclaimerModal").modal('show');
+      
 
       <!-- /*Twitter init*/ -->
       window.twttr = (function(d, s, id) {
@@ -417,8 +417,20 @@
         return t;
       }(document, "script", "twitter-wjs"));
 
+      $('#menuModal').on('shown.bs.modal', function(){
+        $('#menuModal .dropdown').on('shown.bs.dropdown', function () {
+          $("#modal-search-form").focus()
+        });
+        
+      });
 
-      $("#menu-search-form").on('change', function(event){
+
+      $("#menuModal .stop-propagation").on('click', function(event){
+        event.stopPropagation();
+        setTimeout(function () { $("#modal-search-form").focus(); }, 20);
+        //$("#modal-search-form").focus();
+      });
+      $("#menuModal #modal-search-form").on('change', function(event){
         event.preventDefault();
         console.log("searched");
         var remoteURL = "http://archives.ncbs.res.in/search?query="
@@ -427,9 +439,18 @@
         event.target.value = "";
         window.open(encodeURI(remoteURL+queryStr), "_blank");
       });
+
+
       
   });
   </script>
+
+  <!-- Load secondary dependencies -->
+
+  <script type="text/javascript" src="js/libs/jplayer/jplayer/jquery.jplayer.min.js"></script>
+  <script type="text/javascript" src="js/libs/jplayer/jplayer/jquery.jplayer.swf"></script>
+  <script src="js/libs/jplayer/add-on/jplayer.playlist.min.js"></script>
+   
   
 
  
