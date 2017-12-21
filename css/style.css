@@ -186,7 +186,11 @@ a:hover {
   border-color: #822B04;
   border-width: 2px;
 }
-
+#menuModal .fade {
+  -webkit-transition: opacity .45s linear;
+      -o-transition: opacity .45s linear;
+      transition: opacity 0.45s linear;
+}
 #search-form, #menuModal>#menu-search-form {
   width: 150px;
   border-bottom: 2px solid #FFA008;
