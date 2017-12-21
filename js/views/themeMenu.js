@@ -74,9 +74,9 @@ define([
       event.preventDefault();
       ThemesViewInstance.model.set({"menuModal": true});
       $("#menuModal").modal('show');
-      $('#menuModal .dropdown').on('shown.bs.dropdown', function () {
+      /*$('#menuModal .dropdown').on('shown.bs.dropdown', function () {
         $("#modal-search-form").focus()
-      });
+      });*/
       
     },
     onSearch: function(event){
