@@ -186,7 +186,7 @@ a:hover {
   border-color: #822B04;
   border-width: 2px;
 }
-#menuModal .fade {
+#menuModal .fade .in{
   -webkit-transition: opacity .45s linear;
       -o-transition: opacity .45s linear;
       transition: opacity 0.45s linear;
@@ -625,7 +625,7 @@ COMPONENTS ala Audio player, slide show and more
 #media-player-widget {
   position: fixed;
   right:0px;
-  top:170px;
+  top:0px;
   cursor:move;
   z-index: 1000;
 }

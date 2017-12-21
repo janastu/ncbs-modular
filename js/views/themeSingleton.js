@@ -900,8 +900,13 @@ var sliderThumbView = Backbone.View.extend({
       this.listenTo(self.model, "change:state", this.toggleView);
       self.model.set({"state": "hide"});
       //console.log(self.model, "media mmodel");
+      //Documentation: https://jqueryui.com/draggable/#constrain-movement
       self.options = options;
-      self.$el.draggable();
+      self.$el.draggable({
+        containment: "parent",
+        axis:'y',
+        scroll: false
+      });
      // self.$parent = $('#page .active .gallery')[0];
       //self.getData();
     },
