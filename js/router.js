@@ -35,7 +35,8 @@ define([
            ThemesViewInstance.model.set({"menuModal": false});
         }
    
-      console.log("Before working");
+
+    console.log("Before working");
     },
     after: function () {
       $("#page").addClass("animated fadeIn");
@@ -44,7 +45,11 @@ define([
       var pageTitle = Backbone.history.getFragment().split('/')[1];
       ga('set', {page: path, title: pageTitle});
       ga('send', 'pageview');
-      console.log("After working");
+
+
+     
+      
+      console.log("After working", this);
     }
   });
   

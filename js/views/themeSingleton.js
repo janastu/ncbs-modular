@@ -51,7 +51,7 @@ define([
       this.listenTo(this.model, "change:theme", this.sandboxManager);
       this.listenTo(this.model, "change:section", this.toggleTabs);
       this.listenTo(this.model, "change:section", this.dataSanitizer);
-      //this.listenTo(this.model, "change:section", this.updateRoute);
+      this.listenTo(this.model, "change:theme change:section", this.navSocialLinks);
       var self = this;
       this.omekaItems = new storyCollection;
       this.listenTo(self.omekaItems, "reset", self.dataSanitizer);
@@ -420,6 +420,14 @@ define([
       //console.log(this.model.toJSON().theme, finalURL);
       //navigate to built path
       Backbone.history.navigate(finalURL, {trigger: true });
+    },
+    navSocialLinks: function(event){
+      //update URL in social sharing links
+      
+        this.socialHook.model.set('readUrl', 
+          'http://archives.ncbs.res.in/exhibit/13ways/#/theme/'+
+          this.model.get('theme')+'/'+
+          this.model.get('section'));
     },
     onAudioPlayer: function(event){
       event.preventDefault();
