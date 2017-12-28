@@ -594,16 +594,17 @@ var sliderThumbView = Backbone.View.extend({
    // self.delegateEvents();
     
   },
-  onClicked: function (event){
+  onClicked: function (){
     //pass the album object to the plugin to render 
     //event.preventDefault();
     //console.log(event, this);
     var self = this;
-   // console.log(self.album, "on clicked gallery");
+   console.log(self.album, self.options, "on clicked gallery");
     $(this).lightGallery({
         dynamic: true,
         closable: true,
-        hash:false,
+        hash:true,
+        galleryId: self.options.el[0].dataset.tag,
         share: false,
         download: false,
         thumbnail: false,

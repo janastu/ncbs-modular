@@ -23,7 +23,7 @@ define([
       "theme/:name/:section": "themeHandler",
       "theme/:name/:section/": "themeHandler",
       'about': 'about',
-     
+      "lg=:slide_id&slide=:slide_order": "slidesHandler",
       // Default
       '*actions': 'defaultAction'
     },
@@ -109,7 +109,31 @@ define([
      // console.log(theme, section, this.Themes, this.now);
     });
 
+// TODO: incomplete feature route handles for Slider params
+    app_router.on('route:slidesHandler', function(id, order){
+      console.log(id, order, "slide handler");
+      var theme = ThemesViewInstance.themeList[id.split('-')[0]-1];
+      var section = _.findKey(ThemesViewInstance.ontology, function(val, key){
+       
+        if(val === id.split('-')[1]){
+          return key;
+        }
+      });
     
+      ThemesViewInstance.model.set({"theme": theme, "section": section});
+      this.navigate("#/theme/"+theme+"/"+section);
+
+      //Hack: because data won't be available immediately after navigate
+      // we wait before
+      setTimeout(function(){ 
+        var activeSlideView = _.find(ThemesViewInstance.subView.sliders, function(slide){
+          return slide.el.dataset.tag === id;
+        });
+        activeSlideView.onClicked();
+
+      }, 3000);
+      
+    });
     Backbone.history.start();
   };
   return { 
