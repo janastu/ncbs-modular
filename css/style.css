@@ -802,7 +802,7 @@ Loading Illustration
 
 
 
-/*
+
 #page.loading:after {
   /* with no content, nothing is rendered */
   content: "";
@@ -858,4 +858,3 @@ Loading Illustration
     transform: rotate(360deg);
   }
 }
-*/

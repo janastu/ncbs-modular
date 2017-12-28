@@ -129,7 +129,7 @@ define([
     loading: function() {
 
       console.log("loading...");
-      this.$el.toggleClass("loading");
+      this.$el.addClass("loading");
       return;
     },
     getData: function(){
@@ -159,7 +159,7 @@ define([
        }).then(function (response){
           console.log(response, self);
           self.omekaItems.reset(response);
-          self.loading();
+          self.$el.toggleClass("loading");
        }); 
      }
 
@@ -265,7 +265,7 @@ define([
           
        } else {
         console.log("data unavailable");
-         //self.loading();
+         self.loading();
        }
 
      }, self);
@@ -304,7 +304,7 @@ define([
           self.subView.sliders.push(new sliderThumbView({content: sliderModels, el: $(element), thumbnail: sliderModels[0], slider:true}));
           
         } else {
-           //self.loading();
+           self.loading();
           console.log("data unavailable");
         }
 
