@@ -75,10 +75,14 @@ define([
        // We have no matching route, lets display the home page 
         var homeView = new HomeView();
         //homeView.render();
+        ThemesViewInstance.model.set({"theme": "string", "section": "string"});
     });
     app_router.on('route:about', function (actions) {
       var aboutPage = new AboutView();
       aboutPage.render();
+     //unset themes view model
+      ThemesViewInstance.model.set({"theme": "string", "section": "string"});
+
     });
 
     app_router.on('route:themeHandler', function (theme, section) {
@@ -90,10 +94,16 @@ define([
     //Check if the route action is to Change the Tabs in Themes
       if(ThemesViewInstance.model.get("theme") === theme){
         ThemesViewInstance.model.set({"section": section});
+      } else if (ThemesViewInstance.model.get("theme") === theme && ThemesViewInstance.model.get("section") === section) {
+        // unset hash of themes view model
+        // else if user navigates browser back,
+        //and the events won't trigger because model wouldn't be changed
+        ThemesViewInstance.model.set({"theme": "string", "section": "string"});
       }
     
       //Set the model of the ThemeViewInstance which will trigger changes
       //in the view component themeSingleton.js
+
       ThemesViewInstance.model.set({"theme": theme, "section": section});
     
      // console.log(theme, section, this.Themes, this.now);
