@@ -15,7 +15,7 @@ define([
       console.log(YT);
      
       this.$el.html(aboutTemplate); 
-      window.scrollTo(10,10);
+      window.scrollTo(0,0);
     }
 
   });
