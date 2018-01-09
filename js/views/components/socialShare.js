@@ -38,15 +38,23 @@ define([
         '</ul>' +
         '</div>' +
         '</div>',
+        initialize: function(){
+            console.log(this);
+            this.model.on('change:readUrl', this.render, this);
+
+        },
             
             render: function () {
+
                 var dataContext = this.model.toJSON();
                 var compiledTemplate = _.template(this.template);
                 var html = compiledTemplate(dataContext);
-                
+                console.log(dataContext, 'SocialSharing');
                 this.$el.html(html);
-                this.twitterInit();
+                return this;
+                //this.twitterInit();
             },
+          
             twitterInit: function () {
                  /*console.log(window.twttr, twttr);
                  twttr.widgets.createShareButton(
@@ -66,19 +74,23 @@ define([
                 foo = $('#page .active');
                 // TODO: imageThumb needs to be dynamic
                 if(foo.length > 0){
-                    captionText = $('#page .active p').first()[0].textContent.trim() || this.model.get('message');
+                    //console.log("foo length greater", foo.length, $('#page .active p').first()[0].textContent.trim());
+                    captionText = $('#page .active p').first()[0].textContent.trim();
                     imageThumb = 'http://archives.ncbs.res.in/exhibit/13ways/imgs/Ephemera/TIFR-Penthouse-2.jpg';
                 } else {
-                    captionText = $('p').first()[0].textContent.trim() || this.model.get('message');
+                    //console.log("foo length less", foo.length);
+                    captionText = this.model.get('message');
                     imageThumb = 'http://archives.ncbs.res.in/exhibit/13ways/imgs/Ephemera/TIFR-Penthouse-2.jpg';
                 }
-                
+                //console.log(currentLink, captionText, imageThumb, "DB share data");
                 FB.ui({
                   method: 'feed',
                   link: currentLink,
                   caption: captionText,
                   picture: imageThumb,
-                }, function(response){});
+                }, function(response){
+                   // console.log("FB response share", response);
+                });
                 FB.AppEvents.logPageView();
                 // TODO: register analytics event
             },
@@ -105,13 +117,16 @@ define([
 
 
         SocialSharing.App = function () {
-            var model, view;
-            
+            var  model, view;
+
             this.init = function () {
                 model = new SocialSharing.Model();
+              
+                model.set('readUrl', Backbone.history.location);
                 view = new SocialSharing.View({model: model});
                 view.render();
-            };
+                return view;
+            }
         };
 
         return SocialSharing;

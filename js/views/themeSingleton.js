@@ -51,7 +51,7 @@ define([
       this.listenTo(this.model, "change:theme", this.sandboxManager);
       this.listenTo(this.model, "change:section", this.toggleTabs);
       this.listenTo(this.model, "change:section", this.dataSanitizer);
-      //this.listenTo(this.model, "change:section", this.updateRoute);
+      this.listenTo(this.model, "change:theme change:section", this.navSocialLinks);
       var self = this;
       this.omekaItems = new storyCollection;
       this.listenTo(self.omekaItems, "reset", self.dataSanitizer);
@@ -129,7 +129,7 @@ define([
     loading: function() {
 
       console.log("loading...");
-      this.$el.toggleClass("loading");
+      this.$el.addClass("loading");
       return;
     },
     getData: function(){
@@ -159,7 +159,7 @@ define([
        }).then(function (response){
           console.log(response, self);
           self.omekaItems.reset(response);
-          self.loading();
+          self.$el.toggleClass("loading");
        }); 
      }
 
@@ -265,7 +265,7 @@ define([
           
        } else {
         console.log("data unavailable");
-         //self.loading();
+         self.loading();
        }
 
      }, self);
@@ -304,7 +304,7 @@ define([
           self.subView.sliders.push(new sliderThumbView({content: sliderModels, el: $(element), thumbnail: sliderModels[0], slider:true}));
           
         } else {
-           //self.loading();
+           self.loading();
           console.log("data unavailable");
         }
 
@@ -420,6 +420,14 @@ define([
       //console.log(this.model.toJSON().theme, finalURL);
       //navigate to built path
       Backbone.history.navigate(finalURL, {trigger: true });
+    },
+    navSocialLinks: function(event){
+      //update URL in social sharing links
+      
+        this.socialHook.model.set('readUrl', 
+          'http://archives.ncbs.res.in/exhibit/13ways/#/theme/'+
+          this.model.get('theme')+'/'+
+          this.model.get('section'));
     },
     onAudioPlayer: function(event){
       event.preventDefault();
@@ -586,16 +594,17 @@ var sliderThumbView = Backbone.View.extend({
    // self.delegateEvents();
     
   },
-  onClicked: function (event){
+  onClicked: function (){
     //pass the album object to the plugin to render 
     //event.preventDefault();
     //console.log(event, this);
     var self = this;
-   // console.log(self.album, "on clicked gallery");
+   console.log(self.album, self.options, "on clicked gallery");
     $(this).lightGallery({
         dynamic: true,
         closable: true,
-        hash:false,
+        hash:true,
+        galleryId: self.options.el[0].dataset.tag,
         share: false,
         download: false,
         thumbnail: false,
@@ -900,8 +909,13 @@ var sliderThumbView = Backbone.View.extend({
       this.listenTo(self.model, "change:state", this.toggleView);
       self.model.set({"state": "hide"});
       //console.log(self.model, "media mmodel");
+      //Documentation: https://jqueryui.com/draggable/#constrain-movement
       self.options = options;
-      self.$el.draggable();
+      self.$el.draggable({
+        containment: "parent",
+        axis:'y',
+        scroll: false
+      });
      // self.$parent = $('#page .active .gallery')[0];
       //self.getData();
     },

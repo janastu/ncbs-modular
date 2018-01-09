@@ -23,7 +23,7 @@ define([
       "theme/:name/:section": "themeHandler",
       "theme/:name/:section/": "themeHandler",
       'about': 'about',
-     
+      "lg=:slide_id&slide=:slide_order": "slidesHandler",
       // Default
       '*actions': 'defaultAction'
     },
@@ -35,7 +35,8 @@ define([
            ThemesViewInstance.model.set({"menuModal": false});
         }
    
-      console.log("Before working");
+
+    console.log("Before working");
     },
     after: function () {
       $("#page").addClass("animated fadeIn");
@@ -44,7 +45,11 @@ define([
       var pageTitle = Backbone.history.getFragment().split('/')[1];
       ga('set', {page: path, title: pageTitle});
       ga('send', 'pageview');
-      console.log("After working");
+
+
+     
+      
+      console.log("After working", this);
     }
   });
   
@@ -70,10 +75,14 @@ define([
        // We have no matching route, lets display the home page 
         var homeView = new HomeView();
         //homeView.render();
+        ThemesViewInstance.model.set({"theme": "string", "section": "string"});
     });
     app_router.on('route:about', function (actions) {
       var aboutPage = new AboutView();
       aboutPage.render();
+     //unset themes view model
+      ThemesViewInstance.model.set({"theme": "string", "section": "string"});
+
     });
 
     app_router.on('route:themeHandler', function (theme, section) {
@@ -85,16 +94,46 @@ define([
     //Check if the route action is to Change the Tabs in Themes
       if(ThemesViewInstance.model.get("theme") === theme){
         ThemesViewInstance.model.set({"section": section});
+      } else if (ThemesViewInstance.model.get("theme") === theme && ThemesViewInstance.model.get("section") === section) {
+        // unset hash of themes view model
+        // else if user navigates browser back,
+        //and the events won't trigger because model wouldn't be changed
+        ThemesViewInstance.model.set({"theme": "string", "section": "string"});
       }
     
       //Set the model of the ThemeViewInstance which will trigger changes
       //in the view component themeSingleton.js
+
       ThemesViewInstance.model.set({"theme": theme, "section": section});
     
      // console.log(theme, section, this.Themes, this.now);
     });
 
+// TODO: incomplete feature route handles for Slider params
+    app_router.on('route:slidesHandler', function(id, order){
+      console.log(id, order, "slide handler");
+      var theme = ThemesViewInstance.themeList[id.split('-')[0]-1];
+      var section = _.findKey(ThemesViewInstance.ontology, function(val, key){
+       
+        if(val === id.split('-')[1]){
+          return key;
+        }
+      });
     
+      ThemesViewInstance.model.set({"theme": theme, "section": section});
+      this.navigate("#/theme/"+theme+"/"+section);
+
+      //Hack: because data won't be available immediately after navigate
+      // we wait before
+      setTimeout(function(){ 
+        var activeSlideView = _.find(ThemesViewInstance.subView.sliders, function(slide){
+          return slide.el.dataset.tag === id;
+        });
+        activeSlideView.onClicked();
+
+      }, 3000);
+      
+    });
     Backbone.history.start();
   };
   return { 

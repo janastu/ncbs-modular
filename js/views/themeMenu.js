@@ -22,6 +22,7 @@ define([
       this.ontology = ["identity", "institution-building", "growth", "research", "education",
                         "ripple-effect", "intersections", "sandbox"];
       this.listenTo(ThemesViewInstance.model, "change:theme", this.onNavChange);
+
       this.activeItem = $(this.el).find("li")[this.ontology.indexOf(ThemesViewInstance.model.get('theme'))];
       this.render();
     },
@@ -29,10 +30,10 @@ define([
       this.$el.html(_.template(menuTemplate)); 
 
       $(this.activeItem).addClass("active");
-      
+      $('[data-toggle="dropdown"]').dropdown();
       this.socialControl = new SocialShare.App();
-      this.socialControl.init();
-      console.log(this.socialControl);
+      ThemesViewInstance.socialHook = this.socialControl.init();
+      console.log(this.socialControl, ThemesViewInstance.socialHook, "social control");
     },
     //Mouse events for toggling menu images
     onMouseOver: function (event) {
@@ -69,11 +70,17 @@ define([
       this.activeItem = $(this.el).find("li")[this.ontology.indexOf(model.get('theme'))];
       $(this.activeItem).addClass("active");
       $(this.activeItem).find('img')[0].src = $(this.activeItem).find('img')[0].dataset.mousein;
+
+      
     },
     onMenuToggle: function(event){
       event.preventDefault();
       ThemesViewInstance.model.set({"menuModal": true});
       $("#menuModal").modal('show');
+      /*$('#menuModal .dropdown').on('shown.bs.dropdown', function () {
+        $("#modal-search-form").focus()
+      });*/
+      
     },
     onSearch: function(event){
         event.preventDefault();
