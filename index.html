@@ -246,7 +246,7 @@
 </div><!-- /.modal -->
 
 <!--Disclaimer-->
-<div id="disclaimerModal" class="modal fade in">
+<div id="disclaimerModal" class="modal fade in" tabindex='-1'>
     <div class="modal-dialog">
         <div class="modal-content" id="header-item">
             <div class="modal-header disclaimerHeader">
@@ -266,7 +266,7 @@
                     
             </div>
             <div class="modal-footer">
-                <button type="submit" data-dismiss="modal" class="btn" id="footer-btn"><strong>Accept & Continue</strong></button>
+                <button type="button" data-dismiss="modal" class="btn close-disclaimer" id="footer-btn"><strong>Accept & Continue</strong></button>
             </div>
         </div>
     </div>
@@ -397,8 +397,9 @@
   <script type="text/javascript">
   $(document).ready(function () {
       $('[data-toggle="dropdown"]').dropdown();
-      $("#disclaimerModal").modal('show');
-
+      //$("#disclaimerModal").modal('show');
+     
+     console.log("disss");
       <!-- /*Twitter init*/ -->
       window.twttr = (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0],
@@ -429,6 +430,13 @@
       });
       
   });
+  </script>
+
+  <script type="text/javascript">
+  $("#disclaimerModal").modal({keyboard: true});
+    console.log("entered");
+   
+ 
   </script>
   
 
