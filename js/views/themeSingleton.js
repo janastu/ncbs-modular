@@ -130,6 +130,9 @@ define([
 
       console.log("loading...");
       this.$el.addClass("loading");
+      if(this.player.player){
+        this.player.player.closePlayer();
+      }
       return;
     },
     getData: function(){
@@ -418,8 +421,14 @@ define([
       //Note: build url to navigate
       var finalURL = "#/theme/"+urlThemeparam+urlFragmentPath;
       //console.log(this.model.toJSON().theme, finalURL);
+      //close audio player
+      if(this.player.player){
+        this.player.player.closePlayer();
+      }
+      
       //navigate to built path
       Backbone.history.navigate(finalURL, {trigger: true });
+
     },
     navSocialLinks: function(event){
       //update URL in social sharing links
