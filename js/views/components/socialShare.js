@@ -31,10 +31,10 @@ define([
         '<div>'+
         '<div>' +
         '<ul class="nav">' +
-        '<li><a href="https://twitter.com/share?url=<%= encodeURIComponent(readUrl) %>&text=<%= encodeURIComponent(name) %> - <%= encodeURIComponent(message) %>" target="_blank" id="TwitterButton">Twitter</a></li>'+
+        '<li><a href="https://twitter.com/share?url=<%= encodeURIComponent(readUrl) %>&text=<%= encodeURIComponent(name) %> - <%= encodeURIComponent(message) %>" target="_blank" id="TwitterButton"><i class="fa fa-twitter">Twitter</i></a></li>'+
         '<!--li><div  id="EmailButton"><a href="#" class="twitter-share-button" >Email</a></div></li-->' +
         '<!--li><a href="https://plus.google.com/share?url=<%= encodeURIComponent(readUrl) %>" target="_blank" id="GoogleButton">Google+</a></li-->'+    
-        '<li><a href="javascript:void(0);" id="FacebookButton">Facebook</a></li>' +
+        '<li><a href="javascript:void(0);" id="FacebookButton"><i class="fa fa-facebook">Facebook</i></a></li>' +
         '</ul>' +
         '</div>' +
         '</div>',

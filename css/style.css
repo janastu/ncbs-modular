@@ -225,6 +225,12 @@ a:hover {
 
 }
 
+
+
+.fa-facebook::before, .fa-twitter::before{
+  margin-right:5px;
+}
+
 #home-curatorial-note {
 
   padding:25px;
