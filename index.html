@@ -382,7 +382,24 @@
   $(document).ready(function () {
       $('[data-toggle="dropdown"]').dropdown();
       $("#disclaimerModal").modal('show');
-      
+      var $menuModal = $('#menuModal');
+      var $searchInModal = $("#menuModal li input");
+      $menuModal.on('shown.bs.modal', function () {
+              $searchInModal.on('change', function(event){
+                  event.preventDefault();
+                  console.log("searched", event);
+                  var remoteURL = "http://archives.ncbs.res.in/search?query="
+                  var queryStr = event.target.value.trim()+"&query_type=keyword&record_types[]=Item&record_types[]=File&record_types[]=Collection&submit_search=Search"
+                  console.log("changes",event.target.value, event.target, encodeURI(remoteURL+queryStr));
+                  event.target.value = "";
+                  window.open(encodeURI(remoteURL+queryStr), "_blank");
+                });
+            });
+      $menuModal.on('hide.bs.modal', function(){
+        console.log("unbind change before", $searchInModal);
+        $searchInModal.unbind();
+        console.log("unbind change event here", $searchInModal);
+      });
 
       <!-- /*Twitter init*/ -->
       window.twttr = (function(d, s, id) {
@@ -412,17 +429,7 @@
   </script>
 
   <script type="text/javascript">
-  $('#menuModal').on('shown.bs.modal', function () {
-          $("#menuModal li input").on('change', function(event){
-              event.preventDefault();
-              console.log("searched");
-              var remoteURL = "http://archives.ncbs.res.in/search?query="
-              var queryStr = event.target.value.trim()+"&query_type=keyword&record_types[]=Item&record_types[]=File&record_types[]=Collection&submit_search=Search"
-              console.log("changes",event.target.value, event.target, encodeURI(remoteURL+queryStr));
-              event.target.value = "";
-              window.open(encodeURI(remoteURL+queryStr), "_blank");
-            });
-        });
+
   
   </script>
 
