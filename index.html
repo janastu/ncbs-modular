@@ -17,7 +17,7 @@
   <meta name="image" content="imgs/Ephemera/TIFR-Penthouse-2.jpg">
   <meta property="og:title" content="13 Ways - Thirteen ways of looking at NCBS"/>
   <meta property="og:image" content="imgs/Ephemera/TIFR-Penthouse-2.jpg"/>
-  <meta property="og:url" content="http://wwwarchives.ncbs.res.in/exhibit/13ways"/>
+  <meta property="og:url" content="http://stories.archives.ncbs.res.in/exhibit/13ways"/>
   <meta property="og:site_name" content="13 Ways"/>
   <meta property="og:description" content="The 13 Ways exhibit is built around thirteen ways to reflect upon the history of NCBS"/>
        
@@ -388,7 +388,7 @@
               $searchInModal.on('change', function(event){
                   event.preventDefault();
                   console.log("searched", event);
-                  var remoteURL = "http://archives.ncbs.res.in/search?query="
+                  var remoteURL = "http://stories.archives.ncbs.res.in/search?query="
                   var queryStr = event.target.value.trim()+"&query_type=keyword&record_types[]=Item&record_types[]=File&record_types[]=Collection&submit_search=Search"
                   console.log("changes",event.target.value, event.target, encodeURI(remoteURL+queryStr));
                   event.target.value = "";

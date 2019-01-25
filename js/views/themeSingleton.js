@@ -151,7 +151,7 @@ define([
        var requestParam = this.themeList.indexOf(this.model.get('theme'))+9;
        //dynamic url build to request for items
        //var requestURL = "https://www.ncbs.res.in/ncbs25/omeka/api/items?collection="+requestParam;
-       var requestURL = "http://archives.ncbs.res.in/api/items?collection="+requestParam;
+       var requestURL = "http://stories.archives.ncbs.res.in/api/items?collection="+requestParam;
        //console.log(requestURL, this.model.get('theme'), this.themeList.indexOf(this.model.get('theme'))+1);
        //self.audioPlayer = new AudioPlayerView;
        //based on options fetch the api items from omeka server
@@ -434,7 +434,7 @@ define([
       //update URL in social sharing links
       
         this.socialHook.model.set('readUrl', 
-          'http://archives.ncbs.res.in/exhibit/13ways/#/theme/'+
+          'http://stories.archives.ncbs.res.in/exhibit/13ways/#/theme/'+
           this.model.get('theme')+'/'+
           this.model.get('section'));
     },
